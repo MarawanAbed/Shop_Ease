@@ -1,16 +1,22 @@
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:ecommerce/core/di/dependancy_injection.dart';
+import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/services/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/helpers/cache.dart';
+import '../../../../core/utils/strings.dart';
 
 class OnBoardingItems extends StatelessWidget {
   const OnBoardingItems(
       {super.key,
-        required this.image,
-        required this.title,
-        required this.subTitle,
-        required this.currentPage,
-        required this.controller,
-        required this.length});
+      required this.image,
+      required this.title,
+      required this.subTitle,
+      required this.currentPage,
+      required this.controller,
+      required this.length});
 
   final String image;
   final String title;
@@ -20,21 +26,21 @@ class OnBoardingItems extends StatelessWidget {
   final int length;
 
   TextStyle get skipTextStyle => const TextStyle(
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-  );
+        color: Colors.black,
+        fontWeight: FontWeight.bold,
+        fontSize: 16,
+      );
 
   TextStyle get titleTextStyle => const TextStyle(
-    color: Colors.black,
-    fontSize: 24,
-    fontWeight: FontWeight.bold,
-  );
+        color: Colors.black,
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+      );
 
   TextStyle get subTitleTextStyle => const TextStyle(
-    color: Colors.grey,
-    fontSize: 16,
-  );
+        color: Colors.grey,
+        fontSize: 16,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +48,19 @@ class OnBoardingItems extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
-           Row(
+          Row(
             children: [
               const Spacer(),
-              Text(
-                'Skip',
-                style: skipTextStyle,
+              TextButton(
+                onPressed: () async {
+                  Navigators.pushNamedAndRemoveUntil(Routes.translate);
+                  await getIt<SharedPreCacheHelper>()
+                      .saveData(key: AppStrings.onboardingKey, value: true);
+                },
+                child: Text(
+                  'Skip',
+                  style: skipTextStyle,
+                ),
               ),
             ],
           ),
@@ -89,12 +102,16 @@ class OnBoardingItems extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           if (currentPage < (length - 1)) {
             controller.nextPage(
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeIn,
             );
+          } else {
+            Navigators.pushNamedAndRemoveUntil(Routes.translate);
+            await getIt<SharedPreCacheHelper>()
+                .saveData(key: AppStrings.onboardingKey, value: true);
           }
         },
         style: ElevatedButton.styleFrom(
@@ -119,6 +136,3 @@ class OnBoardingItems extends StatelessWidget {
     );
   }
 }
-
-
-
