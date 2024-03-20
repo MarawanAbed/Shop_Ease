@@ -80,10 +80,10 @@ class S {
     );
   }
 
-  /// `Forgot Password`
+  /// `Forgot Password?`
   String get forgotPassword {
     return Intl.message(
-      'Forgot Password',
+      'Forgot Password?',
       name: 'forgotPassword',
       desc: '',
       args: [],
@@ -160,20 +160,50 @@ class S {
     );
   }
 
-  /// `Already have an account? Login`
+  /// `Already have an account?`
   String get alreadyHaveAccount {
     return Intl.message(
-      'Already have an account? Login',
+      'Already have an account?',
       name: 'alreadyHaveAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Don't have an account? Register`
+  /// `or`
+  String get or {
+    return Intl.message(
+      'or',
+      name: 'or',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send Email`
+  String get sendEmail {
+    return Intl.message(
+      'Send Email',
+      name: 'sendEmail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email address and we will send you a link to reset your password.`
+  String get enterEmailForget {
+    return Intl.message(
+      'Enter your email address and we will send you a link to reset your password.',
+      name: 'enterEmailForget',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have an account?`
   String get dontHaveAccount {
     return Intl.message(
-      'Don\'t have an account? Register',
+      'Don\'t have an account?',
       name: 'dontHaveAccount',
       desc: '',
       args: [],

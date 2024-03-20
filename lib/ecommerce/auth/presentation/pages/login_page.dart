@@ -1,5 +1,4 @@
 import 'package:ecommerce/ecommerce/auth/presentation/widgets/login_body.dart';
-import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -7,12 +6,13 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(S.of(context).login),
+        body: Center(
+          child: SingleChildScrollView(
+            child: LoginBody(),
+          ),
         ),
-        body: const LoginBody(),
       ),
     );
   }

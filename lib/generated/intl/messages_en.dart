@@ -22,8 +22,8 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "alreadyHaveAccount": MessageLookupByLibrary.simpleMessage(
-            "Already have an account? Login"),
+        "alreadyHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "authenticationError":
             MessageLookupByLibrary.simpleMessage("Authentication Error"),
         "checkYourEmail":
@@ -32,11 +32,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "continues": MessageLookupByLibrary.simpleMessage("Continue"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Create Account"),
-        "dontHaveAccount": MessageLookupByLibrary.simpleMessage(
-            "Don\'t have an account? Register"),
+        "dontHaveAccount":
+            MessageLookupByLibrary.simpleMessage("Don\'t have an account?"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "enterConfirmPassword": MessageLookupByLibrary.simpleMessage(
             "Please enter your password again"),
+        "enterEmailForget": MessageLookupByLibrary.simpleMessage(
+            "Enter your email address and we will send you a link to reset your password."),
         "enterPassword":
             MessageLookupByLibrary.simpleMessage("Please enter your password"),
         "enterValidEmail":
@@ -46,9 +48,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("Enter your password"),
         "forgotPassword":
-            MessageLookupByLibrary.simpleMessage("Forgot Password"),
+            MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "login": MessageLookupByLibrary.simpleMessage("Login"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+        "or": MessageLookupByLibrary.simpleMessage("or"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
@@ -57,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "register": MessageLookupByLibrary.simpleMessage("Register"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
         "sendResetLink": MessageLookupByLibrary.simpleMessage("Send Reset Link")
       };
 }

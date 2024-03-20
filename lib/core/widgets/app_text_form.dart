@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class AppTextFormField extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final InputBorder? focusedBorder;
@@ -17,7 +16,9 @@ class AppTextFormField extends StatelessWidget {
 
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
+  final IconData? prefixIcon;
   final void Function(String)? onChanged;
+
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -30,18 +31,29 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.backgroundColor,
     this.controller,
-    this.validator, this.onEditingComplete, this.focusNode, this.onChanged,
+    this.validator,
+    this.onEditingComplete,
+    this.focusNode,
+    this.onChanged,
+    this.prefixIcon,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      focusNode:focusNode ,
+      focusNode: focusNode,
       controller: controller,
       validator: validator,
       onEditingComplete: onEditingComplete,
-      onChanged:onChanged ,
+      onChanged: onChanged,
       decoration: InputDecoration(
+        labelText: hintText,
+        prefixIcon: prefixIcon != null
+            ? Icon(
+                prefixIcon,
+                color: Colors.grey,
+              )
+            : null,
         isDense: true,
         contentPadding: contentPadding ??
             EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
@@ -55,14 +67,14 @@ class AppTextFormField extends StatelessWidget {
             ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.red,
+            color: Colors.grey,
             width: 1.3,
           ),
           borderRadius: BorderRadius.circular(20.0),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: Colors.red,
+            color: Colors.grey,
             width: 1.3,
           ),
           borderRadius: BorderRadius.circular(20.0),
@@ -79,11 +91,11 @@ class AppTextFormField extends StatelessWidget {
             TextStyle(
                 color: Colors.grey,
                 fontSize: 14.sp,
-                fontWeight: FontWeight.bold),
+                ),
         hintText: hintText,
         suffixIcon: suffixIcon,
-        fillColor: backgroundColor ?? Colors.grey[800],
-        filled: true,
+        // fillColor: backgroundColor ?? Colors.grey[800],
+        // filled: true,
       ),
       obscureText: isObscureText ?? false,
       style: inputTextStyle ?? const TextStyle(color: Colors.white),
