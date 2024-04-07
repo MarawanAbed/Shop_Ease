@@ -24,5 +24,9 @@
   "continues": "Continue",
   "enterYourEmail": "Enter your email",
   "enterYourPassword": "Enter your password",
-  "reEnterYourPassword": "Re-enter your password"
+  "reEnterYourPassword": "Re-enter your password",
+  "enterYourName": "Enter your name",
+  "enterYourPhone": "Enter your phone",
+  "enterYourAddress": "Enter your address"
+
 }

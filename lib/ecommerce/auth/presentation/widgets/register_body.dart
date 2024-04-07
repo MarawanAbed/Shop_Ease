@@ -1,3 +1,4 @@
+import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/elevated_button.dart';
 import 'package:ecommerce/core/widgets/logo.dart';
 import 'package:ecommerce/ecommerce/auth/presentation/widgets/register_text_field.dart';
@@ -30,7 +31,9 @@ class RegisterBody extends StatelessWidget {
           CustomElevatedButton(
             title: lang.register,
             width: double.infinity,
-            onPressed: () {},
+            onPressed: () {
+              Navigators.pushNamed(Routes.completeRegister);
+            },
           ),
           SizedBox(
             height: 30.h,

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,8 +18,8 @@ class TextNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(
+    return Text.rich(
+      TextSpan(
         text: title,
         style: TextStyle(
           color: Colors.grey,
@@ -26,20 +27,17 @@ class TextNavigator extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         children: [
-          WidgetSpan(
-            child: GestureDetector(
-              onTap: () {
+          TextSpan(
+            text: subTitle,
+            style: TextStyle(
+              color: Colors.deepPurple,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
                 Navigators.pushNamed(routes);
               },
-              child: Text(
-                subTitle,
-                style: TextStyle(
-                  color: Colors.deepPurple,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
           ),
         ],
       ),

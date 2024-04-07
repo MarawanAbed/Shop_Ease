@@ -6,11 +6,12 @@ import '../../../../core/widgets/text_navigator.dart';
 import '../../../../generated/l10n.dart';
 
 class Footer extends StatelessWidget {
-  const Footer(
-      {super.key,
-      required this.title,
-      required this.subTitle,
-      required this.routes});
+  const Footer({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.routes,
+  });
 
   final String title;
   final String subTitle;

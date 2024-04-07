@@ -43,10 +43,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "الرجاء إدخال كلمة المرور الخاصة بك"),
         "enterValidEmail": MessageLookupByLibrary.simpleMessage(
             "الرجاء إدخال بريد إلكتروني صالح"),
+        "enterYourAddress": MessageLookupByLibrary.simpleMessage("أدخل عنوانك"),
         "enterYourEmail":
             MessageLookupByLibrary.simpleMessage("أدخل بريدك الإلكتروني"),
+        "enterYourName": MessageLookupByLibrary.simpleMessage("أدخل اسمك"),
         "enterYourPassword":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة المرور الخاصة بك"),
+        "enterYourPhone":
+            MessageLookupByLibrary.simpleMessage("أدخل رقم هاتفك"),
         "forgotPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
         "login": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),

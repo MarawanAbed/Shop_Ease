@@ -14,7 +14,8 @@
   "dontHaveAccount": "ليس لديك حساب؟",
   "or": "او",
   "sendEmail": "إرسال بريد إلكتروني",
-  "enterEmailForget": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",  "enterValidEmail": "الرجاء إدخال بريد إلكتروني صالح",
+  "enterEmailForget": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",
+  "enterValidEmail": "الرجاء إدخال بريد إلكتروني صالح",
   "enterPassword": "الرجاء إدخال كلمة المرور الخاصة بك",
   "enterConfirmPassword": "الرجاء إعادة إدخال كلمة المرور الخاصة بك",
   "passwordsDontMatch": "كلمات المرور غير متطابقة",
@@ -23,5 +24,8 @@
   "continues": "استمر",
   "enterYourEmail": "أدخل بريدك الإلكتروني",
   "enterYourPassword": "أدخل كلمة المرور الخاصة بك",
-  "reEnterYourPassword": "أعد إدخال كلمة المرور الخاصة بك"
+  "reEnterYourPassword": "أعد إدخال كلمة المرور الخاصة بك",
+  "enterYourName": "أدخل اسمك",
+  "enterYourPhone": "أدخل رقم هاتفك",
+  "enterYourAddress": "أدخل عنوانك"
 }

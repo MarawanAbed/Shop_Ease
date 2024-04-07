@@ -309,6 +309,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Enter your name`
+  String get enterYourName {
+    return Intl.message(
+      'Enter your name',
+      name: 'enterYourName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your phone`
+  String get enterYourPhone {
+    return Intl.message(
+      'Enter your phone',
+      name: 'enterYourPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your address`
+  String get enterYourAddress {
+    return Intl.message(
+      'Enter your address',
+      name: 'enterYourAddress',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

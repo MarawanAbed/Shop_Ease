@@ -8,8 +8,10 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: RegisterBody(),
+        body: Center(
+          child: SingleChildScrollView(
+            child: RegisterBody(),
+          ),
         ),
       ),
     );

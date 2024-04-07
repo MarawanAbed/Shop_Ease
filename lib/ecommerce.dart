@@ -44,6 +44,7 @@ class Ecommerce extends StatelessWidget {
               ],
               debugShowCheckedModeBanner: false,
               navigatorKey: Navigators.navigationKey,
+              themeMode: ThemeMode.light,
               title: 'Ecommerce',
               routes: AppRoutes.routes,
               initialRoute: isOnBoarding && isLanguageSelected

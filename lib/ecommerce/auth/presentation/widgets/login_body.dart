@@ -5,6 +5,7 @@ import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/services/navigator.dart';
 import 'footer.dart';
 import 'forget_and_remember.dart';
 import 'login_text_form_field.dart';
@@ -35,7 +36,9 @@ class LoginBody extends StatelessWidget {
           CustomElevatedButton(
             title: lang.login,
             width: double.infinity,
-            onPressed: () {},
+            onPressed: () {
+              Navigators.pushNamed(Routes.home);
+            },
           ),
           SizedBox(
             height: 30.h,
