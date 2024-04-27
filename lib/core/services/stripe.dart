@@ -1,7 +1,12 @@
+import 'package:ecommerce/core/networking/stripe/strip_services.dart';
+import 'package:ecommerce/core/utils/app_secured.dart';
+import 'package:ecommerce/ecommerce/auth/register/data/models/customer_model.dart';
 
+class Stripe {
+  final StripServices _stripeServices;
 
-class StripeServices {
-  // final ApiServices apiServices = ApiServices();
+  Stripe._internal(this._stripeServices);
+
   //
   // Future<PaymentIntlEntity> createPaymentIntent(
   //     PaymentInputModel paymentInput) async {
@@ -54,33 +59,26 @@ class StripeServices {
   //   await displayPaymentSheet();
   // }
 
+  Future<CustomerModel> createCustomer(CustomerModel customerInput) async {
+    var response = await _stripeServices.createCustomers(
+        AppSecured.token, customerInput.toJson());
+    return CustomerModel.fromJson(response);
+  }
+//now you can summon it after sign up when you create account for user and save it in database
+//and you can summon it when user want to save card
 
-  //create customer
-  // Future<customerEntity> createCustomer(
-  //     CustomerInput customerInput) async {
-  //   var response = await apiServices.post(
-  //     contentType: Headers.formUrlEncodedContentType,
-  //     body: customerInput.toJson(),
-  //     url: 'https://api.stripe.com/v1/customers',
-  //     token: ApiKeys.secretKey,
-  //   );
-  //   return customerEntity.fromJson(response.data);
-  // }
-  //now you can summon it after sign up when you create account for user and save it in database
-  //and you can summon it when user want to save card
-
-  //create ephemeral key
-  // Future<EphemeralKeyModelEntity> createEphemeralKey(
-  //     {required String customerId}) async {
-  //   var response = await apiServices.post(
-  //     contentType: Headers.formUrlEncodedContentType,
-  //     stripeVersion: '2023-10-16',
-  //     body: {
-  //       'customer': customerId,
-  //     },
-  //     url: 'https://api.stripe.com/v1/ephemeral_keys',
-  //     token: ApiKeys.secretKey,
-  //   );
-  //   return EphemeralKeyModelEntity.fromJson(response.data);
-  // }
+//create ephemeral key
+// Future<EphemeralKeyModelEntity> createEphemeralKey(
+//     {required String customerId}) async {
+//   var response = await apiServices.post(
+//     contentType: Headers.formUrlEncodedContentType,
+//     stripeVersion: '2023-10-16',
+//     body: {
+//       'customer': customerId,
+//     },
+//     url: 'https://api.stripe.com/v1/ephemeral_keys',
+//     token: ApiKeys.secretKey,
+//   );
+//   return EphemeralKeyModelEntity.fromJson(response.data);
+// }
 }

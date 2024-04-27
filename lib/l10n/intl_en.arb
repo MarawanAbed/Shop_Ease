@@ -13,6 +13,7 @@
   "alreadyHaveAccount": "Already have an account?",
   "or": "or",
   "sendEmail": "Send Email",
+  "passwordMustBeAtLeast": "Password must be at least 6 characters",
   "enterEmailForget": "Enter your email address and we will send you a link to reset your password.",
   "dontHaveAccount": "Don't have an account?",
   "enterValidEmail": "Please enter a valid email",

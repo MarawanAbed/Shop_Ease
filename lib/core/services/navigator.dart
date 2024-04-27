@@ -12,6 +12,7 @@ class Navigators {
 
   static Future<dynamic> pushNamedAndRemoveUntil(String routeName,
       {dynamic arguments}) {
+    print('routeName: $routeName');
     return navigationKey.currentState!.pushNamedAndRemoveUntil(
         routeName, (Route<dynamic> route) => false,
         arguments: arguments);
@@ -19,6 +20,7 @@ class Navigators {
 
   static Future<dynamic> pushReplacementNamed(String routeName,
       {dynamic arguments}) {
+    print('routeName: $routeName');
     return navigationKey.currentState!
         .pushReplacementNamed(routeName, arguments: arguments);
   }

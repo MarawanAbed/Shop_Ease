@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "or": MessageLookupByLibrary.simpleMessage("او"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
+        "passwordMustBeAtLeast": MessageLookupByLibrary.simpleMessage(
+            "يجب أن تكون كلمة المرور على الأقل 6 أحرف"),
         "passwordsDontMatch":
             MessageLookupByLibrary.simpleMessage("كلمات المرور غير متطابقة"),
         "reEnterYourPassword": MessageLookupByLibrary.simpleMessage(

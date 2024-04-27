@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
+import 'package:ecommerce/core/themes/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,74 +26,66 @@ class OnBoardingItems extends StatelessWidget {
   final PageController controller;
   final int length;
 
-  TextStyle get skipTextStyle => const TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.bold,
-        fontSize: 16,
-      );
 
-  TextStyle get titleTextStyle => const TextStyle(
-        color: Colors.black,
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      );
-
-  TextStyle get subTitleTextStyle => const TextStyle(
-        color: Colors.grey,
-        fontSize: 16,
-      );
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              const Spacer(),
-              TextButton(
-                onPressed: () async {
-                  Navigators.pushNamedAndRemoveUntil(Routes.translate);
-                  await getIt<SharedPreCacheHelper>()
-                      .saveData(key: AppStrings.onboardingKey, value: true);
-                },
-                child: Text(
-                  'Skip',
-                  style: skipTextStyle,
+      child: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () async {
+                        Navigators.pushNamedAndRemoveUntil(Routes.translate);
+                        await getIt<SharedPreCacheHelper>()
+                            .saveData(key: AppStrings.onboardingKey, value: true);
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyles.skipTextStyle,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Image.asset(
-            image,
-            width: double.infinity,
-          ),
-          const Spacer(),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: titleTextStyle,
-          ),
-          SizedBox(
-            height: 10.h,
-          ),
-          Text(
-            subTitle,
-            textAlign: TextAlign.center,
-            style: subTitleTextStyle,
-          ),
-          const Spacer(),
-          DotsIndicator(
-            dotsCount: length,
-            position: currentPage,
-            decorator: const DotsDecorator(
-              activeColor: Colors.orange,
+                const Spacer(),
+                Image.asset(
+                  image,
+                  width: double.infinity,
+                ),
+                const Spacer(),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.titleTextStyle,
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text(
+                  subTitle,
+                  textAlign: TextAlign.center,
+                  style:TextStyles.subTitleTextStyle,
+                ),
+                const Spacer(),
+                DotsIndicator(
+                  dotsCount: length,
+                  position: currentPage,
+                  decorator: const DotsDecorator(
+                    activeColor: Colors.orange,
+                  ),
+                ),
+                const Spacer(),
+                buildElevatedButton(context),
+              ],
             ),
-          ),
-          const Spacer(),
-          buildElevatedButton(context),
+          )
         ],
       ),
     );

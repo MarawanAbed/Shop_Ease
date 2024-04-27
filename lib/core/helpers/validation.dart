@@ -18,6 +18,10 @@ class Validation {
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
 
+  static bool isPasswordValid(String password) => RegExp(
+          r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")
+      .hasMatch(password);
+
   static String? validateEmail(String value) {
     String pattern =
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"

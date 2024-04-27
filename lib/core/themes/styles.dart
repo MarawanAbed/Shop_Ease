@@ -42,4 +42,20 @@ class TextStyles {
     color: Colors.grey,
   );
 
+  static TextStyle skipTextStyle = const TextStyle(
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    fontSize: 16,
+  );
+
+  static TextStyle titleTextStyle = const TextStyle(
+    color: Colors.black,
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+
+  static TextStyle subTitleTextStyle = const TextStyle(
+    color: Colors.grey,
+    fontSize: 16,
+  );
 }

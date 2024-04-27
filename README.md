@@ -1,4 +1,4 @@
-# ecommerce
+# ShopEase
 
 A new Flutter project.
 

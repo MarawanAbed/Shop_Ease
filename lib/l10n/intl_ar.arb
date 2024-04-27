@@ -12,6 +12,7 @@
   "createAccount": "إنشاء حساب",
   "alreadyHaveAccount": "لديك حساب بالفعل",
   "dontHaveAccount": "ليس لديك حساب؟",
+  "passwordMustBeAtLeast": "يجب أن تكون كلمة المرور على الأقل 6 أحرف",
   "or": "او",
   "sendEmail": "إرسال بريد إلكتروني",
   "enterEmailForget": "أدخل عنوان بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور.",

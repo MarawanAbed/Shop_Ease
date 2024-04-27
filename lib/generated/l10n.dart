@@ -190,6 +190,16 @@ class S {
     );
   }
 
+  /// `Password must be at least 6 characters`
+  String get passwordMustBeAtLeast {
+    return Intl.message(
+      'Password must be at least 6 characters',
+      name: 'passwordMustBeAtLeast',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter your email address and we will send you a link to reset your password.`
   String get enterEmailForget {
     return Intl.message(
