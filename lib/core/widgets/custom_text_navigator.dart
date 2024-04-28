@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../services/navigator.dart';
 
-class TextNavigator extends StatelessWidget {
-  const TextNavigator({
+class CustomMultiTextNavigator extends StatelessWidget {
+  const CustomMultiTextNavigator({
     super.key,
     required this.title,
     required this.subTitle,

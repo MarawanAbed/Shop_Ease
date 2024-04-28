@@ -12,15 +12,15 @@ abstract class StripServices {
   Future<Map<String, dynamic>> createCustomers(
     @Header('Authorization') String bearerToken,
     @Body() Map<String, dynamic> customerData,
+    @Header('Content-Type') String contentType,
   );
-
 
   @POST('payment_intents')
   Future<Map<String, dynamic>> createPaymentIntent(
     @Header('Authorization') String bearerToken,
     @Body() Map<String, dynamic> paymentData,
   );
-  
+
   @POST('ephemeral_keys')
   Future<Map<String, dynamic>> createEphemeralKey(
     @Header('Authorization') String bearerToken,

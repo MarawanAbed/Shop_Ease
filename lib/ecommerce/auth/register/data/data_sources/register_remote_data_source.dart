@@ -5,7 +5,7 @@ import '../models/customer_model.dart';
 import '../models/user_model.dart';
 
 
-abstract class RemoteDataSource
+abstract class RegisterRemoteDataSource
 {
   Future<void> signUpWithEmailAndPassword(String email, String password);
 
@@ -14,13 +14,13 @@ abstract class RemoteDataSource
   Future<CustomerModel>createCustomer(CustomerModel customer);
 }
 
-class RemoteDataSourceImpl extends RemoteDataSource
+class RegisterRemoteDataSourceImpl extends RegisterRemoteDataSource
 {
   final DatabaseService databaseService;
-  final Stripe stripe;
+  final Strip stripe;
   final AuthService authService;
 
-  RemoteDataSourceImpl({required this.databaseService, required this.stripe, required this.authService});
+  RegisterRemoteDataSourceImpl({required this.databaseService, required this.stripe, required this.authService});
   @override
   Future<CustomerModel> createCustomer(CustomerModel customer)async {
     return await stripe.createCustomer(customer);

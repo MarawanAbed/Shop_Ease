@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/ecommerce/auth/forget_passaword/presentation/bloc/forget_password_cubit.dart';
 import 'package:ecommerce/ecommerce/auth/forget_passaword/presentation/pages/forget_password.dart';
 import 'package:ecommerce/ecommerce/auth/login/presentation/bloc/login_cubit.dart';
 import 'package:ecommerce/ecommerce/auth/login/presentation/pages/login_page.dart';
@@ -24,7 +25,10 @@ class AppRoutes {
         ),
     Routes.register: (context) => const RegisterPage(),
     Routes.completeRegister: (context) => const CompleteRegisterPage(),
-    Routes.forgotPassword: (context) => const ForgetPasswordPage(),
+    Routes.forgotPassword: (context) => BlocProvider(
+          create: (context) => getIt<ForgetPasswordCubit>(),
+          child: const ForgetPasswordPage(),
+        ),
     Routes.home: (context) => const HomePage(),
     Routes.homeDetails: (context) => const HomeDetailsPage(),
     Routes.cart: (context) => const CartPage(),

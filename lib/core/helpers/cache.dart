@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/constant.dart';
+
 class SharedPreCacheHelper {
   final SharedPreferences preferences;
 
@@ -26,5 +28,17 @@ class SharedPreCacheHelper {
     required String key,
   }) async {
     return await preferences.remove(key);
+  }
+
+
+
+   Future<void> setCustomerId(String id) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(Constant.customerIdKey, id);
+  }
+
+   Future<String?> getCustomerId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(Constant.customerIdKey);
   }
 }

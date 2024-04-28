@@ -35,20 +35,14 @@ class AuthService {
         email: email,
         password: password,
       );
-      // await getIt<DatabaseService>().updateUser({
-      //   'lastActive': DateTime.now(),
-      //   'uId': auth.currentUser!.uid,
-      //   'isOnline': true,
-      // });
+      await getIt<DatabaseService>().updateUser({
+        'uId': auth.currentUser!.uid,
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        if (kDebugMode) {
-          print('No user found for that email.');
-        }
+        throw Exception('No user found for that email.');
       } else if (e.code == 'wrong-password') {
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
+        throw Exception('Wrong password provided for that user.');
       }
     }
     //this after you update email and password there is problem might found so i add this
@@ -78,13 +72,9 @@ class AuthService {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        if (kDebugMode) {
-          print('The password provided is too weak.');
-        }
+         throw('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        if (kDebugMode) {
-          print('The account already exists for that email.');
-        }
+          throw('The account already exists for that email.');
       }
     }
   }
@@ -145,6 +135,7 @@ class AuthService {
         password: 'Empty password field',
         phone: 'Empty phone field',
         dataSource: 'Google',
+        address: 'Empty address field',
       );
       await getIt<DatabaseService>().createUser(userModel);
       // await getIt<DatabaseService>().updateUser({
@@ -195,6 +186,7 @@ class AuthService {
         password: 'Empty password field',
         phone: 'Empty phone field',
         dataSource: 'Twitter',
+        address: 'Empty address field',
       );
       await getIt<DatabaseService>().createUser(userModel);
       // await getIt<DatabaseService>().updateUser({
@@ -235,6 +227,7 @@ class AuthService {
         password: 'Empty password field',
         phone: 'Empty phone field',
         dataSource: 'GitHub',
+        address: 'Empty address field',
       );
       await getIt<DatabaseService>().createUser(userModel);
       // await getIt<DatabaseService>().updateUser({
@@ -336,19 +329,19 @@ class DatabaseService {
 //   });
 // }
 //
-// Future<void> updateUser(Map<String, dynamic> data) async {
-//   try {
-//     await _fireStore
-//         .collection('users')
-//         .doc(FirebaseAuth.instance.currentUser!.uid)
-//         .update(data);
-//   } catch (e) {
-//     if (kDebugMode) {
-//       print('Error updating user: $e');
-//     }
-//     throw Exception('Failed to update user');
-//   }
-// }
+Future<void> updateUser(Map<String, dynamic> data) async {
+  try {
+    await _fireStore
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update(data);
+  } catch (e) {
+    if (kDebugMode) {
+      print('Error updating user: $e');
+    }
+    throw Exception('Failed to update user');
+  }
+}
 //
 // Stream<UserModel> getSingleUser(String uId) {
 //   final userDoc = _fireStore.collection('users').doc(uId);

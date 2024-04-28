@@ -1,15 +1,15 @@
 import '../../../../../core/services/firebase_servies.dart';
 
-abstract class RemoteDataSource
+abstract class ForgetRemoteDataSource
 {
   Future<void> forgetPassword(String email);
 }
 
-class RemoteDataSourceImpl extends RemoteDataSource
+class ForgetRemoteDataSourceImpl extends ForgetRemoteDataSource
 {
   final AuthService authService;
 
-  RemoteDataSourceImpl({required this.authService});
+  ForgetRemoteDataSourceImpl({required this.authService});
 
   @override
   Future<void> forgetPassword(String email)async {

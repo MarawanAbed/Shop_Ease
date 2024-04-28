@@ -2,10 +2,10 @@ import 'package:ecommerce/core/networking/stripe/strip_services.dart';
 import 'package:ecommerce/core/utils/app_secured.dart';
 import 'package:ecommerce/ecommerce/auth/register/data/models/customer_model.dart';
 
-class Stripe {
+class Strip {
   final StripServices _stripeServices;
 
-  Stripe._internal(this._stripeServices);
+  Strip(this._stripeServices);
 
   //
   // Future<PaymentIntlEntity> createPaymentIntent(
@@ -61,7 +61,7 @@ class Stripe {
 
   Future<CustomerModel> createCustomer(CustomerModel customerInput) async {
     var response = await _stripeServices.createCustomers(
-        AppSecured.token, customerInput.toJson());
+        AppSecured.token, customerInput.toJson(),'application/x-www-form-urlencoded');
     return CustomerModel.fromJson(response);
   }
 //now you can summon it after sign up when you create account for user and save it in database

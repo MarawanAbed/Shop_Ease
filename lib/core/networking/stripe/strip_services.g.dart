@@ -24,10 +24,11 @@ class _StripServices implements StripServices {
   Future<Map<String, dynamic>> createCustomers(
     String bearerToken,
     Map<String, dynamic> customerData,
+    String contentType,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': bearerToken};
+    final _headers = <String, dynamic>{r'Authorization': bearerToken, r'Content-Type': contentType};
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(customerData);
@@ -80,7 +81,6 @@ class _StripServices implements StripServices {
               baseUrl,
             ))));
     return _result.data!;
-
   }
 
   @override
@@ -112,7 +112,6 @@ class _StripServices implements StripServices {
               baseUrl,
             ))));
     return _result.data!;
-
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

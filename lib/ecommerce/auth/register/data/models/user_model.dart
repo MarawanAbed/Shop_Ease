@@ -4,12 +4,13 @@ part 'user_model.g.dart';
 
 @JsonSerializable()
 class UserModel {
-  final String uId;
+  final String? uId;
   final String name;
   final String email;
   final String password;
   final String phone;
   final String?image;
+  final String address;
   final String dataSource;
 
   UserModel({
@@ -20,6 +21,7 @@ class UserModel {
     required this.phone,
     required this.image,
     required this.dataSource,
+    required this.address,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

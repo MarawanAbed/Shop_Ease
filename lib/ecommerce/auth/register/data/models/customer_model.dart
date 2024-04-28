@@ -3,13 +3,13 @@ part 'customer_model.g.dart';
 @JsonSerializable()
 class CustomerModel
 {
-  final String id;
+  final String? id;
   final String name;
   final String email;
   final String phone;
 
 
-  CustomerModel({required this.id, required this.name, required this.email, required this.phone});
+  CustomerModel({ this.id, required this.name, required this.email, required this.phone});
 
 
   factory CustomerModel.fromJson(Map<String, dynamic> json) => _$CustomerModelFromJson(json);

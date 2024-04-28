@@ -49,13 +49,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
-            validator: (String? email) {
-             if( Validation.isEmailValid(email!)) {
-               return null;
-             } else {
-               return lang.enterValidEmail;
-             }
-            },
+            validator: (email) => Validation.validateEmail(email!),
             suffixIcon: const Icon(
               Icons.email,
               color: Colors.grey,
@@ -84,13 +78,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
                 color: Colors.grey,
               ),
             ),
-            validator: (String? password){
-              if(Validation.isPasswordValid(password!)){
-                return null;
-              } else {
-                return lang.passwordMustBeAtLeast;
-              }
-            },
+            validator: (password) => Validation.validatePassword(password!),
           ),
         ],
       ),

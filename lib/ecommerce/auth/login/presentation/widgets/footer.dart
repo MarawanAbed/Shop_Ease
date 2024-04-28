@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../core/widgets/text_navigator.dart';
+import '../../../../../core/widgets/custom_text_navigator.dart';
 import '../../../../../generated/l10n.dart';
 
 class Footer extends StatelessWidget {
@@ -24,7 +24,7 @@ class Footer extends StatelessWidget {
     var lang = S.of(context);
     return Column(
       children: [
-        TextNavigator(
+        CustomMultiTextNavigator(
           title: title,
           subTitle: subTitle,
           routes: routes,
