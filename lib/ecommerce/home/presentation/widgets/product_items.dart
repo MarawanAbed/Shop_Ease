@@ -1,12 +1,17 @@
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
+import 'package:ecommerce/core/widgets/cached_image.dart';
+import 'package:ecommerce/ecommerce/home/data/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductItems extends StatelessWidget {
   const ProductItems({
     super.key,
+    required this.product,
   });
+
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,6 @@ class ProductItems extends StatelessWidget {
         Navigators.pushNamed(Routes.homeDetails);
       },
       child: Container(
-        padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -29,36 +33,80 @@ class ProductItems extends StatelessWidget {
             Radius.circular(10),
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
           children: [
-            Expanded(
-              child: Image.asset(
-                'assets/images/product.jpg',
-                fit: BoxFit.contain,
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: CachedImage(image: product.image),
+                  ),
+                  Text(
+                    product.name,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (product.discount != 0) ...[
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '\$${((product.oldPrice! * (1 - product.discount / 100)).toInt())}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ] else ...[
+                        Text(
+                          '\$${product.oldPrice?.toInt()}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.favorite_outline_sharp),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
-            Text(
-              'Product Name Product Name Product Name',
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
+            if (product.discount != 0)
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: const BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                  ),
+                  child: Text(
+                    '${product.discount}%',
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Price: \$100',
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_outline_sharp),
-                ),
-              ],
-            ),
           ],
         ),
       ),

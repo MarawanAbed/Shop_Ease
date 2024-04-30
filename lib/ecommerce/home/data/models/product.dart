@@ -9,6 +9,7 @@ class ProductModel
   @JsonKey(name: 'old_price')
   final double? oldPrice;
   final int discount;
+  final String name;
   final String image;
   final String description;
   final List<String> images;
@@ -21,6 +22,7 @@ class ProductModel
     required this.image,
     required this.description,
     required this.images,
+    required this.name,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);

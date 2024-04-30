@@ -1,3 +1,4 @@
+import 'package:ecommerce/ecommerce/home/data/models/product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../home/presentation/widgets/product_items.dart';
@@ -7,7 +8,7 @@ class FavoriteBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
+    return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -22,7 +23,18 @@ class FavoriteBody extends StatelessWidget {
                 mainAxisSpacing: 10,
                 childAspectRatio: 0.6,
               ),
-              itemBuilder: (context, index) => const ProductItems(),
+              itemBuilder: (context, index) =>  ProductItems(
+                product: ProductModel(
+                  id: 1,
+                  price: 12345,
+                  oldPrice: 12345,
+                  discount: 12345,
+                  image: 'assets/images/1.png',
+                  description: 'description',
+                  images: ['assets/images/1.png'],
+                  name: 'name',
+                ),
+              ),
               itemCount: 7,
             ),
           ],

@@ -21,7 +21,6 @@ void main() async {
   await localCubit.getSavedLanguage();
   bool? isOnBoarding = await getIt<SharedPreCacheHelper>().getData(key: AppStrings.onboardingKey) ?? false;
   bool? isLanguageSelected = await getIt<SharedPreCacheHelper>().getData(key: AppStrings.isLanguageSelected) ?? false;
-
   runApp(
     Ecommerce(
       isOnBoarding: isOnBoarding!,

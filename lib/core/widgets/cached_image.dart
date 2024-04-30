@@ -13,7 +13,7 @@ class CachedImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: image,
-      fit: BoxFit.cover,
+      fit: BoxFit.fill,
       placeholder: (context, url) => const Center(
         child: CircularProgressIndicator(),
       ),
@@ -22,7 +22,7 @@ class CachedImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           image: DecorationImage(
             image: imageProvider,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
         ),
       ),

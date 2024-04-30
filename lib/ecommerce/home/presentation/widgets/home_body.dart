@@ -1,6 +1,6 @@
 import 'package:ecommerce/ecommerce/home/presentation/widgets/banner_bloc_builder.dart';
 import 'package:ecommerce/ecommerce/home/presentation/widgets/categories_bloc_builder.dart';
-import 'package:ecommerce/ecommerce/home/presentation/widgets/product_builder.dart';
+import 'package:ecommerce/ecommerce/home/presentation/widgets/product_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -48,7 +48,7 @@ class _HomeBodyState extends State<HomeBody> {
             const SizedBox(
               height: 20,
             ),
-            const ProductBuilder(),
+            const ProductBlocBuilder(),
           ],
         ),
       ),
