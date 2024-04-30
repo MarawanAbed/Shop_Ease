@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
+import 'package:ecommerce/core/networking/api_services.dart';
 import 'package:ecommerce/core/networking/stripe/strip_services.dart';
 import 'package:ecommerce/core/services/stripe.dart';
 import 'package:ecommerce/ecommerce/auth/forget_passaword/data/data_sources/forget_remote_data_source.dart';
@@ -17,6 +18,12 @@ import 'package:ecommerce/ecommerce/auth/register/data/data_sources/register_rem
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/create_user.dart';
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/sign_up.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/bloc/register_cubit.dart';
+import 'package:ecommerce/ecommerce/home/domain/use_cases/get_banner.dart';
+import 'package:ecommerce/ecommerce/home/domain/use_cases/get_categories.dart';
+import 'package:ecommerce/ecommerce/home/domain/use_cases/get_product_by_categories.dart';
+import 'package:ecommerce/ecommerce/home/presentation/bloc/banner_cubit.dart';
+import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart';
+import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -31,6 +38,9 @@ import '../../ecommerce/auth/login/domain/use_cases/github_sign_in.dart';
 import '../../ecommerce/auth/register/data/repositories/register_repo_impl.dart';
 import '../../ecommerce/auth/register/domain/repositories/register_repo.dart';
 import '../../ecommerce/auth/register/domain/use_cases/create_customer.dart';
+import '../../ecommerce/home/data/data_sources/home_remote_data_source.dart';
+import '../../ecommerce/home/data/repositories/home_repo_impl.dart';
+import '../../ecommerce/home/domain/repositories/home_repo.dart';
 import '../../ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import '../networking/dio_factory.dart';
 import '../services/firebase_servies.dart';
@@ -62,6 +72,9 @@ void _setupDataSource() {
   getIt.registerLazySingleton<RegisterRemoteDataSource>(() =>
       RegisterRemoteDataSourceImpl(
           authService: getIt(), databaseService: getIt(), stripe: getIt()));
+
+  getIt.registerLazySingleton<HomeRemoteDataSource>(
+      () => HomeRemoteDataSourceImpl(apiServices: getIt()));
 }
 
 void _setupRepositories() {
@@ -73,6 +86,9 @@ void _setupRepositories() {
 
   getIt.registerLazySingleton<ForgetRepo>(
       () => ForgetRepoImpl(dataSource: getIt()));
+
+  getIt.registerLazySingleton<HomeRepo>(
+      () => HomeRepoImpl(homeRemoteDataSource: getIt()));
 }
 
 void _setupUseCases() {
@@ -86,10 +102,13 @@ void _setupUseCases() {
       () => EmailSignIn(loginRepo: getIt()));
   getIt.registerLazySingleton<ForgetPassword>(
       () => ForgetPassword(repo: getIt()));
-  getIt.registerLazySingleton<SignUp>(
-      () => SignUp(registerRepo: getIt()));
+  getIt.registerLazySingleton<SignUp>(() => SignUp(registerRepo: getIt()));
   getIt.registerLazySingleton<CreateUser>(
       () => CreateUser(registerRepo: getIt()));
+  getIt.registerLazySingleton<GetBanner>(() => GetBanner(getIt()));
+  getIt.registerLazySingleton<GetCategories>(() => GetCategories(getIt()));
+  getIt.registerLazySingleton<GetProductByCategories>(
+      () => GetProductByCategories(getIt()));
   getIt.registerLazySingleton<CreateCustomer>(
       () => CreateCustomer(registerRepo: getIt()));
 }
@@ -111,6 +130,11 @@ void _setupCubit() {
         getIt(),
         getIt(),
       ));
+
+  getIt.registerFactory<BannerCubit>(() => BannerCubit(getIt()));
+  getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(getIt()));
+  getIt.registerFactory<ProductByCategoriesCubit>(
+      () => ProductByCategoriesCubit(getIt()));
 }
 
 void _setupServices() async {
@@ -135,6 +159,10 @@ void _setupServices() async {
   getIt.registerLazySingleton<Strip>(() => Strip(
         getIt(),
       ));
+
+  getIt.registerLazySingleton<ApiServices>(() => ApiServices(
+    dio,
+  ));
 }
 
 void _setupExternal() {

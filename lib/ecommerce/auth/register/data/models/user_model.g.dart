@@ -24,6 +24,6 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'password': instance.password,
       'phone': instance.phone,
       'image': instance.image,
-      'dataSource': instance.dataSource,
       'address': instance.address,
+      'dataSource': instance.dataSource,
     };

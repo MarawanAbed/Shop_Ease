@@ -1,13 +1,13 @@
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/logo.dart';
-import 'package:ecommerce/ecommerce/home/presentation/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../favorites/presentation/pages/categories_page.dart';
+import '../../../favorites/presentation/pages/favorite_page.dart';
+import '../../../favorites/presentation/pages/settings_page.dart';
 import '../widgets/home_body.dart';
-import 'categories_page.dart';
-import 'favorite_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

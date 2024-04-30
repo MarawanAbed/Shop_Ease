@@ -1,5 +1,6 @@
-import 'package:ecommerce/ecommerce/home/presentation/widgets/favorite_body.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/favorite_body.dart';
 
 class FavoritePage extends StatelessWidget {
   const FavoritePage({super.key});

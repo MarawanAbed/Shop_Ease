@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'home_body.dart';
-
 class CategoriesBody extends StatelessWidget {
   const CategoriesBody({super.key});
 
@@ -21,17 +19,17 @@ class CategoriesBody extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemBuilder: (context, index) => const CategoryItems(),
-              itemCount: 7,
-            ),
+            // GridView.builder(
+            //   physics: const NeverScrollableScrollPhysics(),
+            //   shrinkWrap: true,
+            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            //     crossAxisCount: 2,
+            //     crossAxisSpacing: 10,
+            //     mainAxisSpacing: 10,
+            //   ),
+            //   // itemBuilder: (context, index) => const CategoryItems(),
+            //   itemCount: 7,
+            // ),
           ],
         ),
       ),

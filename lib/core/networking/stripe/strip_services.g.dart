@@ -28,7 +28,10 @@ class _StripServices implements StripServices {
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': bearerToken, r'Content-Type': contentType};
+    final _headers = <String, dynamic>{
+      r'Authorization': bearerToken,
+      r'Content-Type': contentType,
+    };
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     _data.addAll(customerData);
@@ -37,6 +40,7 @@ class _StripServices implements StripServices {
       method: 'POST',
       headers: _headers,
       extra: _extra,
+      contentType: contentType,
     )
             .compose(
               _dio.options,
@@ -49,7 +53,7 @@ class _StripServices implements StripServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
+         return _result.data!;
   }
 
   @override
@@ -80,7 +84,8 @@ class _StripServices implements StripServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
+         return _result.data!;
+
   }
 
   @override
@@ -111,7 +116,8 @@ class _StripServices implements StripServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
+         return _result.data!;
+
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../widgets/home_details_body.dart';
 
+
 class HomeDetailsPage extends StatelessWidget {
   const HomeDetailsPage({super.key});
 
