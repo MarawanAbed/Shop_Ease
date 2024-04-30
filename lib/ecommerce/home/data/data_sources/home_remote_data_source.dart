@@ -34,9 +34,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<List<CategoriesModel>> getCategories() async {
-    print('Before getting language: ${getIt<LocaleCubit>().state.language}');
-    String language = getIt<LocaleCubit>().state.language;
-    print('After getting language: $language');
+    String language = getIt<LocalCubit>().state.language;
     final response = await _apiServices.getCategories(language);
     final categoriesJson = response['data']['data'] as List;
     return categoriesJson.map((e) => CategoriesModel.fromJson(e)).toList();
@@ -44,7 +42,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
 
   @override
   Future<ProductModel> getProductDetails( int id) async {
-    String language = await LocaleCubit().getLanguageData();
+    String language = getIt<LocalCubit>().state.language;
     final response = await _apiServices.getProductDetails(
         language, AppSecured.authToken, id);
     return ProductModel.fromJson(response['data']);
@@ -53,12 +51,10 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   @override
   Future<List<ProductModel>> getProductsByCategories(
        int categoryId) async {
-    String language = await LocaleCubit().getLanguageData();
+    String language = getIt<LocalCubit>().state.language;
     final response = await _apiServices.getProductsByCategories(
         language, AppSecured.token, categoryId);
     final productsJson = response['data']['data'] as List;
     return productsJson.map((e) => ProductModel.fromJson(e)).toList();
   }
-
-
 }

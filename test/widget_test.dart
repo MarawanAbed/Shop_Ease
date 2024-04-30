@@ -5,16 +5,19 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/ecommerce.dart';
+import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const Ecommerce(
+    await tester.pumpWidget( Ecommerce(
       isOnBoarding: false,
       isLanguageSelected: false,
+      localeCubit: getIt<LocalCubit>(),
     ));
 
     // Verify that our counter starts at 0.

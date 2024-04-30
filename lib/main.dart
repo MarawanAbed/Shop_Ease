@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/services/bloc_observer.dart';
 import 'core/utils/strings.dart';
+import 'ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,17 +17,16 @@ void main() async {
   );
   Bloc.observer = MyBlocObserver();
   await setupGetIt();
-  bool? isOnBoarding = await getIt<SharedPreCacheHelper>()
-          .getData(key: AppStrings.onboardingKey) ??
-      false;
-  bool? isLanguageSelected = await getIt<SharedPreCacheHelper>()
-          .getData(key: AppStrings.isLanguageSelected) ??
-      false;
+  final localCubit = getIt<LocalCubit>();
+  await localCubit.getSavedLanguage();
+  bool? isOnBoarding = await getIt<SharedPreCacheHelper>().getData(key: AppStrings.onboardingKey) ?? false;
+  bool? isLanguageSelected = await getIt<SharedPreCacheHelper>().getData(key: AppStrings.isLanguageSelected) ?? false;
 
   runApp(
     Ecommerce(
       isOnBoarding: isOnBoarding!,
       isLanguageSelected: isLanguageSelected!,
+      localeCubit: localCubit,
     ),
   );
 }

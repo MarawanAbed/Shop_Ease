@@ -3,28 +3,18 @@ import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/transl
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/helpers/cache.dart';
-import '../../../../../core/utils/strings.dart';
 
-class LocaleCubit extends Cubit<LocalState> {
-  LocaleCubit() : super(LocalState()) {
-    getLanguageData();
-  }
+class LocalCubit extends Cubit<LocalState> {
+  LocalCubit() : super(LocalState());
 
-
-  String lang = 'en';
-
-  Future setLanguageData(String value) async {
-    lang = value;
-    await getIt<SharedPreCacheHelper>()
-        .saveData(key: AppStrings.languageCodeKey, value: value);
-    emit(LocalState(language: lang));
-  }
-
-  Future getLanguageData() async {
-    final String language = await getIt<SharedPreCacheHelper>()
-            .getData(key: AppStrings.languageCodeKey) ??
-        'en';
-    lang = language;
+  Future<void> getSavedLanguage() async {
+    final language =
+        await getIt<SharedPreCacheHelper>().getCachedLanguageCode();
     emit(LocalState(language: language));
+  }
+
+  Future<void> changeLanguage(String languageCode) async {
+    await getIt<SharedPreCacheHelper>().cacheLanguageCode(languageCode);
+    emit(LocalState(language: languageCode));
   }
 }

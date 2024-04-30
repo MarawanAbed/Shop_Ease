@@ -1,4 +1,3 @@
-import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/routes/app_router.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
@@ -17,19 +16,21 @@ class Ecommerce extends StatelessWidget {
     super.key,
     required this.isOnBoarding,
     required this.isLanguageSelected,
+    required this.localeCubit,
   });
 
   final bool isOnBoarding;
   final bool isLanguageSelected;
+  final LocalCubit localeCubit;
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
-      child: BlocProvider(
-        create: (context) => getIt<LocaleCubit>()..getLanguageData(),
-        child: BlocBuilder<LocaleCubit, LocalState>(
+      child: BlocProvider.value(
+        value: localeCubit,
+        child: BlocBuilder<LocalCubit, LocalState>(
           builder: (context, state) {
             print('state.language ${state.language}');
             return MaterialApp(

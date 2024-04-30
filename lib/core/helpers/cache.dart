@@ -33,12 +33,23 @@ class SharedPreCacheHelper {
 
 
    Future<void> setCustomerId(String id) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(Constant.customerIdKey, id);
+    await preferences.setString(Constant.customerIdKey, id);
   }
 
    Future<String?> getCustomerId() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(Constant.customerIdKey);
+    return preferences.getString(Constant.customerIdKey);
+  }
+
+  Future<void> cacheLanguageCode(String languageCode) async {
+    preferences.setString("LOCALE", languageCode);
+  }
+
+  Future<String> getCachedLanguageCode() async {
+    final cachedLanguageCode = preferences.getString("LOCALE");
+    if (cachedLanguageCode != null) {
+      return cachedLanguageCode;
+    } else {
+      return "en";
+    }
   }
 }

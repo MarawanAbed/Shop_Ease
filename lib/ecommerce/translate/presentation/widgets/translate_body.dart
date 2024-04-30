@@ -69,13 +69,13 @@ class TranslateBody extends StatelessWidget {
   }
 
   Future<void> _arabicLogic(BuildContext context) async {
-    context.read<LocaleCubit>().setLanguageData('ar');
+    context.read<LocalCubit>().changeLanguage('ar');
     await _saveOnboardingPreference();
     Navigators.pushNamedAndRemoveUntil(Routes.login);
   }
 
   Future<void> _englishLogic(BuildContext context) async {
-    context.read<LocaleCubit>().setLanguageData('en');
+    context.read<LocalCubit>().changeLanguage('en');
     await _saveOnboardingPreference();
     Navigators.pushNamedAndRemoveUntil(Routes.login);
   }

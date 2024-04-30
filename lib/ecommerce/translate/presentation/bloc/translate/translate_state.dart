@@ -2,6 +2,6 @@ class LocalState {
   final String language;
 
   LocalState({
-    this.language = 'ar',
+    this.language = 'en',
   });
 }

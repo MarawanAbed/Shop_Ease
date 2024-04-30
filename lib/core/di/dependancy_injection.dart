@@ -114,7 +114,7 @@ void _setupUseCases() {
 }
 
 void _setupCubit() {
-  getIt.registerFactory<LocaleCubit>(() => LocaleCubit());
+  getIt.registerFactory<LocalCubit>(() => LocalCubit());
   getIt.registerFactory<LoginCubit>(
     () => LoginCubit(
       getIt(),
