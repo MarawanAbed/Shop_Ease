@@ -9,8 +9,12 @@ class BannerBlocBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BannerCubit, BannerState>(
-      buildWhen: (previous, current) =>
-          current is Loading || current is Loaded || current is Error,
+      buildWhen: (previous, current) {
+        if(previous is Loaded && current is Loaded){
+          return previous.banners != current.banners;
+        }
+        return false;
+      },
       builder: (context, state) {
         return state.when(
           initial: () => const Center(child: CircularProgressIndicator()),

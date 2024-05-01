@@ -31,8 +31,8 @@ class Ecommerce extends StatelessWidget {
       child: BlocProvider.value(
         value: localeCubit,
         child: BlocBuilder<LocalCubit, LocalState>(
+          buildWhen: (previous, current) => previous.language != current.language,
           builder: (context, state) {
-            print('state.language ${state.language}');
             return MaterialApp(
               locale: Locale(state.language),
               localizationsDelegates: const [
@@ -42,8 +42,8 @@ class Ecommerce extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
               ],
               supportedLocales: const [
-                Locale('en'), // English
-                Locale('ar'), // Arabic
+                Locale('en'),
+                Locale('ar'),
               ],
               debugShowCheckedModeBanner: false,
               navigatorKey: Navigators.navigationKey,

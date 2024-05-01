@@ -2,7 +2,7 @@ import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/widgets/elevated_button.dart';
 import 'package:ecommerce/core/widgets/logo.dart';
 import 'package:ecommerce/ecommerce/auth/login/presentation/bloc/login_cubit.dart';
-import 'package:ecommerce/ecommerce/auth/login/presentation/widgets/login_blo_listener.dart';
+import 'package:ecommerce/ecommerce/auth/login/presentation/widgets/login_bloc_listener.dart';
 import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

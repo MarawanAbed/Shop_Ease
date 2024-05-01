@@ -9,8 +9,12 @@ class ProductBlocBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductByCategoriesCubit, ProductByCategoriesState>(
-      buildWhen: (previous, current) =>
-          current is Loading || current is Loaded || current is Error,
+      buildWhen: (previous, current) {
+        if (previous is Loaded && current is Loaded) {
+          return previous.products != current.products;
+        }
+        return false;
+      },
       builder: (context, state) {
         return state.when(
           initial: () => const Center(child: CircularProgressIndicator()),
