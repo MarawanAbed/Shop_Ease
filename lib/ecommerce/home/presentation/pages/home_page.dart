@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               _currentIndex = index;
             });
           },
-          selectedItemColor: Colors.orange,
+          selectedItemColor: Colors.deepPurple,
           unselectedItemColor: Colors.grey,
           showSelectedLabels: true,
           selectedLabelStyle: TextStyle(

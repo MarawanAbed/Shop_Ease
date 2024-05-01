@@ -16,7 +16,6 @@ abstract class HomeRemoteDataSource {
        int categoryId);
 
 
-  Future<ProductModel> getProductDetails( int id);
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -40,13 +39,7 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
     return categoriesJson.map((e) => CategoriesModel.fromJson(e)).toList();
   }
 
-  @override
-  Future<ProductModel> getProductDetails( int id) async {
-    String language = getIt<LocalCubit>().state.language;
-    final response = await _apiServices.getProductDetails(
-        language, AppSecured.authToken, id);
-    return ProductModel.fromJson(response['data']);
-  }
+
 
   @override
   Future<List<ProductModel>> getProductsByCategories(

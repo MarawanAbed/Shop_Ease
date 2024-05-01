@@ -1,10 +1,10 @@
 import '../../../../core/networking/api_result.dart';
 import '../../../../core/usecases/use_cases.dart';
-import '../../data/models/product.dart';
-import '../repositories/home_repo.dart';
+import '../../../home_details/data/models/product.dart';
+import '../repositories/home_details_repo.dart';
 
 class GetProductDetails implements UseCase<Future<ApiResult<ProductModel>>, int> {
-  final HomeRepo _repo;
+  final HomeDetailsRepo _repo;
 
   GetProductDetails(this._repo);
   @override

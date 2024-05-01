@@ -33,6 +33,7 @@ class Ecommerce extends StatelessWidget {
         child: BlocBuilder<LocalCubit, LocalState>(
           buildWhen: (previous, current) => previous.language != current.language,
           builder: (context, state) {
+            print('state.language: ${state.language}');
             return MaterialApp(
               locale: Locale(state.language),
               localizationsDelegates: const [

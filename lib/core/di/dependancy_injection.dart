@@ -24,6 +24,8 @@ import 'package:ecommerce/ecommerce/home/domain/use_cases/get_product_by_categor
 import 'package:ecommerce/ecommerce/home/presentation/bloc/banner_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories_cubit.dart';
+import 'package:ecommerce/ecommerce/home_details/domain/repositories/home_details_repo.dart';
+import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -41,6 +43,9 @@ import '../../ecommerce/auth/register/domain/use_cases/create_customer.dart';
 import '../../ecommerce/home/data/data_sources/home_remote_data_source.dart';
 import '../../ecommerce/home/data/repositories/home_repo_impl.dart';
 import '../../ecommerce/home/domain/repositories/home_repo.dart';
+import '../../ecommerce/home_details/data/data_sources/home_details_remote_data_source.dart';
+import '../../ecommerce/home_details/data/repositories/home_details_repo_impl.dart';
+import '../../ecommerce/home_details/domain/use_cases/get_porduct_details.dart';
 import '../../ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import '../networking/dio_factory.dart';
 import '../services/firebase_servies.dart';
@@ -75,6 +80,9 @@ void _setupDataSource() {
 
   getIt.registerLazySingleton<HomeRemoteDataSource>(
       () => HomeRemoteDataSourceImpl(apiServices: getIt()));
+
+  getIt.registerLazySingleton<HomeDetailsRemoteDataSource>(
+          () => HomeDetailsRemoteDataSourceImpl(getIt()));
 }
 
 void _setupRepositories() {
@@ -89,6 +97,10 @@ void _setupRepositories() {
 
   getIt.registerLazySingleton<HomeRepo>(
       () => HomeRepoImpl(homeRemoteDataSource: getIt()));
+
+  getIt.registerLazySingleton<HomeDetailsRepo>(
+          () => HomeDetailsRepoImpl( getIt()));
+
 }
 
 void _setupUseCases() {
@@ -111,6 +123,8 @@ void _setupUseCases() {
       () => GetProductByCategories(getIt()));
   getIt.registerLazySingleton<CreateCustomer>(
       () => CreateCustomer(registerRepo: getIt()));
+  getIt.registerLazySingleton<GetProductDetails>(
+      () => GetProductDetails(getIt()));
 }
 
 void _setupCubit() {
@@ -135,6 +149,9 @@ void _setupCubit() {
   getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(getIt()));
   getIt.registerFactory<ProductByCategoriesCubit>(
       () => ProductByCategoriesCubit(getIt()));
+  getIt.registerFactory<ProductDetailsCubit>(
+          () => ProductDetailsCubit(getIt()));
+
 }
 
 void _setupServices() async {

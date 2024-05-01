@@ -42,19 +42,7 @@ class HomeRepoImpl implements HomeRepo {
     }
   }
 
-  @override
-  Future<ApiResult<ProductModel>> getProductDetails(int id) async {
-    try {
-      final product = await _homeRemoteDataSource.getProductDetails(id);
-      return ApiResult.success(product);
-    } catch (e) {
-      if (e is DioException) {
-        return ApiResult.failure(ServerFailure.fromDiorError(e));
-      } else {
-        return ApiResult.failure(ServerFailure(e.toString()));
-      }
-    }
-  }
+
 
   @override
   Future<ApiResult<List<ProductModel>>> getProductsByCategories(
