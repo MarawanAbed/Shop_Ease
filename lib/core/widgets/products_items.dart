@@ -62,8 +62,10 @@ class _ProductsItemsState extends State<ProductsItems> {
           widget.product as ProductsByCategoriesProductsModel;
       return GestureDetector(
         onTap: () {
-          Navigators.pushNamed(Routes.homeDetails,
-              arguments: categoryProduct.id);
+          Navigators.pushNamed(Routes.homeDetails, arguments: {
+            'id': categoryProduct.id,
+            'isFavorite': isFavorite,
+          });
         },
         child: Stack(
           children: [
@@ -180,8 +182,10 @@ class _ProductsItemsState extends State<ProductsItems> {
       final homeProduct = widget.product as HomeProductModel;
       return GestureDetector(
         onTap: () {
-          Navigators.pushNamed(Routes.homeDetails, arguments: homeProduct.id);
-        },
+          Navigators.pushNamed(Routes.homeDetails, arguments: {
+            'id': homeProduct.id,
+            'isFavorite': isFavorite,
+          });        },
         child: Stack(
           children: [
             Container(
