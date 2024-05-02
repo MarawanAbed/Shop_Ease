@@ -55,7 +55,9 @@ class _HomePageState extends State<HomePage> {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigators.pushNamed(Routes.search);
+                  },
                   icon: const Icon(Icons.search),
                   color: Colors.black,
                 ),

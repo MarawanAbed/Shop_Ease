@@ -36,6 +36,11 @@ import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories
 import 'package:ecommerce/ecommerce/home_details/domain/repositories/home_details_repo.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/porducts_by_categories_cubit.dart';
+import 'package:ecommerce/ecommerce/search/data/data_sources/search_remote_data_source.dart';
+import 'package:ecommerce/ecommerce/search/data/repositories/search_repo_impl.dart';
+import 'package:ecommerce/ecommerce/search/domain/repositories/search_repo.dart';
+import 'package:ecommerce/ecommerce/search/domain/use_cases/search_usecases.dart';
+import 'package:ecommerce/ecommerce/search/presentation/bloc/search_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -98,6 +103,9 @@ void _setupDataSource() {
 
   getIt.registerLazySingleton<ProductsRemoteDataSource>(
       () => ProductsRemoteDataSourceImpl(apiServices: getIt()));
+
+  getIt.registerLazySingleton<SearchRemoteDataSource>(
+      () => SearchRemoteDataSourceImpl(apiServices: getIt()));
 }
 
 void _setupRepositories() {
@@ -121,6 +129,9 @@ void _setupRepositories() {
 
   getIt.registerLazySingleton<ProductsRepo>(
       () => ProductsRepoImpl(productsDataSource: getIt()));
+
+  getIt.registerLazySingleton<SearchRepo>(
+      () => SearchRepoImpl(searchDataSource: getIt()));
 }
 
 void _setupUseCases() {
@@ -149,6 +160,8 @@ void _setupUseCases() {
       () => CategoriesUseCase(getIt()));
   getIt.registerLazySingleton<ProductsByCategories>(
       () => ProductsByCategories(getIt()));
+  getIt.registerLazySingleton<SearchProduct>(
+      () => SearchProduct(getIt()));
 }
 
 void _setupCubit() {
@@ -178,6 +191,7 @@ void _setupCubit() {
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 
   getIt.registerFactory<ProductsByCategoriesCubit>(() => ProductsByCategoriesCubit(getIt()));
+  getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
 }
 
 void _setupServices() async {

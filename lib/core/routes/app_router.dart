@@ -14,6 +14,8 @@ import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_detai
 import 'package:ecommerce/ecommerce/on_boarding/presentation/pages/on_boarding_page.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/porducts_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/pages/products_by_categories_page.dart';
+import 'package:ecommerce/ecommerce/search/presentation/bloc/search_cubit.dart';
+import 'package:ecommerce/ecommerce/search/presentation/pages/search_page.dart';
 import 'package:ecommerce/ecommerce/translate/presentation/pages/translate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,6 +59,10 @@ class AppRoutes {
     Routes.productsByCategories: (context) => BlocProvider(
           create: (context) => getIt<ProductsByCategoriesCubit>(),
           child: const ProductsByCategoriesPage(),
+        ),
+    Routes.search: (context) => BlocProvider(
+          create: (context) => getIt<SearchCubit>(),
+          child: const SearchPage(),
         ),
     Routes.cart: (context) => const CartPage(),
   };

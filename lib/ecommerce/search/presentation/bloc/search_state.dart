@@ -6,7 +6,7 @@ class SearchState with _$SearchState {
 
   const factory SearchState.loading() = Loading;
 
-  const factory SearchState.success(List<ProductModel> products) = Success;
+  const factory SearchState.success(List<ProductsModel> products) = Success;
 
 
   const factory SearchState.error(String message) = Error;
