@@ -6,7 +6,7 @@ import '../../../../core/di/dependancy_injection.dart';
 import '../../../translate/presentation/bloc/translate/translate_cubit.dart';
 
 abstract class HomeDetailsRemoteDataSource {
-  Future<ProductModel> getProductDetails( int id);
+  Future<HomeDetailsProductModel> getProductDetails( int id);
 }
 
 class HomeDetailsRemoteDataSourceImpl implements HomeDetailsRemoteDataSource {
@@ -14,10 +14,10 @@ class HomeDetailsRemoteDataSourceImpl implements HomeDetailsRemoteDataSource {
 
   HomeDetailsRemoteDataSourceImpl(this._apiServices);
   @override
-  Future<ProductModel> getProductDetails( int id) async {
+  Future<HomeDetailsProductModel> getProductDetails( int id) async {
     String language = getIt<LocalCubit>().state.language;
     final response = await _apiServices.getProductDetails(
         language, AppSecured.authToken, id);
-    return ProductModel.fromJson(response['data']);
+    return HomeDetailsProductModel.fromJson(response['data']);
   }
 }

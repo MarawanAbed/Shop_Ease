@@ -18,7 +18,7 @@ class ProductByCategoriesCubit extends Cubit<ProductByCategoriesState> {
     emit(const ProductByCategoriesState.loading());
     final result = await _getProductByCategories(44);
     result.when(
-      success: (List<ProductModel> data) {
+      success: (List<HomeProductModel> data) {
         emit(ProductByCategoriesState.loaded(data));
       },
      failure: (Failures error) {

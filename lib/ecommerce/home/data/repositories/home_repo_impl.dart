@@ -45,7 +45,7 @@ class HomeRepoImpl implements HomeRepo {
 
 
   @override
-  Future<ApiResult<List<ProductModel>>> getProductsByCategories(
+  Future<ApiResult<List<HomeProductModel>>> getProductsByCategories(
       int categoryId) async {
     try {
       final products =

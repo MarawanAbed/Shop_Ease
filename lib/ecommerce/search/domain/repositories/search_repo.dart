@@ -3,6 +3,6 @@ import 'package:ecommerce/ecommerce/products_by_categories/data/models/product.d
 
 abstract class SearchRepo
 {
-  Future<ApiResult<List<ProductsModel>>> searchProducts(String text);
+  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> searchProducts(String text);
 
 }

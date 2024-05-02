@@ -5,13 +5,13 @@ import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/p
 import '../../../../core/networking/api_result.dart';
 
 class ProductsByCategories
-    implements UseCase<Future<ApiResult<List<ProductsModel>>>, int> {
+    implements UseCase<Future<ApiResult<List<ProductsByCategoriesProductsModel>>>, int> {
   final ProductsRepo _repo;
 
   ProductsByCategories(this._repo);
 
   @override
-  Future<ApiResult<List<ProductsModel>>> call([int? parameter]) async {
+  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> call([int? parameter]) async {
     return await _repo.getProductsByCategories(parameter!);
   }
 }

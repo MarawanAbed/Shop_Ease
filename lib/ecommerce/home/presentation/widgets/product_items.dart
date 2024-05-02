@@ -11,7 +11,7 @@ class ProductItems extends StatelessWidget {
     required this.product,
   });
 
-  final ProductModel product;
+  final HomeProductModel product;
 
   @override
   Widget build(BuildContext context) {

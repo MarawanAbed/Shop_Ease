@@ -24,7 +24,7 @@ class FavoriteBody extends StatelessWidget {
                 childAspectRatio: 0.6,
               ),
               itemBuilder: (context, index) =>  ProductItems(
-                product: ProductModel(
+                product: HomeProductModel(
                   id: 1,
                   price: 12345,
                   oldPrice: 12345,

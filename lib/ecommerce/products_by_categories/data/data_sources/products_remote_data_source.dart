@@ -6,7 +6,7 @@ import '../../../../core/utils/app_secured.dart';
 import '../../../translate/presentation/bloc/translate/translate_cubit.dart';
 
 abstract class ProductsRemoteDataSource {
-  Future<List<ProductsModel>> getProductsByCategories(int categoryId);
+  Future<List<ProductsByCategoriesProductsModel>> getProductsByCategories(int categoryId);
 }
 
 class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
@@ -16,12 +16,12 @@ class ProductsRemoteDataSourceImpl implements ProductsRemoteDataSource {
   ProductsRemoteDataSourceImpl({required ApiServices apiServices})
       : _apiServices = apiServices;
   @override
-  Future<List<ProductsModel>> getProductsByCategories(
+  Future<List<ProductsByCategoriesProductsModel>> getProductsByCategories(
       int categoryId) async {
     String language = getIt<LocalCubit>().state.language;
     final response = await _apiServices.getProductsByCategories(
         language, AppSecured.token, categoryId);
     final productsJson = response['data']['data'] as List;
-    return productsJson.map((e) => ProductsModel.fromJson(e)).toList();
+    return productsJson.map((e) => ProductsByCategoriesProductsModel.fromJson(e)).toList();
   }
 }

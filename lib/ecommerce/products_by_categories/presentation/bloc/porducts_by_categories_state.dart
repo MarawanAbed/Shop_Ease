@@ -6,7 +6,7 @@ class ProductsByCategoriesState with _$ProductsByCategoriesState {
 
   const factory ProductsByCategoriesState.loading() = Loading;
 
-  const factory ProductsByCategoriesState.loaded(List<ProductsModel> products) = Loaded;
+  const factory ProductsByCategoriesState.loaded(List<ProductsByCategoriesProductsModel> products) = Loaded;
 
   const factory ProductsByCategoriesState.error(String message) = Error;
 }

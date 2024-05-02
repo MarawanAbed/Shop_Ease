@@ -13,7 +13,7 @@ class ProductsRepoImpl implements ProductsRepo {
   ProductsRepoImpl({required this.productsDataSource});
 
   @override
-  Future<ApiResult<List<ProductsModel>>> getProductsByCategories(
+  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> getProductsByCategories(
       int categoryId) async {
     try {
       final products =

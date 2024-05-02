@@ -10,7 +10,7 @@ class ProductsItems extends StatelessWidget {
     required this.product,
   });
 
-  final ProductsModel product;
+  final ProductsByCategoriesProductsModel product;
 
   @override
   Widget build(BuildContext context) {

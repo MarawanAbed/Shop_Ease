@@ -10,7 +10,7 @@ class ProductInfo extends StatelessWidget {
         required this.counter,
         required this.onCounterChanged});
 
-  final ProductModel product;
+  final HomeDetailsProductModel product;
 
   final int counter;
   final ValueChanged<int> onCounterChanged;

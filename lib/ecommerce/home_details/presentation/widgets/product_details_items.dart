@@ -10,7 +10,7 @@ class ProductDetailsItems extends StatefulWidget {
     required this.product,
   });
 
-  final ProductModel product;
+  final HomeDetailsProductModel product;
 
   @override
   State<ProductDetailsItems> createState() => _ProductDetailsItemsState();

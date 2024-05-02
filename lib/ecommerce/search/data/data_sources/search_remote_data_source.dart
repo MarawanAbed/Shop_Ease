@@ -6,7 +6,7 @@ import 'package:ecommerce/ecommerce/products_by_categories/data/models/product.d
 import '../../../translate/presentation/bloc/translate/translate_cubit.dart';
 
 abstract class SearchRemoteDataSource {
-  Future<List<ProductsModel>> searchProducts(String query);
+  Future<List<ProductsByCategoriesProductsModel>> searchProducts(String query);
 }
 
 class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
@@ -16,11 +16,11 @@ class SearchRemoteDataSourceImpl implements SearchRemoteDataSource {
       : _apiServices = apiServices;
 
   @override
-  Future<List<ProductsModel>> searchProducts(String text) async {
+  Future<List<ProductsByCategoriesProductsModel>> searchProducts(String text) async {
     String language = getIt<LocalCubit>().state.language;
     final response =
         await _apiServices.searchProducts(language, AppSecured.token, text);
     final productsJson = response['data']['data'] as List;
-    return productsJson.map((e) => ProductsModel.fromJson(e)).toList();
+    return productsJson.map((e) => ProductsByCategoriesProductsModel.fromJson(e)).toList();
   }
 }

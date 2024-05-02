@@ -6,7 +6,7 @@ class ProductDetailsState with _$ProductDetailsState {
 
   const factory ProductDetailsState.loading() = Loading;
 
-  const factory ProductDetailsState.success(ProductModel product) = Success;
+  const factory ProductDetailsState.success(HomeDetailsProductModel product) = Success;
 
   const factory ProductDetailsState.error(String message) = Error;
 }

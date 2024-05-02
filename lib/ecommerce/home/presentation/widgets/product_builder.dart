@@ -7,7 +7,7 @@ class ProductBuilder extends StatelessWidget {
     super.key, required this.products,
   });
 
-  final List<ProductModel>products;
+  final List<HomeProductModel>products;
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

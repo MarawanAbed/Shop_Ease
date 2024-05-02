@@ -12,7 +12,7 @@ class SearchRepoImpl extends SearchRepo {
   SearchRepoImpl({required this.searchDataSource});
 
   @override
-  Future<ApiResult<List<ProductsModel>>> searchProducts(String text) async {
+  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> searchProducts(String text) async {
     try {
       final products = await searchDataSource.searchProducts(text);
       return ApiResult.success(products);

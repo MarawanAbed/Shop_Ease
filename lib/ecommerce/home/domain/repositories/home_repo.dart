@@ -8,5 +8,5 @@ abstract class HomeRepo
 {
   Future<ApiResult<List<BannerModel>>> getBanner();
   Future<ApiResult<List<CategoriesModel>>> getCategories();
-  Future<ApiResult<List<ProductModel>>> getProductsByCategories( int categoryId);
+  Future<ApiResult<List<HomeProductModel>>> getProductsByCategories( int categoryId);
 }
