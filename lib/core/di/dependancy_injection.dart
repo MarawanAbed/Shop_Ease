@@ -18,6 +18,15 @@ import 'package:ecommerce/ecommerce/auth/register/data/data_sources/register_rem
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/create_user.dart';
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/sign_up.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/bloc/register_cubit.dart';
+import 'package:ecommerce/ecommerce/categories/data/data_sources/categories_remote_data_source.dart';
+import 'package:ecommerce/ecommerce/categories/data/repositories/categories_repo_impl.dart';
+import 'package:ecommerce/ecommerce/categories/domain/repositories/categories_repo.dart';
+import 'package:ecommerce/ecommerce/categories/domain/use_cases/get_categories.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/data/data_sources/products_remote_data_source.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/data/repositories/products_repo_impl.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/products_repo.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/domain/use_cases/get_product_by_categories.dart';
+import 'package:ecommerce/ecommerce/categories/presentation/bloc/category_cubit.dart';
 import 'package:ecommerce/ecommerce/home/domain/use_cases/get_banner.dart';
 import 'package:ecommerce/ecommerce/home/domain/use_cases/get_categories.dart';
 import 'package:ecommerce/ecommerce/home/domain/use_cases/get_product_by_categories.dart';
@@ -26,6 +35,7 @@ import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart
 import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home_details/domain/repositories/home_details_repo.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/porducts_by_categories_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -82,7 +92,12 @@ void _setupDataSource() {
       () => HomeRemoteDataSourceImpl(apiServices: getIt()));
 
   getIt.registerLazySingleton<HomeDetailsRemoteDataSource>(
-          () => HomeDetailsRemoteDataSourceImpl(getIt()));
+      () => HomeDetailsRemoteDataSourceImpl(getIt()));
+  getIt.registerLazySingleton<CategoriesRemoteDataSource>(
+      () => CategoriesRemoteDataSourceImpl(apiServices: getIt()));
+
+  getIt.registerLazySingleton<ProductsRemoteDataSource>(
+      () => ProductsRemoteDataSourceImpl(apiServices: getIt()));
 }
 
 void _setupRepositories() {
@@ -99,8 +114,13 @@ void _setupRepositories() {
       () => HomeRepoImpl(homeRemoteDataSource: getIt()));
 
   getIt.registerLazySingleton<HomeDetailsRepo>(
-          () => HomeDetailsRepoImpl( getIt()));
+      () => HomeDetailsRepoImpl(getIt()));
 
+  getIt.registerLazySingleton<CategoriesRepo>(
+      () => CategoriesRepoImpl(categoriesDataSource: getIt()));
+
+  getIt.registerLazySingleton<ProductsRepo>(
+      () => ProductsRepoImpl(productsDataSource: getIt()));
 }
 
 void _setupUseCases() {
@@ -125,6 +145,10 @@ void _setupUseCases() {
       () => CreateCustomer(registerRepo: getIt()));
   getIt.registerLazySingleton<GetProductDetails>(
       () => GetProductDetails(getIt()));
+  getIt.registerLazySingleton<CategoriesUseCase>(
+      () => CategoriesUseCase(getIt()));
+  getIt.registerLazySingleton<ProductsByCategories>(
+      () => ProductsByCategories(getIt()));
 }
 
 void _setupCubit() {
@@ -149,9 +173,11 @@ void _setupCubit() {
   getIt.registerFactory<CategoriesCubit>(() => CategoriesCubit(getIt()));
   getIt.registerFactory<ProductByCategoriesCubit>(
       () => ProductByCategoriesCubit(getIt()));
-  getIt.registerFactory<ProductDetailsCubit>(
-          () => ProductDetailsCubit(getIt()));
+  getIt
+      .registerFactory<ProductDetailsCubit>(() => ProductDetailsCubit(getIt()));
+  getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 
+  getIt.registerFactory<ProductsByCategoriesCubit>(() => ProductsByCategoriesCubit(getIt()));
 }
 
 void _setupServices() async {
@@ -178,8 +204,8 @@ void _setupServices() async {
       ));
 
   getIt.registerLazySingleton<ApiServices>(() => ApiServices(
-    dio,
-  ));
+        dio,
+      ));
 }
 
 void _setupExternal() {

@@ -1,18 +1,37 @@
+import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/cached_image.dart';
-import 'package:ecommerce/ecommerce/home/data/models/categories.dart';
+import 'package:ecommerce/ecommerce/categories/data/models/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/routes/routes.dart';
-import '../../../../core/services/navigator.dart';
+class CategoriesGridView extends StatelessWidget {
+  const CategoriesGridView({super.key, required this.categories});
 
-class CategoryItems extends StatelessWidget {
-  const CategoryItems({
-    super.key,
-    required this.categories,
-  });
+  final List<CategoryModel> categories;
 
-  final CategoriesModel categories;
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemBuilder: (context, index) => CategoriesItem(
+        categories: categories[index],
+      ),
+      itemCount: categories.length,
+    );
+  }
+}
+
+class CategoriesItem extends StatelessWidget {
+  const CategoriesItem({super.key, required this.categories});
+
+  final CategoryModel categories;
 
   @override
   Widget build(BuildContext context) {

@@ -9,5 +9,7 @@ class Routes {
   static const String completeRegister = '/completeRegisterScreen';
   static const String homeDetails = '/homeDetailsScreen';
 
+  static const String productsByCategories = '/productsByCategoriesScreen';
+
   static const String cart='/cartScreen';
 }
