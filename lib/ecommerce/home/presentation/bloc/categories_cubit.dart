@@ -13,6 +13,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   final GetCategories _getCategories;
 
+  final List<CategoriesModel> categories = [];
   void getCategories() async {
     emit(const CategoriesState.loading());
     final result = await _getCategories();

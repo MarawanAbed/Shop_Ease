@@ -14,6 +14,8 @@ class ProductByCategoriesCubit extends Cubit<ProductByCategoriesState> {
 
   final GetProductByCategories _getProductByCategories;
 
+  List<HomeProductModel>products=[];
+
   void getProductByCategories() async {
     emit(const ProductByCategoriesState.loading());
     final result = await _getProductByCategories(44);
