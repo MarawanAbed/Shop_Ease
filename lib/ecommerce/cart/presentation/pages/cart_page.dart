@@ -42,13 +42,21 @@ class CartPage extends StatelessWidget {
                     valueListenable: valueListenable,
                     builder: (BuildContext context, Box<CartModel> value,
                         Widget? child) {
-                      return Text(
-                        '\$${value.values.map((e) => e.price).reduce((value, element) => value + element).toInt()}',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      );
+                      return value.isEmpty
+                          ? const Text(
+                              '\$ 0',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : Text(
+                              '\$${value.values.map((e) => e.price*e.quantity).reduce((value, element) => value + element)}',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            );
                     },
                   ),
                 ],

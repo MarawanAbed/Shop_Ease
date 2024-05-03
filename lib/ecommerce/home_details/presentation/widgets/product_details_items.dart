@@ -45,7 +45,7 @@ class _ProductDetailsItemsState extends State<ProductDetailsItems> {
             name: widget.product.name,
             image: widget.product.image,
             quantity: _counter,
-            price: totalPrice,
+            price: widget.product.price,
           ),
         ),
       ],

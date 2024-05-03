@@ -2,8 +2,10 @@ import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/widgets/cached_image.dart';
 import 'package:ecommerce/ecommerce/cart/data/models/cart_model.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/bloc/remove_cart_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class CartBody extends StatefulWidget {
@@ -55,7 +57,10 @@ class _CartBodyState extends State<CartBody> {
                   itemCount: box.length,
                   itemBuilder: (context, index) {
                     final cartModel = box.getAt(index) as CartModel;
-                    return CartItems(cartModel: cartModel);
+                    return CartItems(
+                      index: index,
+                      cartModel: cartModel,
+                    );
                   },
                 );
         },
@@ -64,10 +69,32 @@ class _CartBodyState extends State<CartBody> {
   }
 }
 
-class CartItems extends StatelessWidget {
-  const CartItems({super.key, required this.cartModel});
+class CartItems extends StatefulWidget {
+  const CartItems({super.key, required this.cartModel, required this.index});
 
   final CartModel cartModel;
+  final int index;
+
+  @override
+  State<CartItems> createState() => _CartItemsState();
+}
+
+class _CartItemsState extends State<CartItems> {
+  late int counter;
+
+  @override
+  void initState() {
+    counter = widget.cartModel.quantity;
+    super.initState();
+  }
+
+  void updateQuantity(int newQuantity) async {
+    var uId = getIt<AuthService>().getCurrentUserId();
+    var box = Hive.box<CartModel>('cart_$uId');
+    widget.cartModel.quantity = newQuantity;
+    print(widget.cartModel.quantity);
+    await box.putAt(widget.index, widget.cartModel);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,15 +115,16 @@ class CartItems extends StatelessWidget {
               children: [
                 Expanded(
                   child: CachedImage(
-                    image: cartModel.image,
+                    image: widget.cartModel.image,
                   ),
                 ),
                 Expanded(
+                  flex: 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        cartModel.name,
+                        widget.cartModel.name,
                         maxLines: 4,
                         style: const TextStyle(
                           fontSize: 18,
@@ -107,40 +135,55 @@ class CartItems extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Text(
-                              "\$ ${cartModel.price.toInt()}",
-                              style: const TextStyle(
+                      Row(
+                        children: [
+                          Text(
+                            "\$ ${(widget.cartModel.price * counter).toInt()}",
+                            style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red),
+                          ),
+                          const Spacer(),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () async {
+                                  counter++;
+                                  updateQuantity(counter);
+                                },
+                                icon: const Icon(Icons.add),
+                              ),
+                              Text(
+                                '$counter',
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.red),
-                            ),
-                            Expanded(
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.add),
-                                  ),
-                                  Text(
-                                    '${cartModel.quantity}',
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                  Expanded(
-                                      child: IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(Icons.remove))),
-                                ],
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                              counter > 1
+                                  ? IconButton(
+                                      onPressed: () async {
+                                        counter--;
+                                        updateQuantity(counter);
+                                      },
+                                      icon: const Icon(Icons.remove),
+                                    )
+                                  : IconButton(
+                                      icon: const Icon(
+                                        Icons.delete,
+                                        color: Colors.grey,
+                                      ),
+                                      onPressed: () {
+                                        context
+                                            .read<RemoveCartCubit>()
+                                            .removeCart(widget.cartModel.id);
+                                      },
+                                    ),
+                            ],
+                          ),
+                        ],
                       ),
                     ],
                   ),
