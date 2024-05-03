@@ -7,19 +7,22 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: Colors.white,
-          title: const Text(
-            'Settings',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+    return PopScope(
+      canPop: false,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            surfaceTintColor: Colors.white,
+            title: const Text(
+              'Settings',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
+          body: const SettingsBody(),
         ),
-        body: const SettingsBody(),
       ),
     );
   }

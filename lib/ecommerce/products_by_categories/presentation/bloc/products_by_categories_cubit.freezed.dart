@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of '../../../products_by_categories/presentation/bloc/porducts_by_categories_cubit.dart';
+part of 'products_by_categories_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,8 @@ mixin _$ProductsByCategoriesState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) loaded,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +128,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) loaded,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -241,7 +243,8 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) loaded,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -349,7 +352,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements Loaded {
-  const _$LoadedImpl(final List<ProductsByCategoriesProductsModel> products) : _products = products;
+  const _$LoadedImpl(final List<ProductsByCategoriesProductsModel> products)
+      : _products = products;
 
   final List<ProductsByCategoriesProductsModel> _products;
   @override
@@ -387,7 +391,8 @@ class _$LoadedImpl implements Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) loaded,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loaded(products);
@@ -458,7 +463,8 @@ class _$LoadedImpl implements Loaded {
 }
 
 abstract class Loaded implements ProductsByCategoriesState {
-  const factory Loaded(final List<ProductsByCategoriesProductsModel> products) = _$LoadedImpl;
+  const factory Loaded(final List<ProductsByCategoriesProductsModel> products) =
+      _$LoadedImpl;
 
   List<ProductsByCategoriesProductsModel> get products;
   @JsonKey(ignore: true)
@@ -532,7 +538,8 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) loaded,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);

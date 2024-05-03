@@ -6,13 +6,14 @@ import 'package:ecommerce/ecommerce/auth/login/presentation/bloc/login_cubit.dar
 import 'package:ecommerce/ecommerce/auth/login/presentation/pages/login_page.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/pages/complete_register.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/pages/register_page.dart';
+import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
+import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/pages/cart_page.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/banner_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
 import 'package:ecommerce/ecommerce/on_boarding/presentation/pages/on_boarding_page.dart';
-import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/porducts_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/pages/products_by_categories_page.dart';
 import 'package:ecommerce/ecommerce/search/presentation/bloc/search_cubit.dart';
 import 'package:ecommerce/ecommerce/search/presentation/pages/search_page.dart';
@@ -22,6 +23,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../ecommerce/home/presentation/pages/home_page.dart';
 import '../../ecommerce/home_details/presentation/pages/home_details.dart';
+import '../../ecommerce/products_by_categories/presentation/bloc/products_by_categories_cubit.dart';
 
 class AppRoutes {
   static final routes = <String, Widget Function(BuildContext)>{
@@ -49,15 +51,36 @@ class AppRoutes {
               create: (context) =>
                   getIt<ProductByCategoriesCubit>()..getProductByCategories(),
             ),
+            BlocProvider(create: (context) => getIt<AddFavoriteCubit>()),
+            BlocProvider(create: (context) => getIt<RemoveFavoritesCubit>()),
           ],
           child: const HomePage(),
         ),
-    Routes.homeDetails: (context) => BlocProvider(
-          create: (context) => getIt<ProductDetailsCubit>(),
+    Routes.homeDetails: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<ProductDetailsCubit>(),
+            ),
+
+            BlocProvider(
+              create: (context) => getIt<AddFavoriteCubit>(),
+            ),
+            BlocProvider(create: (context) => getIt<RemoveFavoritesCubit>()),
+          ],
           child: const HomeDetailsPage(),
         ),
-    Routes.productsByCategories: (context) => BlocProvider(
-          create: (context) => getIt<ProductsByCategoriesCubit>(),
+    Routes.productsByCategories: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<AddFavoriteCubit>(),
+            ),
+            BlocProvider(
+              create: (context) =>
+              getIt<ProductsByCategoriesCubit>(),
+            ),
+            BlocProvider(create: (context) => getIt<RemoveFavoritesCubit>(),
+            ),
+          ],
           child: const ProductsByCategoriesPage(),
         ),
     Routes.search: (context) => BlocProvider(

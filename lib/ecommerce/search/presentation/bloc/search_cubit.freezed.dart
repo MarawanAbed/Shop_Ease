@@ -20,7 +20,8 @@ mixin _$SearchState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) success,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +29,8 @@ mixin _$SearchState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductsByCategoriesProductsModel> products)? success,
+    TResult? Function(List<ProductsByCategoriesProductsModel> products)?
+        success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -126,7 +128,8 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) success,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        success,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -137,7 +140,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductsByCategoriesProductsModel> products)? success,
+    TResult? Function(List<ProductsByCategoriesProductsModel> products)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -240,7 +244,8 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) success,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -251,7 +256,8 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductsByCategoriesProductsModel> products)? success,
+    TResult? Function(List<ProductsByCategoriesProductsModel> products)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -348,7 +354,8 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements Success {
-  const _$SuccessImpl(final List<ProductsByCategoriesProductsModel> products) : _products = products;
+  const _$SuccessImpl(final List<ProductsByCategoriesProductsModel> products)
+      : _products = products;
 
   final List<ProductsByCategoriesProductsModel> _products;
   @override
@@ -386,7 +393,8 @@ class _$SuccessImpl implements Success {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) success,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        success,
     required TResult Function(String message) error,
   }) {
     return success(products);
@@ -397,7 +405,8 @@ class _$SuccessImpl implements Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductsByCategoriesProductsModel> products)? success,
+    TResult? Function(List<ProductsByCategoriesProductsModel> products)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return success?.call(products);
@@ -457,7 +466,8 @@ class _$SuccessImpl implements Success {
 }
 
 abstract class Success implements SearchState {
-  const factory Success(final List<ProductsByCategoriesProductsModel> products) = _$SuccessImpl;
+  const factory Success(
+      final List<ProductsByCategoriesProductsModel> products) = _$SuccessImpl;
 
   List<ProductsByCategoriesProductsModel> get products;
   @JsonKey(ignore: true)
@@ -531,7 +541,8 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(List<ProductsByCategoriesProductsModel> products) success,
+    required TResult Function(List<ProductsByCategoriesProductsModel> products)
+        success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -542,7 +553,8 @@ class _$ErrorImpl implements Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(List<ProductsByCategoriesProductsModel> products)? success,
+    TResult? Function(List<ProductsByCategoriesProductsModel> products)?
+        success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);

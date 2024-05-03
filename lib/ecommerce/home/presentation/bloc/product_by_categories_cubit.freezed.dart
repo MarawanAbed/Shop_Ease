@@ -349,7 +349,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements Loaded {
-  const _$LoadedImpl(final List<HomeProductModel> products) : _products = products;
+  const _$LoadedImpl(final List<HomeProductModel> products)
+      : _products = products;
 
   final List<HomeProductModel> _products;
   @override

@@ -4,9 +4,13 @@ import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/cached_image.dart';
+import 'package:ecommerce/ecommerce/favorites/data/models/favorites_entity.dart';
+import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
+import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/home/data/models/product.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/data/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ProductsItems extends StatefulWidget {
@@ -35,7 +39,7 @@ class _ProductsItemsState extends State<ProductsItems> {
     });
   }
 
-  void toggleFavorite() async {
+  void toggleFavorite(FavoriteModel favoriteModel) async {
     final productId = widget.product is HomeProductModel
         ? (widget.product as HomeProductModel).id
         : (widget.product as ProductsByCategoriesProductsModel).id;
@@ -46,10 +50,14 @@ class _ProductsItemsState extends State<ProductsItems> {
 
     if (isFavorite) {
       await _prefs.saveData(key: 'favorite_$productId', value: true);
+      context.read<AddFavoriteCubit>().addFavorites(
+            favoriteModel,
+          );
       HelperMethod.showSuccessToast('Added to favorite',
           gravity: ToastGravity.BOTTOM);
     } else {
       await _prefs.removeData(key: 'favorite_$productId');
+      context.read<RemoveFavoritesCubit>().removeFavorites(productId);
       HelperMethod.showErrorToast('Removed from favorite',
           gravity: ToastGravity.BOTTOM);
     }
@@ -65,6 +73,11 @@ class _ProductsItemsState extends State<ProductsItems> {
           Navigators.pushNamed(Routes.homeDetails, arguments: {
             'id': categoryProduct.id,
             'isFavorite': isFavorite,
+            'name': categoryProduct.name,
+            'price': categoryProduct.price,
+            'image': categoryProduct.image,
+            'discount': categoryProduct.discount,
+            'description': categoryProduct.description,
           });
         },
         child: Stack(
@@ -127,7 +140,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
                                   return IconButton(
-                                    onPressed: toggleFavorite,
+                                    onPressed: () {
+                                      toggleFavorite(
+                                        FavoriteModel(
+                                          id: categoryProduct.id,
+                                          price: categoryProduct.price,
+                                          discount: categoryProduct.discount,
+                                          image: categoryProduct.image,
+                                          name: categoryProduct.name,
+                                          description:
+                                              categoryProduct.description,
+                                        ),
+                                      );
+                                    },
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
@@ -136,7 +161,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                                   );
                                 } else {
                                   return IconButton(
-                                    onPressed: toggleFavorite,
+                                    onPressed: () {
+                                      toggleFavorite(
+                                        FavoriteModel(
+                                          id: categoryProduct.id,
+                                          price: categoryProduct.price,
+                                          discount: categoryProduct.discount,
+                                          image: categoryProduct.image,
+                                          name: categoryProduct.name,
+                                          description:
+                                              categoryProduct.description,
+                                        ),
+                                      );
+                                    },
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
@@ -185,7 +222,13 @@ class _ProductsItemsState extends State<ProductsItems> {
           Navigators.pushNamed(Routes.homeDetails, arguments: {
             'id': homeProduct.id,
             'isFavorite': isFavorite,
-          });        },
+            'name': homeProduct.name,
+            'price': homeProduct.price,
+            'image': homeProduct.image,
+            'discount': homeProduct.discount,
+            'description': homeProduct.description,
+          });
+        },
         child: Stack(
           children: [
             Container(
@@ -246,7 +289,18 @@ class _ProductsItemsState extends State<ProductsItems> {
                                 if (snapshot.connectionState ==
                                     ConnectionState.done) {
                                   return IconButton(
-                                    onPressed: toggleFavorite,
+                                    onPressed: () {
+                                      toggleFavorite(
+                                        FavoriteModel(
+                                          id: homeProduct.id,
+                                          price: homeProduct.price,
+                                          discount: homeProduct.discount,
+                                          image: homeProduct.image,
+                                          name: homeProduct.name,
+                                          description: homeProduct.description,
+                                        ),
+                                      );
+                                    },
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
@@ -255,7 +309,18 @@ class _ProductsItemsState extends State<ProductsItems> {
                                   );
                                 } else {
                                   return IconButton(
-                                    onPressed: toggleFavorite,
+                                    onPressed: () {
+                                      toggleFavorite(
+                                        FavoriteModel(
+                                          id: homeProduct.id,
+                                          price: homeProduct.price,
+                                          discount: homeProduct.discount,
+                                          image: homeProduct.image,
+                                          name: homeProduct.name,
+                                          description: homeProduct.description,
+                                        ),
+                                      );
+                                    },
                                     icon: Icon(
                                       Icons.favorite,
                                       color:

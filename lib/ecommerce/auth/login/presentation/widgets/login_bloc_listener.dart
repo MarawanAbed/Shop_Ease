@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../../core/di/dependancy_injection.dart';
 import '../../../../../core/helpers/helper_methods.dart';
+import '../../../../favorites/data/data_sources/local_data_source.dart';
 
 class LoginBlocListener extends StatelessWidget {
   const LoginBlocListener({super.key});
@@ -25,12 +27,13 @@ class LoginBlocListener extends StatelessWidget {
           loading: () async {
             HelperMethod.showLoadingDialog(context);
           },
-          success: () {
+          success: ()async {
             Navigator.pop(context);
             HelperMethod.showSuccessToast(
               'Login Successful',
               gravity: ToastGravity.BOTTOM,
             );
+            await getIt<LocalDataSourceImpl>().switchUserBox();
             Navigators.pushNamedAndRemoveUntil(Routes.home);
           },
           error: (message) {

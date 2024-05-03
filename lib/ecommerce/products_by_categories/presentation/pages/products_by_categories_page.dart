@@ -1,7 +1,8 @@
-import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/porducts_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/widgets/products_bloc_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../bloc/products_by_categories_cubit.dart';
 
 class ProductsByCategoriesPage extends StatefulWidget {
   const ProductsByCategoriesPage({super.key});

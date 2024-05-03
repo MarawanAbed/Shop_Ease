@@ -7,20 +7,33 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          surfaceTintColor: Colors.white,
-          title: const Text(
-            'Favorite',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+
+    return PopScope(
+      canPop: false,
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            surfaceTintColor: Colors.white,
+            title: GestureDetector(
+              onTap: () => checkRoutes(context),
+              child: const Text(
+                'Favorite',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
           ),
+          body: const FavoriteBody(),
         ),
-        body: const FavoriteBody(),
       ),
     );
+  }
+
+  void checkRoutes(BuildContext context) {
+    var canPop = Navigator.of(context).canPop();
+    print('Can pop: $canPop');
   }
 }

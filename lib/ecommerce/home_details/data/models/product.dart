@@ -25,7 +25,7 @@ class HomeDetailsProductModel
     required this.name,
   });
 
-  factory HomeDetailsProductModel.fromJson(Map<String, dynamic> json) => _$ProductModelFromJson(json);
+  factory HomeDetailsProductModel.fromJson(Map<String, dynamic> json) => _$HomeDetailsProductModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
+  Map<String, dynamic> toJson() => _$HomeDetailsProductModelToJson(this);
 }

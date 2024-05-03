@@ -25,7 +25,7 @@ class ProductsByCategoriesProductsModel
     required this.name,
   });
 
-  factory ProductsByCategoriesProductsModel.fromJson(Map<String, dynamic> json) => _$ProductsModelFromJson(json);
+  factory ProductsByCategoriesProductsModel.fromJson(Map<String, dynamic> json) => _$ProductsByCategoriesProductsModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ProductsModelToJson(this);
+  Map<String, dynamic> toJson() => _$ProductsByCategoriesProductsModelToJson(this);
 }

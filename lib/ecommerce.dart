@@ -1,13 +1,15 @@
+import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/routes/app_router.dart';
 import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/generated/l10n.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/services/navigator_observer.dart';
 import 'ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'ecommerce/translate/presentation/bloc/translate/translate_state.dart';
 
@@ -31,10 +33,12 @@ class Ecommerce extends StatelessWidget {
       child: BlocProvider.value(
         value: localeCubit,
         child: BlocBuilder<LocalCubit, LocalState>(
-          buildWhen: (previous, current) => previous.language != current.language,
+          buildWhen: (previous, current) =>
+              previous.language != current.language,
           builder: (context, state) {
             print('state.language: ${state.language}');
             return MaterialApp(
+              navigatorObservers: [MyNavigatorObserver()],
               locale: Locale(state.language),
               localizationsDelegates: const [
                 S.delegate,
@@ -52,7 +56,7 @@ class Ecommerce extends StatelessWidget {
               title: 'Ecommerce',
               routes: AppRoutes.routes,
               initialRoute: isOnBoarding && isLanguageSelected
-                  ? FirebaseAuth.instance.currentUser == null
+                  ? getIt<AuthService>().getCurrentUserId() == null
                       ? Routes.login
                       : Routes.home
                   : (isOnBoarding ? Routes.translate : Routes.onBoarding),

@@ -10,11 +10,14 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-      child: Scaffold(
-        body: BlocProvider(
-          create: (context) => getIt<CategoryCubit>()..getCategories(),
-          child: const CategoriesBody(),
+    return  PopScope(
+      canPop: false,
+      child: SafeArea(
+        child: Scaffold(
+          body: BlocProvider(
+            create: (context) => getIt<CategoryCubit>()..getCategories(),
+            child: const CategoriesBody(),
+          ),
         ),
       ),
     );

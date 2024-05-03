@@ -5,57 +5,55 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'categories_bloc_builder.dart';
 
-class HomeBody extends StatefulWidget {
+class HomeBody extends StatelessWidget {
   const HomeBody({super.key});
 
   @override
-  State<HomeBody> createState() => _HomeBodyState();
-}
-
-class _HomeBodyState extends State<HomeBody> {
-  @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-      child: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const BannerBlocBuilder(),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Categories',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
+    return PopScope(
+      canPop: false,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const BannerBlocBuilder(),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const CategoriesBlocBuilder(),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'New Products',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    'Categories',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const ProductBlocBuilder(),
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const CategoriesBlocBuilder(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'New Products',
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const ProductBlocBuilder(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

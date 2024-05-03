@@ -43,8 +43,7 @@ class _ApiServices implements ApiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
-
+   return _result.data!;
   }
 
   @override
@@ -71,8 +70,7 @@ class _ApiServices implements ApiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
-
+   return _result.data!;
   }
 
   @override
@@ -106,8 +104,7 @@ class _ApiServices implements ApiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
-
+   return _result.data!;
   }
 
   @override
@@ -141,8 +138,7 @@ class _ApiServices implements ApiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
-
+   return _result.data!;
   }
 
   @override
@@ -176,7 +172,7 @@ class _ApiServices implements ApiServices {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    return _result.data!;
+   return _result.data!;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
