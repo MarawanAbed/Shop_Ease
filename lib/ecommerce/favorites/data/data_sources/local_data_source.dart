@@ -14,15 +14,18 @@ class LocalDataSourceImpl extends LocalDataSource
 {
   late Box<FavoriteModel> favoriteBox;
 
-  LocalDataSourceImpl()
-  {
-    _openBox();
+  LocalDataSourceImpl._();
+
+  static Future<LocalDataSourceImpl> create() async {
+    var instance = LocalDataSourceImpl._();
+    await instance._openBox();
+    return instance;
   }
 
   Future<void> _openBox() async {
     var uId = getIt<AuthService>().getCurrentUserId();
     if (uId != null) {
-      favoriteBox = await Hive.openBox<FavoriteModel>(uId);
+      favoriteBox = await Hive.openBox<FavoriteModel>('favorite_$uId');
     }
   }
   @override
@@ -30,7 +33,7 @@ class LocalDataSourceImpl extends LocalDataSource
     var uId = getIt<AuthService>().getCurrentUserId();
     if (uId != null && uId != 'default') {
       await favoriteBox.close();
-      favoriteBox = await Hive.openBox<FavoriteModel>(uId);
+      favoriteBox = await Hive.openBox<FavoriteModel>('favorite_$uId');
     }
   }
   @override

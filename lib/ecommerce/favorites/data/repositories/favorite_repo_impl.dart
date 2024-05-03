@@ -5,14 +5,15 @@ import '../models/favorites_entity.dart';
 
 class FavoriteRepoImpl implements FavoriteRepo
 {
-  final LocalDataSource localDataSource;
+  final Future<LocalDataSource> localDataSource;
 
   FavoriteRepoImpl(this.localDataSource);
   @override
   Future<void> addFavorite(FavoriteModel favorite) async{
    try
    {
-      await localDataSource.addFavorite(favorite);
+     var dataSource = await localDataSource;
+     await dataSource.addFavorite(favorite);
     }
     catch(e)
     {
@@ -26,7 +27,9 @@ class FavoriteRepoImpl implements FavoriteRepo
   Future<void> removeFavorite(int id) async{
     try
     {
-      await localDataSource.removeFavorite(id);
+      var dataSource = await localDataSource;
+
+      await dataSource.removeFavorite(id);
     }
     catch(e)
     {
@@ -34,4 +37,16 @@ class FavoriteRepoImpl implements FavoriteRepo
     }
   }
 
+  @override
+  Future<void> favoriteSwitchUserBox() async{
+    try
+    {
+      var dataSource = await localDataSource;
+      await dataSource.switchUserBox();
+    }
+    catch(e)
+    {
+      rethrow;
+    }
+  }
 }

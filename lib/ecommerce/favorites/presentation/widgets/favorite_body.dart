@@ -25,7 +25,7 @@ class _FavoriteBodyState extends State<FavoriteBody> {
   void initState() {
     super.initState();
     var uId = getIt<AuthService>().getCurrentUserId();
-    boxListenable = Hive.box<FavoriteModel>(uId!).listenable();
+    boxListenable = Hive.box<FavoriteModel>('favorite_$uId').listenable();
   }
 
   @override

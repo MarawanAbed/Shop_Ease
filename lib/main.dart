@@ -11,6 +11,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/services/bloc_observer.dart';
 import 'core/utils/strings.dart';
+import 'ecommerce/cart/data/models/cart_model.dart';
 import 'ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 
 void main() async {
@@ -23,10 +24,11 @@ void main() async {
   final localCubit = getIt<LocalCubit>();
   await Hive.initFlutter();
   Hive.registerAdapter(FavoriteModelAdapter());
+  Hive.registerAdapter(CartModelAdapter());
   var uId = getIt<AuthService>().getCurrentUserId();
-  // Use a default key if the user ID is null
   uId = uId ?? 'default';
-  await Hive.openBox<FavoriteModel>(uId);
+  await Hive.openBox<FavoriteModel>('favorite_$uId');
+  await Hive.openBox<CartModel>('cart_$uId');
   await localCubit.getSavedLanguage();
   bool? isOnBoarding = await getIt<SharedPreCacheHelper>()
           .getData(key: AppStrings.onboardingKey) ??

@@ -19,59 +19,62 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final List<Widget>screens = [
+  final List<Widget> screens = [
     const HomeBody(),
     const CategoriesPage(),
     const FavoritePage(),
     const SettingsPage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _currentIndex==0||_currentIndex==1? PreferredSize(
-          preferredSize: Size.fromHeight(60.h),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10.0),
-            child: AppBar(
-              surfaceTintColor: Colors.white,
-              automaticallyImplyLeading: false,
-              elevation: 10,
-              title: Row(
-                children: [
-                  Logo(
-                    height: 50.h,
-                    width: 50.w,
-                  ),
-                  SizedBox(width: 10.w),
-                  Text(
-                    'Shop Ease',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20.sp,
+        appBar: _currentIndex == 0 || _currentIndex == 1
+            ? PreferredSize(
+                preferredSize: Size.fromHeight(60.h),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: AppBar(
+                    surfaceTintColor: Colors.white,
+                    automaticallyImplyLeading: false,
+                    elevation: 10,
+                    title: Row(
+                      children: [
+                        Logo(
+                          height: 50.h,
+                          width: 50.w,
+                        ),
+                        SizedBox(width: 10.w),
+                        Text(
+                          'Shop Ease',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20.sp,
+                          ),
+                        ),
+                      ],
                     ),
+                    actions: [
+                      IconButton(
+                        onPressed: () {
+                          Navigators.pushNamed(Routes.search);
+                        },
+                        icon: const Icon(Icons.search),
+                        color: Colors.black,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigators.pushNamed(Routes.cart);
+                        },
+                        icon: const Icon(Icons.shopping_cart),
+                        color: Colors.black,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    Navigators.pushNamed(Routes.search);
-                  },
-                  icon: const Icon(Icons.search),
-                  color: Colors.black,
                 ),
-                IconButton(
-                  onPressed: () {
-                    Navigators.pushNamed(Routes.cart);
-                  },
-                  icon: const Icon(Icons.shopping_cart),
-                  color: Colors.black,
-                ),
-              ],
-            ),
-          ),
-        ):null,
+              )
+            : null,
         body: screens[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,

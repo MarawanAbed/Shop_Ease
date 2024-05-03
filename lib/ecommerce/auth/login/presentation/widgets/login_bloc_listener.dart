@@ -1,13 +1,14 @@
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/auth/login/presentation/bloc/login_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/switch_box.dart';
+import 'package:ecommerce/ecommerce/favorites/domain/use_cases/favorite_switch_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../../../../core/di/dependancy_injection.dart';
 import '../../../../../core/helpers/helper_methods.dart';
-import '../../../../favorites/data/data_sources/local_data_source.dart';
 
 class LoginBlocListener extends StatelessWidget {
   const LoginBlocListener({super.key});
@@ -27,24 +28,28 @@ class LoginBlocListener extends StatelessWidget {
           loading: () async {
             HelperMethod.showLoadingDialog(context);
           },
-          success: ()async {
+          success: () async {
             Navigator.pop(context);
             HelperMethod.showSuccessToast(
               'Login Successful',
               gravity: ToastGravity.BOTTOM,
             );
-            await getIt<LocalDataSource>().switchUserBox();
+            await getIt<FavoriteSwitchBoxUseCase>().call();
+            await getIt<SwitchBoxUseCase>().call();
+
             Navigators.pushNamedAndRemoveUntil(Routes.home);
           },
           error: (message) {
             Navigator.pop(context);
             HelperMethod.showErrorToast(message, gravity: ToastGravity.BOTTOM);
           },
-          successWithGithub: () {
+          successWithGithub: () async {
             HelperMethod.showSuccessToast(
               'Login Successful',
               gravity: ToastGravity.BOTTOM,
             );
+            await getIt<FavoriteSwitchBoxUseCase>().call();
+            await getIt<SwitchBoxUseCase>().call();
             Navigators.pushNamedAndRemoveUntil(Routes.home);
           },
           errorWithGithub: (message) {

@@ -1,3 +1,4 @@
+import 'package:ecommerce/ecommerce/cart/data/models/cart_model.dart';
 import 'package:ecommerce/ecommerce/home_details/data/models/product.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/widgets/price_and_button.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/widgets/product_info.dart';
@@ -37,7 +38,16 @@ class _ProductDetailsItemsState extends State<ProductDetailsItems> {
           counter: _counter,
           onCounterChanged: _updateCounter,
         ),
-        PriceAndButton(totalPrice: totalPrice),
+        PriceAndButton(
+          totalPrice: totalPrice,
+          cartModel: CartModel(
+            id: widget.product.id,
+            name: widget.product.name,
+            image: widget.product.image,
+            quantity: _counter,
+            price: totalPrice,
+          ),
+        ),
       ],
     );
   }

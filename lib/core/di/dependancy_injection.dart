@@ -18,22 +18,26 @@ import 'package:ecommerce/ecommerce/auth/register/data/data_sources/register_rem
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/create_user.dart';
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/sign_up.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/bloc/register_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/data/repositories/cart_repo_impl.dart';
+import 'package:ecommerce/ecommerce/cart/domain/repositories/cart_repo.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/add_cart.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/is_already_in_cart.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/remove_cart.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/bloc/add_cart_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/bloc/remove_cart_cubit.dart';
 import 'package:ecommerce/ecommerce/categories/data/data_sources/categories_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/categories/data/repositories/categories_repo_impl.dart';
 import 'package:ecommerce/ecommerce/categories/domain/repositories/categories_repo.dart';
 import 'package:ecommerce/ecommerce/categories/domain/use_cases/get_categories.dart';
+import 'package:ecommerce/ecommerce/categories/presentation/bloc/category_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/data/data_sources/local_data_source.dart';
 import 'package:ecommerce/ecommerce/favorites/data/repositories/favorite_repo_impl.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/repositories/favorite_repo.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/add_favorite.dart';
+import 'package:ecommerce/ecommerce/favorites/domain/use_cases/favorite_switch_box.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/remove_favorite.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
-import 'package:ecommerce/ecommerce/products_by_categories/data/data_sources/products_remote_data_source.dart';
-import 'package:ecommerce/ecommerce/products_by_categories/data/repositories/products_repo_impl.dart';
-import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/products_repo.dart';
-import 'package:ecommerce/ecommerce/products_by_categories/domain/use_cases/get_product_by_categories.dart';
-import 'package:ecommerce/ecommerce/categories/presentation/bloc/category_cubit.dart';
 import 'package:ecommerce/ecommerce/home/domain/use_cases/get_banner.dart';
 import 'package:ecommerce/ecommerce/home/domain/use_cases/get_categories.dart';
 import 'package:ecommerce/ecommerce/home/domain/use_cases/get_product_by_categories.dart';
@@ -42,6 +46,10 @@ import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart
 import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home_details/domain/repositories/home_details_repo.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/data/data_sources/products_remote_data_source.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/data/repositories/products_repo_impl.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/products_repo.dart';
+import 'package:ecommerce/ecommerce/products_by_categories/domain/use_cases/get_product_by_categories.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/products_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/search/data/data_sources/search_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/search/data/repositories/search_repo_impl.dart';
@@ -62,6 +70,8 @@ import '../../ecommerce/auth/login/domain/use_cases/github_sign_in.dart';
 import '../../ecommerce/auth/register/data/repositories/register_repo_impl.dart';
 import '../../ecommerce/auth/register/domain/repositories/register_repo.dart';
 import '../../ecommerce/auth/register/domain/use_cases/create_customer.dart';
+import '../../ecommerce/cart/data/data_sources/local_data_source.dart';
+import '../../ecommerce/cart/domain/use_cases/switch_box.dart';
 import '../../ecommerce/home/data/data_sources/home_remote_data_source.dart';
 import '../../ecommerce/home/data/repositories/home_repo_impl.dart';
 import '../../ecommerce/home/domain/repositories/home_repo.dart';
@@ -113,8 +123,15 @@ void _setupDataSource() {
 
   getIt.registerLazySingleton<SearchRemoteDataSource>(
       () => SearchRemoteDataSourceImpl(apiServices: getIt()));
-  getIt.registerLazySingleton<LocalDataSource>(
-          () => LocalDataSourceImpl());
+
+
+  getIt.registerLazySingleton<Future<CartLocalDataSource>>(
+        () => CartLocalDataSourceImpl.create(),
+  );
+  getIt.registerLazySingleton<Future<LocalDataSource>>(
+        () => LocalDataSourceImpl.create(),
+  );
+
 }
 
 void _setupRepositories() {
@@ -142,9 +159,9 @@ void _setupRepositories() {
   getIt.registerLazySingleton<SearchRepo>(
       () => SearchRepoImpl(searchDataSource: getIt()));
 
+  getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepoImpl(getIt()));
 
-  getIt.registerLazySingleton<FavoriteRepo>(
-      () => FavoriteRepoImpl(getIt()));
+  getIt.registerLazySingleton<CartRepo>(() => CartRepoImpl(getIt()));
 }
 
 void _setupUseCases() {
@@ -173,10 +190,17 @@ void _setupUseCases() {
       () => CategoriesUseCase(getIt()));
   getIt.registerLazySingleton<ProductsByCategories>(
       () => ProductsByCategories(getIt()));
-  getIt.registerLazySingleton<SearchProduct>(
-      () => SearchProduct(getIt()));
+  getIt.registerLazySingleton<SearchProduct>(() => SearchProduct(getIt()));
   getIt.registerLazySingleton<AddFavorite>(() => AddFavorite(getIt()));
   getIt.registerLazySingleton<RemoveFavorite>(() => RemoveFavorite(getIt()));
+  getIt.registerLazySingleton<AddCart>(() => AddCart(getIt()));
+  getIt.registerLazySingleton<RemoveCart>(() => RemoveCart(getIt()));
+  getIt.registerLazySingleton<SwitchBoxUseCase>(
+      () => SwitchBoxUseCase(getIt()));
+  getIt.registerLazySingleton<FavoriteSwitchBoxUseCase>(
+          () => FavoriteSwitchBoxUseCase(getIt()));
+  getIt.registerLazySingleton<IsAlreadyInCart>(() => IsAlreadyInCart(getIt()));
+
 }
 
 void _setupCubit() {
@@ -205,11 +229,14 @@ void _setupCubit() {
       .registerFactory<ProductDetailsCubit>(() => ProductDetailsCubit(getIt()));
   getIt.registerFactory<CategoryCubit>(() => CategoryCubit(getIt()));
 
-  getIt.registerFactory<ProductsByCategoriesCubit>(() => ProductsByCategoriesCubit(getIt()));
+  getIt.registerFactory<ProductsByCategoriesCubit>(
+      () => ProductsByCategoriesCubit(getIt()));
   getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
   getIt.registerFactory<AddFavoriteCubit>(() => AddFavoriteCubit(getIt()));
-  getIt.registerFactory<RemoveFavoritesCubit>(() => RemoveFavoritesCubit(getIt()));
-
+  getIt.registerFactory<RemoveFavoritesCubit>(
+      () => RemoveFavoritesCubit(getIt()));
+  getIt.registerFactory<AddCartCubit>(() => AddCartCubit(getIt(),getIt()));
+  getIt.registerFactory<RemoveCartCubit>(() => RemoveCartCubit(getIt()));
 }
 
 void _setupServices() async {
