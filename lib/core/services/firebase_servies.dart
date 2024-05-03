@@ -35,9 +35,12 @@ class AuthService {
         email: email,
         password: password,
       );
-      await getIt<DatabaseService>().updateUser({
-        'uId': auth.currentUser!.uid,
-      });
+      if(auth.currentUser?.uid==null)
+      {
+        await getIt<DatabaseService>().updateUser({
+          'uId': auth.currentUser!.uid,
+        });
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw Exception('No user found for that email.');

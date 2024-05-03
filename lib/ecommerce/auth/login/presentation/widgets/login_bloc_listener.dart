@@ -33,7 +33,7 @@ class LoginBlocListener extends StatelessWidget {
               'Login Successful',
               gravity: ToastGravity.BOTTOM,
             );
-            await getIt<LocalDataSourceImpl>().switchUserBox();
+            await getIt<LocalDataSource>().switchUserBox();
             Navigators.pushNamedAndRemoveUntil(Routes.home);
           },
           error: (message) {

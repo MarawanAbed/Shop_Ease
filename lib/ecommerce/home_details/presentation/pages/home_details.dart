@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
+import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,9 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
                   isFavorite = !isFavorite;
                 });
                 final prefs = getIt<SharedPreCacheHelper>();
+                final userId=getIt<AuthService>().getCurrentUserId();
                 if (isFavorite) {
-                  await prefs.saveData(key: 'favorite_$id', value: true);
+                  await prefs.saveData(key: 'favorite_${userId}_$id', value: true);
                   HelperMethod.showSuccessToast('added to favorite',
                       gravity: ToastGravity.BOTTOM);
                   context.read<AddFavoriteCubit>().addFavorite(
@@ -72,7 +74,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
                         ),
                       );
                 } else {
-                  await prefs.removeData(key: 'favorite_$id');
+                  await prefs.removeData(key: 'favorite_${userId}_$id');
                   HelperMethod.showErrorToast('removed from favorite',
                       gravity: ToastGravity.BOTTOM);
                   context.read<RemoveFavoritesCubit>().removeFavorites(id);

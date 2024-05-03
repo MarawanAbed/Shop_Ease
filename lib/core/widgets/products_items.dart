@@ -2,6 +2,7 @@ import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/cached_image.dart';
 import 'package:ecommerce/ecommerce/favorites/data/models/favorites_entity.dart';
@@ -21,6 +22,7 @@ class ProductsItems extends StatefulWidget {
 
   final Object product;
 
+
   @override
   State<ProductsItems> createState() => _ProductsItemsState();
 }
@@ -30,16 +32,18 @@ class _ProductsItemsState extends State<ProductsItems> {
   final _prefs = getIt<SharedPreCacheHelper>();
 
   loadFavorite() async {
+    final userId = getIt<AuthService>().getCurrentUserId();
     final productId = widget.product is HomeProductModel
         ? (widget.product as HomeProductModel).id
         : (widget.product as ProductsByCategoriesProductsModel).id;
-    bool favorite = await _prefs.getData(key: 'favorite_$productId') ?? false;
+    bool favorite = await _prefs.getData(key:'favorite_${userId}_$productId') ?? false;
     setState(() {
       isFavorite = favorite;
     });
   }
 
   void toggleFavorite(FavoriteModel favoriteModel) async {
+    final userId = getIt<AuthService>().getCurrentUserId();
     final productId = widget.product is HomeProductModel
         ? (widget.product as HomeProductModel).id
         : (widget.product as ProductsByCategoriesProductsModel).id;
@@ -49,14 +53,14 @@ class _ProductsItemsState extends State<ProductsItems> {
     });
 
     if (isFavorite) {
-      await _prefs.saveData(key: 'favorite_$productId', value: true);
+      await _prefs.saveData(key: 'favorite_${userId}_$productId', value: true);
       context.read<AddFavoriteCubit>().addFavorites(
             favoriteModel,
           );
       HelperMethod.showSuccessToast('Added to favorite',
           gravity: ToastGravity.BOTTOM);
     } else {
-      await _prefs.removeData(key: 'favorite_$productId');
+      await _prefs.removeData(key: 'favorite_${userId}_$productId');
       context.read<RemoveFavoritesCubit>().removeFavorites(productId);
       HelperMethod.showErrorToast('Removed from favorite',
           gravity: ToastGravity.BOTTOM);

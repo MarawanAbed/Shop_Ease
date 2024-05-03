@@ -9,19 +9,25 @@ abstract class LocalDataSource
   Future<List<FavoriteModel>> getFavorites();
   Future<void> removeFavorite(int id);
   Future<void> removeAllFavorites();
+  Future<void> switchUserBox();
 }
 
 class LocalDataSourceImpl extends LocalDataSource
 {
   late Box<FavoriteModel> favoriteBox;
 
-   LocalDataSourceImpl()
-   {
-     var uId=getIt<AuthService>().getCurrentUserId();
-      favoriteBox = Hive.box<FavoriteModel>(uId!);
-   }
+  LocalDataSourceImpl()
+  {
+    _openBox();
+  }
 
-
+  Future<void> _openBox() async {
+    var uId = getIt<AuthService>().getCurrentUserId();
+    if (uId != null) {
+      favoriteBox = await Hive.openBox<FavoriteModel>(uId);
+    }
+  }
+  @override
   Future<void> switchUserBox() async {
     var uId = getIt<AuthService>().getCurrentUserId();
     if (uId != null && uId != 'default') {
