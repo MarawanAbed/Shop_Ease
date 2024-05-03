@@ -20,29 +20,7 @@ class FavoriteRepoImpl implements FavoriteRepo
    }
   }
 
-  @override
-  Future<List<FavoriteModel>> getFavorites()async {
-    try
-    {
-      return await localDataSource.getFavorites();
-    }
-    catch(e)
-    {
-      rethrow;
-    }
-  }
 
-  @override
-  Future<void> removeAllFavorites()async {
-    try
-    {
-      await localDataSource.removeAllFavorites();
-    }
-    catch(e)
-    {
-      rethrow;
-    }
-  }
 
   @override
   Future<void> removeFavorite(int id) async{

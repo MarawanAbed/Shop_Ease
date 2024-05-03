@@ -26,10 +26,8 @@ import 'package:ecommerce/ecommerce/favorites/data/data_sources/local_data_sourc
 import 'package:ecommerce/ecommerce/favorites/data/repositories/favorite_repo_impl.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/repositories/favorite_repo.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/add_favorite.dart';
-import 'package:ecommerce/ecommerce/favorites/domain/use_cases/get_favorites.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/remove_favorite.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
-import 'package:ecommerce/ecommerce/favorites/presentation/bloc/get_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/data/data_sources/products_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/data/repositories/products_repo_impl.dart';
@@ -179,7 +177,6 @@ void _setupUseCases() {
       () => SearchProduct(getIt()));
   getIt.registerLazySingleton<AddFavorite>(() => AddFavorite(getIt()));
   getIt.registerLazySingleton<RemoveFavorite>(() => RemoveFavorite(getIt()));
-  getIt.registerLazySingleton<GetFavorite>(() => GetFavorite(getIt()));
 }
 
 void _setupCubit() {
@@ -212,7 +209,6 @@ void _setupCubit() {
   getIt.registerFactory<SearchCubit>(() => SearchCubit(getIt()));
   getIt.registerFactory<AddFavoriteCubit>(() => AddFavoriteCubit(getIt()));
   getIt.registerFactory<RemoveFavoritesCubit>(() => RemoveFavoritesCubit(getIt()));
-  getIt.registerFactory<GetFavoritesCubit>(() => GetFavoritesCubit(getIt()));
 
 }
 

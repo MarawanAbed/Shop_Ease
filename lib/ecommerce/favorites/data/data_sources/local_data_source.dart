@@ -6,9 +6,7 @@ import 'package:hive/hive.dart';
 abstract class LocalDataSource
 {
   Future<void> addFavorite(FavoriteModel favorite);
-  Future<List<FavoriteModel>> getFavorites();
   Future<void> removeFavorite(int id);
-  Future<void> removeAllFavorites();
   Future<void> switchUserBox();
 }
 
@@ -41,17 +39,8 @@ class LocalDataSourceImpl extends LocalDataSource
     await favoriteBox.add(favorite);
   }
 
-  @override
-  Future<List<FavoriteModel>> getFavorites() async
-  {
-    return favoriteBox.values.toList();
-  }
 
-  @override
-  Future<void> removeAllFavorites() async
-  {
-    await favoriteBox.clear();
-  }
+
 
   @override
   Future<void> removeFavorite(int id) async
