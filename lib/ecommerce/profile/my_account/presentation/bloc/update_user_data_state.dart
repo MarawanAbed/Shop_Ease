@@ -9,4 +9,10 @@ class UpdateUserDataState with _$UpdateUserDataState {
   const factory UpdateUserDataState.loaded() = Loaded;
 
   const factory UpdateUserDataState.error(String message) = Error;
+
+  const factory UpdateUserDataState.imageLoaded() = ImageLoaded;
+
+  const factory UpdateUserDataState.imageError(String message) = ImageError;
+
+  const factory UpdateUserDataState.imageInitial() = ImageInitial;
 }

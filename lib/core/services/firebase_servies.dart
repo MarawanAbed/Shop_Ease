@@ -7,13 +7,12 @@ import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.da
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 import '../../ecommerce/auth/register/data/models/user_model.dart';
-import '../../ecommerce/auth/verify_email/verify_email.dart';
 import '../di/dependancy_injection.dart';
 
 class AuthService {
@@ -286,23 +285,31 @@ class AuthService {
     }
   }
 
-  Future<void> updateEmailAndPassword(
-      {required String email, required String password,required BuildContext context}) async {
+  Future<void> updateEmailAndPassword({
+    required String newEmail,
+    required String newPassword,
+    required String oldPassword,
+  }) async {
     try {
-       auth.currentUser!.verifyBeforeUpdateEmail(email).then((_) {
-         HelperMethod.showSuccessToast('please verify your email to update it');
-         Navigator.push(
-           context,
-           MaterialPageRoute(builder: (context) => const VerifyEmailScreen()),
-         );
-       });
+      final user = auth.currentUser;
+      // Reauthenticate the user with the old password
+      final userCredential = await user?.reauthenticateWithCredential(
+        EmailAuthProvider.credential(
+          email: user.email!,
+          password: oldPassword,
+        ),
+      );
 
-      await auth.currentUser!.updatePassword(password);
-    } on FirebaseAuth catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
-      throw Exception('Failed to update email and password');
+      await userCredential?.user?.updateEmail(newEmail);
+      await userCredential?.user?.updatePassword(newPassword);
+
+      await signIn(email: newEmail, password: newPassword);
+      HelperMethod.showSuccessToast('Email and password updated successfully',
+          gravity: ToastGravity.BOTTOM);
+    } catch (e) {
+      // Handle the error properly
+      print('Error: $e');
+      HelperMethod.showErrorToast('Error updating email and password: $e');
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
-import 'package:flutter/material.dart';
 
 abstract class MyAccountRepo {
   Stream<MyAccountModel> getSingleUser();
@@ -7,5 +6,5 @@ abstract class MyAccountRepo {
   Future<void> updateUser(Map<String, dynamic> data);
 
   Future<void> updateEmailAndPassword(
-      {required String email, required String password,required BuildContext context});
+      String email, String newPassowrd, String oldPassword);
 }

@@ -14,9 +14,12 @@ class Validation {
   static bool isValidIDNumber(String id) =>
       RegExp("^[1-2][0-9]{1,10}\$").hasMatch(id);
 
-  static bool isEmailValid(String email) => RegExp(
-          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-      .hasMatch(email);
+  static bool isEmailValid(String email) {
+    final RegExp regex = RegExp(
+      r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
+    );
+    return regex.hasMatch(email);
+  }
 
   static bool isPasswordValid(String password) => RegExp(
           r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")

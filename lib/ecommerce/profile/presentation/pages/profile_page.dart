@@ -22,7 +22,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ),
-          body:  ProfileBody(
+          body:  const ProfileBody(
           ),
         ),
       ),

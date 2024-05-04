@@ -30,6 +30,7 @@ import '../../ecommerce/home/presentation/pages/home_page.dart';
 import '../../ecommerce/home_details/presentation/pages/home_details.dart';
 import '../../ecommerce/products_by_categories/presentation/bloc/products_by_categories_cubit.dart';
 import '../../ecommerce/profile/about_us/presentation/pages/about_us_page.dart';
+import '../../ecommerce/profile/my_account/presentation/pages/edit_profile.dart';
 import '../../ecommerce/profile/my_account/presentation/pages/my_account_page.dart';
 
 class AppRoutes {
@@ -101,13 +102,17 @@ class AppRoutes {
     Routes.myAccount: (context) => MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => getIt<GetSingleUserCubit>()..getSingleUser(),
+              create: (context) => getIt<GetSingleUserCubit>(),
             ),
             BlocProvider(
               create: (context) => getIt<UpdateUserDataCubit>(),
             ),
           ],
           child: const MyAccountPage(),
+        ),
+    Routes.editProfile: (context) => BlocProvider(
+          create: (context) => getIt<UpdateUserDataCubit>(),
+          child: const EditProfilePage(),
         ),
   };
 }

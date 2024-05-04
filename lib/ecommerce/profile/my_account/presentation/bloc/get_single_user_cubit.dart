@@ -11,6 +11,8 @@ class GetSingleUserCubit extends Cubit<GetSingleUserState> {
   GetSingleUserCubit(this._getUser) : super(const GetSingleUserState.initial());
   final GetUser _getUser;
 
+  MyAccountModel? myAccountModel;
+
   void getSingleUser() {
     emit(const GetSingleUserState.loading());
     try {
@@ -19,6 +21,13 @@ class GetSingleUserCubit extends Cubit<GetSingleUserState> {
       });
     } catch (e) {
       emit(GetSingleUserState.error(e.toString()));
+    }
+  }
+
+  @override
+  void emit(state) {
+    if (!isClosed) {
+      super.emit(state);
     }
   }
 }
