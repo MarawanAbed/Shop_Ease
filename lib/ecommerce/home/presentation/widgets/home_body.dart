@@ -1,12 +1,31 @@
+import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/widgets/banner_bloc_builder.dart';
 import 'package:ecommerce/ecommerce/home/presentation/widgets/product_bloc_builder.dart';
+import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../bloc/product_by_categories_cubit.dart';
 import 'categories_bloc_builder.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  late String language;
+
+  @override
+  void initState() {
+    language = context.read<LocalCubit>().state.language;
+    context.read<CategoriesCubit>().getCategories(language);
+    context.read<ProductByCategoriesCubit>().getProductByCategories(language);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +53,9 @@ class HomeBody extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const CategoriesBlocBuilder(),
+                  CategoriesBlocBuilder(
+                    language: language,
+                  ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -48,7 +69,9 @@ class HomeBody extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  const ProductBlocBuilder(),
+                  ProductBlocBuilder(
+                    language: language,
+                  ),
                 ],
               ),
             ),
@@ -58,4 +81,3 @@ class HomeBody extends StatelessWidget {
     );
   }
 }
-

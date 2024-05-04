@@ -28,4 +28,11 @@ class CategoryCubit extends Cubit<CategoryState> {
       );
     }
   }
+
+  @override
+  void emit( state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

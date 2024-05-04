@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductsBLocBuilder extends StatelessWidget {
-  const ProductsBLocBuilder({super.key});
-
+  const ProductsBLocBuilder({super.key, required this.language});
+  final String language;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductsByCategoriesCubit, ProductsByCategoriesState>(
@@ -17,6 +17,7 @@ class ProductsBLocBuilder extends StatelessWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
           loaded: (products) => ProductsListView(
             products: products,
+            language: language,
           ),
           error: (message) => Center(
             child: Text(message),

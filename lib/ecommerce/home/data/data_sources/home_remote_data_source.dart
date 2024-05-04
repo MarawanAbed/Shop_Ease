@@ -4,18 +4,13 @@ import 'package:ecommerce/ecommerce/home/data/models/banner.dart';
 import 'package:ecommerce/ecommerce/home/data/models/categories.dart';
 import 'package:ecommerce/ecommerce/home/data/models/product.dart';
 
-import '../../../../core/di/dependancy_injection.dart';
-import '../../../translate/presentation/bloc/translate/translate_cubit.dart';
-
 abstract class HomeRemoteDataSource {
   Future<List<BannerModel>> getBanner();
 
-  Future<List<CategoriesModel>> getCategories();
+  Future<List<CategoriesModel>> getCategories(String language);
 
   Future<List<HomeProductModel>> getProductsByCategories(
-       int categoryId);
-
-
+      int categoryId, String language);
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -32,19 +27,15 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   }
 
   @override
-  Future<List<CategoriesModel>> getCategories() async {
-    String language = getIt<LocalCubit>().state.language;
+  Future<List<CategoriesModel>> getCategories(String language) async {
     final response = await _apiServices.getCategories(language);
     final categoriesJson = response['data']['data'] as List;
     return categoriesJson.map((e) => CategoriesModel.fromJson(e)).toList();
   }
 
-
-
   @override
   Future<List<HomeProductModel>> getProductsByCategories(
-       int categoryId) async {
-    String language = getIt<LocalCubit>().state.language;
+      int categoryId, String language) async {
     final response = await _apiServices.getProductsByCategories(
         language, AppSecured.token, categoryId);
     final productsJson = response['data']['data'] as List;

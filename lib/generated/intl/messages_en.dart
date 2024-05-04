@@ -69,6 +69,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
         "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
-        "sendResetLink": MessageLookupByLibrary.simpleMessage("Send Reset Link")
+        "sendResetLink":
+            MessageLookupByLibrary.simpleMessage("Send Reset Link"),
+        "settings": MessageLookupByLibrary.simpleMessage("Settings")
       };
 }

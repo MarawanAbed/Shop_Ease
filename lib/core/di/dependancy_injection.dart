@@ -51,6 +51,11 @@ import 'package:ecommerce/ecommerce/products_by_categories/data/repositories/pro
 import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/products_repo.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/domain/use_cases/get_product_by_categories.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/products_by_categories_cubit.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/data/data_sources/my_account_data_source.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/update_email_and_password.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/update_user_data.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
 import 'package:ecommerce/ecommerce/search/data/data_sources/search_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/search/data/repositories/search_repo_impl.dart';
 import 'package:ecommerce/ecommerce/search/domain/repositories/search_repo.dart';
@@ -78,6 +83,9 @@ import '../../ecommerce/home/domain/repositories/home_repo.dart';
 import '../../ecommerce/home_details/data/data_sources/home_details_remote_data_source.dart';
 import '../../ecommerce/home_details/data/repositories/home_details_repo_impl.dart';
 import '../../ecommerce/home_details/domain/use_cases/get_porduct_details.dart';
+import '../../ecommerce/profile/my_account/data/repositories/my_account_repo_impl.dart';
+import '../../ecommerce/profile/my_account/domain/repositories/my_account_repo.dart';
+import '../../ecommerce/profile/my_account/domain/use_cases/get_single_user.dart';
 import '../../ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import '../networking/dio_factory.dart';
 import '../services/firebase_servies.dart';
@@ -124,14 +132,19 @@ void _setupDataSource() {
   getIt.registerLazySingleton<SearchRemoteDataSource>(
       () => SearchRemoteDataSourceImpl(apiServices: getIt()));
 
-
   getIt.registerLazySingleton<Future<CartLocalDataSource>>(
-        () => CartLocalDataSourceImpl.create(),
+    () => CartLocalDataSourceImpl.create(),
   );
   getIt.registerLazySingleton<Future<LocalDataSource>>(
-        () => LocalDataSourceImpl.create(),
+    () => LocalDataSourceImpl.create(),
   );
 
+  getIt.registerLazySingleton<MyAccountRemoteDataSource>(
+    () => MyAccountRemoteDataSourceImpl(
+      getIt(),
+      getIt(),
+    ),
+  );
 }
 
 void _setupRepositories() {
@@ -162,6 +175,12 @@ void _setupRepositories() {
   getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepoImpl(getIt()));
 
   getIt.registerLazySingleton<CartRepo>(() => CartRepoImpl(getIt()));
+
+  getIt.registerLazySingleton<MyAccountRepo>(
+    () => MyAccountRepoImpl(
+      getIt(),
+    ),
+  );
 }
 
 void _setupUseCases() {
@@ -195,12 +214,17 @@ void _setupUseCases() {
   getIt.registerLazySingleton<RemoveFavorite>(() => RemoveFavorite(getIt()));
   getIt.registerLazySingleton<AddCart>(() => AddCart(getIt()));
   getIt.registerLazySingleton<RemoveCart>(() => RemoveCart(getIt()));
-  getIt.registerLazySingleton<SwitchBoxUseCase>(
-      () => SwitchBoxUseCase(getIt()));
+  getIt
+      .registerLazySingleton<SwitchBoxUseCase>(() => SwitchBoxUseCase(getIt()));
   getIt.registerLazySingleton<FavoriteSwitchBoxUseCase>(
-          () => FavoriteSwitchBoxUseCase(getIt()));
+      () => FavoriteSwitchBoxUseCase(getIt()));
   getIt.registerLazySingleton<IsAlreadyInCart>(() => IsAlreadyInCart(getIt()));
+  getIt.registerLazySingleton<UpdateEmailAndPassword>(
+      () => UpdateEmailAndPassword(getIt()));
 
+  getIt.registerLazySingleton<UpdateUserData>(() => UpdateUserData(getIt()));
+
+  getIt.registerLazySingleton<GetUser>(() => GetUser(getIt()));
 }
 
 void _setupCubit() {
@@ -235,8 +259,15 @@ void _setupCubit() {
   getIt.registerFactory<AddFavoriteCubit>(() => AddFavoriteCubit(getIt()));
   getIt.registerFactory<RemoveFavoritesCubit>(
       () => RemoveFavoritesCubit(getIt()));
-  getIt.registerFactory<AddCartCubit>(() => AddCartCubit(getIt(),getIt()));
+  getIt.registerFactory<AddCartCubit>(() => AddCartCubit(getIt(), getIt()));
   getIt.registerFactory<RemoveCartCubit>(() => RemoveCartCubit(getIt()));
+
+  getIt.registerFactory<UpdateUserDataCubit>(() => UpdateUserDataCubit(
+        getIt(),
+        getIt(),
+      ));
+
+  getIt.registerFactory<GetSingleUserCubit>(() => GetSingleUserCubit(getIt()));
 }
 
 void _setupServices() async {

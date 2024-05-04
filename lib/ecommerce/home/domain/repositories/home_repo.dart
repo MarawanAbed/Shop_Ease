@@ -7,6 +7,6 @@ import '../../data/models/product.dart';
 abstract class HomeRepo
 {
   Future<ApiResult<List<BannerModel>>> getBanner();
-  Future<ApiResult<List<CategoriesModel>>> getCategories();
-  Future<ApiResult<List<HomeProductModel>>> getProductsByCategories( int categoryId);
+  Future<ApiResult<List<CategoriesModel>>> getCategories(String language);
+  Future<ApiResult<List<HomeProductModel>>> getProductsByCategories( int categoryId,String language);
 }

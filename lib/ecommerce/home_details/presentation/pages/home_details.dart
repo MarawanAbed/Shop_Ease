@@ -29,6 +29,8 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
   late int discount;
   late String description;
 
+  late String language;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -41,6 +43,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
     price = arguments['price'] as double;
     discount = arguments['discount'] as int;
     description = arguments['description'] as String;
+    language=arguments['language'] as String;
   }
 
   @override
@@ -87,7 +90,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
             ),
           ],
         ),
-        body: HomeDetailsBody(id: id),
+        body: HomeDetailsBody(id: id,language: language),
       ),
     );
   }

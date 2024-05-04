@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchBlocBuilder extends StatelessWidget {
-  const SearchBlocBuilder({super.key});
-
+  const SearchBlocBuilder({super.key, required this.language});
+  final String language;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SearchCubit, SearchState>(
@@ -30,6 +30,7 @@ class SearchBlocBuilder extends StatelessWidget {
                   ),
                 )
               : SearchListView(
+                  language: language,
                   products: products,
                 ),
           error: (message) => Expanded(

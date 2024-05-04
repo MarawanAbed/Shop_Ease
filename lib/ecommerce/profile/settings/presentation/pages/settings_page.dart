@@ -1,4 +1,8 @@
+import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
+import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_state.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -9,10 +13,10 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _isDarkMode = false;
-  String _selectedLanguage = 'English';
 
   @override
   Widget build(BuildContext context) {
+    var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -25,9 +29,9 @@ class _SettingsPageState extends State<SettingsPage> {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          'Settings',
-          style: TextStyle(
+        title: Text(
+          lang.settings,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -36,66 +40,58 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            SwitchListTile(
-              title: const Text('Dark Mode'),
-              value: _isDarkMode,
-              onChanged: (bool value) {
-                setState(() {
-                  _isDarkMode = value;
-                  // TODO: Implement your functionality to change the app theme
-                });
-              },
-              activeColor: Colors.deepPurple,
-            ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Language',
-                    style:
-                    TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                DropdownButton<String>(
-                  value: _selectedLanguage,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      _selectedLanguage = newValue!;
-                      // TODO: Implement your functionality to change the app language
-                    });
-                  },
-                  items: <String>['English', 'Arabic']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  icon: const Icon(
-                    Icons.language,
-                    color: Colors.black,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 16),
+              SwitchListTile(
+                title: const Text('Dark Mode'),
+                value: _isDarkMode,
+                onChanged: (bool value) {
+                  setState(() {
+                    _isDarkMode = value;
+                    // TODO: Implement your functionality to change the app theme
+                  });
+                },
+                activeColor: Colors.deepPurple,
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Language',
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  BlocConsumer<LocalCubit, LocalState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      String dropdownValue = 'en'; // Default value
+                      if (state.language == 'en' || state.language == 'ar') {
+                        dropdownValue = state.language;
+                      }
+                      return DropdownButton<String>(
+                        value: dropdownValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: ['ar', 'en'].map((String items) {
+                          return DropdownMenuItem<String>(
+                            value: items,
+                            child: Text(items),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            context.read<LocalCubit>().changeLanguage(newValue);
+                          }
+                        },
+                      );
+                    },
                   ),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.black,
-                  ),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
-          ],
+                ],
+              ),
+              const SizedBox(height: 32),
+            ],
+          ),
         ),
       ),
     );

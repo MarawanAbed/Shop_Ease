@@ -5,13 +5,13 @@ import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/p
 import '../../../../core/networking/api_result.dart';
 
 class ProductsByCategories
-    implements UseCase<Future<ApiResult<List<ProductsByCategoriesProductsModel>>>, int> {
+    implements UseCaseTwoParams<Future<ApiResult<List<ProductsByCategoriesProductsModel>>>, int,String> {
   final ProductsRepo _repo;
 
   ProductsByCategories(this._repo);
 
   @override
-  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> call([int? parameter]) async {
-    return await _repo.getProductsByCategories(parameter!);
+  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> call([int? parameter1,String? parameter2]) async {
+    return await _repo.getProductsByCategories(parameter1!,parameter2!);
   }
 }

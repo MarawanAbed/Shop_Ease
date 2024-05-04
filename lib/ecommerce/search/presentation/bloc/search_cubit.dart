@@ -13,9 +13,9 @@ class SearchCubit extends Cubit<SearchState> {
 
   final SearchProduct _searchProduct;
 
-  Future<void> searchProducts(String text) async {
+  Future<void> searchProducts(String text,String language) async {
     emit(const SearchState.loading());
-    final result = await _searchProduct(text);
+    final result = await _searchProduct(text,language);
     result.when(
       success: (products) {
         emit(SearchState.success(products));

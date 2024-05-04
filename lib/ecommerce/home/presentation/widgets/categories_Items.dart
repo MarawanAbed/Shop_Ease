@@ -10,15 +10,18 @@ class CategoryItems extends StatelessWidget {
   const CategoryItems({
     super.key,
     required this.categories,
+    required this.language,
   });
 
   final CategoriesModel categories;
+  final String language;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigators.pushNamed(Routes.productsByCategories, arguments: {'id':categories.id,'name':categories.name,});
+        Navigators.pushNamed(Routes.productsByCategories,
+            arguments: {'id': categories.id, 'name': categories.name, 'language': language,});
       },
       child: Stack(
         children: [

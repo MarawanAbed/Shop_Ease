@@ -12,9 +12,9 @@ class SearchRepoImpl extends SearchRepo {
   SearchRepoImpl({required this.searchDataSource});
 
   @override
-  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> searchProducts(String text) async {
+  Future<ApiResult<List<ProductsByCategoriesProductsModel>>> searchProducts(String text,language) async {
     try {
-      final products = await searchDataSource.searchProducts(text);
+      final products = await searchDataSource.searchProducts(text,language);
       return ApiResult.success(products);
     } catch (e) {
       if (e is DioException) {

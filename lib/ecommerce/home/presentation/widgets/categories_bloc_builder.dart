@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesBlocBuilder extends StatelessWidget {
-  const CategoriesBlocBuilder({super.key});
-
+  const CategoriesBlocBuilder({super.key, required this.language});
+  final String language;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CategoriesCubit, CategoriesState>(
@@ -14,7 +14,7 @@ class CategoriesBlocBuilder extends StatelessWidget {
         return state.when(
           initial: ()=> const Center(child: CircularProgressIndicator()),
           loading: () => const Center(child: CircularProgressIndicator()),
-          loaded: (categories)=>CategoriesBuilder(categories: categories),
+          loaded: (categories)=>CategoriesBuilder(categories: categories,language: language),
           error: (message) => Center(child: Text(message)),
         );
       },

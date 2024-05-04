@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeDetailsBody extends StatefulWidget {
-  const HomeDetailsBody({super.key, required this.id});
+  const HomeDetailsBody({super.key, required this.id, required this.language});
 
   final int id;
+  final String language;
 
   @override
   State<HomeDetailsBody> createState() => _HomeDetailsBodyState();
@@ -15,7 +16,7 @@ class HomeDetailsBody extends StatefulWidget {
 class _HomeDetailsBodyState extends State<HomeDetailsBody> {
   @override
   void initState() {
-    context.read<ProductDetailsCubit>().getProductDetails(widget.id);
+    context.read<ProductDetailsCubit>().getProductDetails(widget.id, widget.language);
     super.initState();
   }
 

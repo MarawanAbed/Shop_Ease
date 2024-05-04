@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     const HomeBody(),
     const CategoriesPage(),
     const FavoritePage(),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductBlocBuilder extends StatelessWidget {
-  const ProductBlocBuilder({super.key});
-
+  const ProductBlocBuilder({super.key, required this.language});
+  final String language;
   @override
   Widget build(BuildContext context) {
     var cubit = context.read<ProductByCategoriesCubit>();
@@ -26,6 +26,7 @@ class ProductBlocBuilder extends StatelessWidget {
           loaded: (products) =>
               HomeProductsListView(
                 products: cubit.products,
+                language: language,
               ),
           error: (message) =>
               Center(

@@ -14,9 +14,9 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   final GetCategories _getCategories;
 
   final List<CategoriesModel> categories = [];
-  void getCategories() async {
+  void getCategories(String language) async {
     emit(const CategoriesState.loading());
-    final result = await _getCategories();
+    final result = await _getCategories(language);
     print(result);
     result.when(
       success: (List<CategoriesModel> data) {

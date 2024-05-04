@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sendEmail":
             MessageLookupByLibrary.simpleMessage("إرسال بريد إلكتروني"),
         "sendResetLink":
-            MessageLookupByLibrary.simpleMessage("إرسال رابط إعادة التعيين")
+            MessageLookupByLibrary.simpleMessage("إرسال رابط إعادة التعيين"),
+        "settings": MessageLookupByLibrary.simpleMessage("الإعدادات")
       };
 }

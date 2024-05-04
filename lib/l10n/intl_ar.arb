@@ -28,5 +28,6 @@
   "reEnterYourPassword": "أعد إدخال كلمة المرور الخاصة بك",
   "enterYourName": "أدخل اسمك",
   "enterYourPhone": "أدخل رقم هاتفك",
-  "enterYourAddress": "أدخل عنوانك"
+  "enterYourAddress": "أدخل عنوانك",
+  "settings": "الإعدادات"
 }

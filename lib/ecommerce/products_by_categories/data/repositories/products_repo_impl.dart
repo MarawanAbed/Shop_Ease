@@ -14,10 +14,10 @@ class ProductsRepoImpl implements ProductsRepo {
 
   @override
   Future<ApiResult<List<ProductsByCategoriesProductsModel>>> getProductsByCategories(
-      int categoryId) async {
+      int categoryId,String language) async {
     try {
       final products =
-      await productsDataSource.getProductsByCategories(categoryId);
+      await productsDataSource.getProductsByCategories(categoryId,language);
       return ApiResult.success(products);
     } catch (e) {
       if (e is DioException) {

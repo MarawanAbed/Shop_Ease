@@ -13,9 +13,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   final GetProductDetails _productDetails;
   int counter=1;
 
-  void getProductDetails(int id) async {
+  void getProductDetails(int id,String language) async {
     emit(const ProductDetailsState.loading());
-    final result = await _productDetails(id);
+    final result = await _productDetails(id,language);
     result.when(
       success: (product) {
         emit(ProductDetailsState.success(product));

@@ -29,9 +29,9 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<ApiResult<List<CategoriesModel>>> getCategories() async {
+  Future<ApiResult<List<CategoriesModel>>> getCategories(String language) async {
     try {
-      final categories = await _homeRemoteDataSource.getCategories();
+      final categories = await _homeRemoteDataSource.getCategories(language);
       return ApiResult.success(categories);
     } catch (e) {
       if (e is DioException) {
@@ -46,10 +46,10 @@ class HomeRepoImpl implements HomeRepo {
 
   @override
   Future<ApiResult<List<HomeProductModel>>> getProductsByCategories(
-      int categoryId) async {
+      int categoryId,String language) async {
     try {
       final products =
-          await _homeRemoteDataSource.getProductsByCategories(categoryId);
+          await _homeRemoteDataSource.getProductsByCategories(categoryId,language);
       return ApiResult.success(products);
     } catch (e) {
       if (e is DioException) {

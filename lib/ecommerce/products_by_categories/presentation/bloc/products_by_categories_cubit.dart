@@ -13,9 +13,9 @@ class ProductsByCategoriesCubit extends Cubit<ProductsByCategoriesState> {
   final ProductsByCategories _productsByCategories;
 
 
-  Future<void> getProductsByCategories(int id) async {
+  Future<void> getProductsByCategories(int id,String language) async {
     emit(const ProductsByCategoriesState.loading());
-    final result = await _productsByCategories(id);
+    final result = await _productsByCategories(id,language);
     result.when(
       success: (products) {
         emit(ProductsByCategoriesState.loaded(products));
@@ -26,4 +26,10 @@ class ProductsByCategoriesCubit extends Cubit<ProductsByCategoriesState> {
     );
   }
 
+  @override
+  void emit( state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

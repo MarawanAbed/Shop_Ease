@@ -5,9 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesBuilder extends StatelessWidget {
   const CategoriesBuilder({
-    super.key, required this.categories,
+    super.key, required this.categories, required this.language,
   });
 
+  final String language;
   final List<CategoriesModel>categories;
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class CategoriesBuilder extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return  CategoryItems(
             categories: categories[index],
+            language: language,
           );
         },
         separatorBuilder: (BuildContext context, int index) {

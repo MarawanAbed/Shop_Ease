@@ -14,9 +14,9 @@ class HomeDetailsRepoImpl implements HomeDetailsRepo
 
 
   @override
-  Future<ApiResult<HomeDetailsProductModel>> getProductDetails(int id) async {
+  Future<ApiResult<HomeDetailsProductModel>> getProductDetails(int id,String language) async {
     try {
-      final product = await _homeDetailsRemoteDataSource.getProductDetails(id);
+      final product = await _homeDetailsRemoteDataSource.getProductDetails(id,language);
       return ApiResult.success(product);
     } catch (e) {
       if (e is DioException) {

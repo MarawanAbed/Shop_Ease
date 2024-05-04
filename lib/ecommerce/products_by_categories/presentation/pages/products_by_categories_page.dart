@@ -15,6 +15,7 @@ class ProductsByCategoriesPage extends StatefulWidget {
 class _ProductsByCategoriesPageState extends State<ProductsByCategoriesPage> {
   late int id;
   late String name;
+  late String language;
 
   @override
   void didChangeDependencies() {
@@ -23,7 +24,8 @@ class _ProductsByCategoriesPageState extends State<ProductsByCategoriesPage> {
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     id = arguments['id'] as int;
     name = arguments['name'] as String;
-    context.read<ProductsByCategoriesCubit>().getProductsByCategories(id);
+    language=arguments['language'] as String;
+    context.read<ProductsByCategoriesCubit>().getProductsByCategories(id,language);
   }
 
   @override
@@ -35,9 +37,11 @@ class _ProductsByCategoriesPageState extends State<ProductsByCategoriesPage> {
           title: Text(name),
           elevation: 0,
         ),
-        body: const Padding(
+        body:  Padding(
           padding: EdgeInsets.all(20),
-          child: ProductsBLocBuilder(),
+          child: ProductsBLocBuilder(
+            language: language,
+          ),
         ),
       ),
     );

@@ -17,11 +17,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ProductsItems extends StatefulWidget {
   const ProductsItems({
     super.key,
-    required this.product,
+    required this.product, required this.language,
   });
 
   final Object product;
-
+  final String language;
 
   @override
   State<ProductsItems> createState() => _ProductsItemsState();
@@ -82,12 +82,13 @@ class _ProductsItemsState extends State<ProductsItems> {
             'image': categoryProduct.image,
             'discount': categoryProduct.discount,
             'description': categoryProduct.description,
+            'language': widget.language,
           });
         },
         child: Stack(
           children: [
             Container(
-              height: 210,
+              height: 220,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -152,8 +153,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           discount: categoryProduct.discount,
                                           image: categoryProduct.image,
                                           name: categoryProduct.name,
-                                          description:
-                                              categoryProduct.description,
+                                          description: categoryProduct.description,
                                         ),
                                       );
                                     },
@@ -231,12 +231,13 @@ class _ProductsItemsState extends State<ProductsItems> {
             'image': homeProduct.image,
             'discount': homeProduct.discount,
             'description': homeProduct.description,
+            'language': widget.language,
           });
         },
         child: Stack(
           children: [
             Container(
-              height: 210,
+              height: 220,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Colors.white,

@@ -16,6 +16,8 @@ import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories
 import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
 import 'package:ecommerce/ecommerce/on_boarding/presentation/pages/on_boarding_page.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/pages/products_by_categories_page.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/settings/presentation/pages/settings_page.dart';
 import 'package:ecommerce/ecommerce/search/presentation/bloc/search_cubit.dart';
 import 'package:ecommerce/ecommerce/search/presentation/pages/search_page.dart';
@@ -49,12 +51,9 @@ class AppRoutes {
             BlocProvider(
               create: (context) => getIt<BannerCubit>()..getBanner(),
             ),
+            BlocProvider(create: (context) => getIt<CategoriesCubit>()),
             BlocProvider(
-              create: (context) => getIt<CategoriesCubit>()..getCategories(),
-            ),
-            BlocProvider(
-              create: (context) =>
-                  getIt<ProductByCategoriesCubit>()..getProductByCategories(),
+              create: (context) => getIt<ProductByCategoriesCubit>(),
             ),
             BlocProvider(create: (context) => getIt<AddFavoriteCubit>()),
             BlocProvider(create: (context) => getIt<RemoveFavoritesCubit>()),
@@ -97,8 +96,18 @@ class AppRoutes {
           create: (context) => getIt<RemoveCartCubit>(),
           child: const CartPage(),
         ),
-    Routes.aboutUs: (context)=>const AboutUsPage(),
+    Routes.aboutUs: (context) => const AboutUsPage(),
     Routes.settings: (context) => const SettingsPage(),
-    Routes.myAccount: (context) => MyAccountPage(),
+    Routes.myAccount: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<GetSingleUserCubit>()..getSingleUser(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<UpdateUserDataCubit>(),
+            ),
+          ],
+          child: const MyAccountPage(),
+        ),
   };
 }

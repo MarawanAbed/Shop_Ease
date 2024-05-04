@@ -2,14 +2,18 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/core/helpers/helper_methods.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
 
 import '../../ecommerce/auth/register/data/models/user_model.dart';
+import '../../ecommerce/auth/verify_email/verify_email.dart';
 import '../di/dependancy_injection.dart';
 
 class AuthService {
@@ -35,8 +39,7 @@ class AuthService {
         email: email,
         password: password,
       );
-      if(auth.currentUser?.uid==null)
-      {
+      if (auth.currentUser?.uid == null) {
         await getIt<DatabaseService>().updateUser({
           'uId': auth.currentUser!.uid,
         });
@@ -75,9 +78,9 @@ class AuthService {
       );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-         throw('The password provided is too weak.');
+        throw ('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-          throw('The account already exists for that email.');
+        throw ('The account already exists for that email.');
       }
     }
   }
@@ -284,9 +287,16 @@ class AuthService {
   }
 
   Future<void> updateEmailAndPassword(
-      {required String email, required String password}) async {
+      {required String email, required String password,required BuildContext context}) async {
     try {
-      await auth.currentUser!.updateEmail(email);
+       auth.currentUser!.verifyBeforeUpdateEmail(email).then((_) {
+         HelperMethod.showSuccessToast('please verify your email to update it');
+         Navigator.push(
+           context,
+           MaterialPageRoute(builder: (context) => const VerifyEmailScreen()),
+         );
+       });
+
       await auth.currentUser!.updatePassword(password);
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
@@ -316,6 +326,7 @@ class DatabaseService {
       throw Exception('Failed to create user');
     }
   }
+
 //
 // Stream<List<UserModel>> getAllUsers() {
 //   final userCollection = _fireStore
@@ -332,31 +343,33 @@ class DatabaseService {
 //   });
 // }
 //
-Future<void> updateUser(Map<String, dynamic> data) async {
-  try {
-    await _fireStore
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update(data);
-  } catch (e) {
-    if (kDebugMode) {
-      print('Error updating user: $e');
+  Future<void> updateUser(Map<String, dynamic> data) async {
+    try {
+      await _fireStore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(data);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error updating user: $e');
+      }
+      throw Exception('Failed to update user');
     }
-    throw Exception('Failed to update user');
   }
-}
+
 //
-// Stream<UserModel> getSingleUser(String uId) {
-//   final userDoc = _fireStore.collection('users').doc(uId);
-//
-//   return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
-//     if (userSnapshot.exists) {
-//       final userData = userSnapshot.data() as Map<String, dynamic>;
-//       return UserModel.fromJson(userData);
-//     }
-//     throw Exception('User does not exist');
-//   });
-// }
+  Stream<MyAccountModel> getSingleUser() {
+    var uId = getIt<AuthService>().getCurrentUserId();
+    final userDoc = _fireStore.collection('users').doc(uId);
+
+    return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
+      if (userSnapshot.exists) {
+        final userData = userSnapshot.data() as Map<String, dynamic>;
+        return MyAccountModel.fromJson(userData);
+      }
+      throw Exception('User does not exist');
+    });
+  }
 }
 
 class StorageService {
