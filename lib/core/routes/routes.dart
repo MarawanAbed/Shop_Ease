@@ -13,4 +13,12 @@ class Routes {
 
   static const String search = '/searchScreen';
   static const String cart='/cartScreen';
+
+  static const String aboutUs = '/aboutUsScreen';
+
+  static const String settings = '/settingsScreen';
+
+  static const String myAccount = '/myAccountScreen';
+
+  static const String editProfile = '/editProfileScreen';
 }

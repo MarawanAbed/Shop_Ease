@@ -1,12 +1,12 @@
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/logo.dart';
+import 'package:ecommerce/ecommerce/profile/presentation/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../categories/presentation/pages/categories_page.dart';
 import '../../../favorites/presentation/pages/favorite_page.dart';
-import '../../../favorites/presentation/pages/settings_page.dart';
 import '../widgets/home_body.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     const HomeBody(),
     const CategoriesPage(),
     const FavoritePage(),
-    const SettingsPage(),
+    ProfilePage(),
   ];
 
   @override
@@ -111,8 +111,8 @@ class _HomePageState extends State<HomePage> {
               label: 'Favorite',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+              icon: Icon(Icons.person),
+              label: 'Profile',
             ),
           ],
         ),

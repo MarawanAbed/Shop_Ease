@@ -24,10 +24,10 @@ class CompleteRegisterBlocListener extends StatelessWidget {
             Navigator.pop(context);
             HelperMethod.showErrorToast(message, gravity: ToastGravity.BOTTOM);
           },
-          success: () {
+          success: (userModel) {
             Navigator.pop(context);
             HelperMethod.showSuccessToast('Success Register Now You Can Login', gravity: ToastGravity.BOTTOM);
-            Navigators.pushNamedAndRemoveUntil(Routes.login);
+            Navigators.pushNamedAndRemoveUntil(Routes.login,arguments: userModel.dataSource);
           },
         );
       },

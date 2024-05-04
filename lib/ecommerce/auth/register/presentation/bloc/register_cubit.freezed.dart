@@ -20,7 +20,7 @@ mixin _$RegisterState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(UserModel user) success,
     required TResult Function(CustomerModel customer) successCustomer,
     required TResult Function(String message) error,
   }) =>
@@ -29,7 +29,7 @@ mixin _$RegisterState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(UserModel user)? success,
     TResult? Function(CustomerModel customer)? successCustomer,
     TResult? Function(String message)? error,
   }) =>
@@ -38,7 +38,7 @@ mixin _$RegisterState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(UserModel user)? success,
     TResult Function(CustomerModel customer)? successCustomer,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -132,7 +132,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(UserModel user) success,
     required TResult Function(CustomerModel customer) successCustomer,
     required TResult Function(String message) error,
   }) {
@@ -144,7 +144,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(UserModel user)? success,
     TResult? Function(CustomerModel customer)? successCustomer,
     TResult? Function(String message)? error,
   }) {
@@ -156,7 +156,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(UserModel user)? success,
     TResult Function(CustomerModel customer)? successCustomer,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -252,7 +252,7 @@ class _$LoadingImpl implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(UserModel user) success,
     required TResult Function(CustomerModel customer) successCustomer,
     required TResult Function(String message) error,
   }) {
@@ -264,7 +264,7 @@ class _$LoadingImpl implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(UserModel user)? success,
     TResult? Function(CustomerModel customer)? successCustomer,
     TResult? Function(String message)? error,
   }) {
@@ -276,7 +276,7 @@ class _$LoadingImpl implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(UserModel user)? success,
     TResult Function(CustomerModel customer)? successCustomer,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -337,6 +337,8 @@ abstract class _$$SuccessImplCopyWith<$Res> {
   factory _$$SuccessImplCopyWith(
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UserModel user});
 }
 
 /// @nodoc
@@ -346,37 +348,61 @@ class __$$SuccessImplCopyWithImpl<$Res>
   __$$SuccessImplCopyWithImpl(
       _$SuccessImpl _value, $Res Function(_$SuccessImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? user = null,
+  }) {
+    return _then(_$SuccessImpl(
+      null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$SuccessImpl implements Success {
-  const _$SuccessImpl();
+  const _$SuccessImpl(this.user);
+
+  @override
+  final UserModel user;
 
   @override
   String toString() {
-    return 'RegisterState.success()';
+    return 'RegisterState.success(user: $user)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SuccessImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessImpl &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, user);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      __$$SuccessImplCopyWithImpl<_$SuccessImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(UserModel user) success,
     required TResult Function(CustomerModel customer) successCustomer,
     required TResult Function(String message) error,
   }) {
-    return success();
+    return success(user);
   }
 
   @override
@@ -384,11 +410,11 @@ class _$SuccessImpl implements Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(UserModel user)? success,
     TResult? Function(CustomerModel customer)? successCustomer,
     TResult? Function(String message)? error,
   }) {
-    return success?.call();
+    return success?.call(user);
   }
 
   @override
@@ -396,13 +422,13 @@ class _$SuccessImpl implements Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(UserModel user)? success,
     TResult Function(CustomerModel customer)? successCustomer,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success();
+      return success(user);
     }
     return orElse();
   }
@@ -449,7 +475,12 @@ class _$SuccessImpl implements Success {
 }
 
 abstract class Success implements RegisterState {
-  const factory Success() = _$SuccessImpl;
+  const factory Success(final UserModel user) = _$SuccessImpl;
+
+  UserModel get user;
+  @JsonKey(ignore: true)
+  _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -520,7 +551,7 @@ class _$SuccessCustomerImpl implements SuccessCustomer {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(UserModel user) success,
     required TResult Function(CustomerModel customer) successCustomer,
     required TResult Function(String message) error,
   }) {
@@ -532,7 +563,7 @@ class _$SuccessCustomerImpl implements SuccessCustomer {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(UserModel user)? success,
     TResult? Function(CustomerModel customer)? successCustomer,
     TResult? Function(String message)? error,
   }) {
@@ -544,7 +575,7 @@ class _$SuccessCustomerImpl implements SuccessCustomer {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(UserModel user)? success,
     TResult Function(CustomerModel customer)? successCustomer,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -672,7 +703,7 @@ class _$ErrorImpl implements Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() success,
+    required TResult Function(UserModel user) success,
     required TResult Function(CustomerModel customer) successCustomer,
     required TResult Function(String message) error,
   }) {
@@ -684,7 +715,7 @@ class _$ErrorImpl implements Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? success,
+    TResult? Function(UserModel user)? success,
     TResult? Function(CustomerModel customer)? successCustomer,
     TResult? Function(String message)? error,
   }) {
@@ -696,7 +727,7 @@ class _$ErrorImpl implements Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? success,
+    TResult Function(UserModel user)? success,
     TResult Function(CustomerModel customer)? successCustomer,
     TResult Function(String message)? error,
     required TResult orElse(),

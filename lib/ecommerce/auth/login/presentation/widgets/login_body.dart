@@ -12,7 +12,9 @@ import 'footer.dart';
 import 'login_text_form_field.dart';
 
 class LoginBody extends StatelessWidget {
-  const LoginBody({super.key});
+  const LoginBody({super.key, required this.dataSource});
+
+  final String dataSource;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,9 @@ class LoginBody extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const LoginBlocListener(),
+          LoginBlocListener(
+            dataSource: dataSource,
+          ),
           Footer(
             routes: Routes.register,
             subTitle: lang.register,

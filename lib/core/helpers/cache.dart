@@ -30,13 +30,11 @@ class SharedPreCacheHelper {
     return await preferences.remove(key);
   }
 
-
-
-   Future<void> setCustomerId(String id) async {
+  Future<void> setCustomerId(String id) async {
     await preferences.setString(Constant.customerIdKey, id);
   }
 
-   Future<String?> getCustomerId() async {
+  Future<String?> getCustomerId() async {
     return preferences.getString(Constant.customerIdKey);
   }
 

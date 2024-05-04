@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/settings_body.dart';
+import '../widgets/profile_body.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key, });
+
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +15,15 @@ class SettingsPage extends StatelessWidget {
           appBar: AppBar(
             surfaceTintColor: Colors.white,
             title: const Text(
-              'Settings',
+              'Profile',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          body: const SettingsBody(),
+          body:  ProfileBody(
+          ),
         ),
       ),
     );

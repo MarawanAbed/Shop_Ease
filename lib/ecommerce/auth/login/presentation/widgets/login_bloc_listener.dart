@@ -1,4 +1,6 @@
+import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/auth/login/presentation/bloc/login_cubit.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/switch_box.dart';
@@ -11,7 +13,9 @@ import '../../../../../core/di/dependancy_injection.dart';
 import '../../../../../core/helpers/helper_methods.dart';
 
 class LoginBlocListener extends StatelessWidget {
-  const LoginBlocListener({super.key});
+  const LoginBlocListener({super.key, required this.dataSource});
+
+  final String dataSource;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +40,17 @@ class LoginBlocListener extends StatelessWidget {
             );
             await getIt<FavoriteSwitchBoxUseCase>().call();
             await getIt<SwitchBoxUseCase>().call();
+            var uId = getIt<AuthService>().getCurrentUserId();
+            if (dataSource == 'local') {
+              await getIt<SharedPreCacheHelper>()
+                  .saveData(key: 'dataSource_$uId', value: dataSource);
 
-            Navigators.pushNamedAndRemoveUntil(Routes.home);
+              Navigators.pushNamedAndRemoveUntil(Routes.home,
+                 );
+            } else {
+              Navigators.pushNamedAndRemoveUntil(Routes.home,
+                  );
+            }
           },
           error: (message) {
             Navigator.pop(context);

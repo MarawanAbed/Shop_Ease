@@ -29,39 +29,38 @@ class RegisterCubit extends Cubit<RegisterState> {
   final enterYourPhoneController = TextEditingController();
   final enterYourAddressController = TextEditingController();
 
-
   void signUpWithEmailAndPassword() async {
-      emit(const RegisterState.loading());
-      try {
-        await _signUp(
-          emailController.text.trim(),
-          passwordController.text.trim(),
-        );
-        await createUser(
-          UserModel(
-            email: emailController.text.trim(),
-            name: nameController.text.trim(),
-            phone: enterYourPhoneController.text.trim(),
-            address: enterYourAddressController.text.trim(),
-            uId: null,
-            password: passwordController.text.trim(),
-            image: null,
-            dataSource: 'local',
-          ),
-        );
-        final customerData=await createCustomer(
-          CustomerModel(
-            name: nameController.text.trim(),
-            email: emailController.text.trim(),
-            phone: enterYourPhoneController.text.trim(),
-          ),
-        );
-        print('Customer ID: ${customerData.id}');
-        await getIt<SharedPreCacheHelper>().setCustomerId(customerData.id!);
-        emit( const RegisterState.success());
-      } catch (e) {
-        emit(RegisterState.error(e.toString()));
-      }
+    emit(const RegisterState.loading());
+    try {
+      await _signUp(
+        emailController.text.trim(),
+        passwordController.text.trim(),
+      );
+      final userModel= UserModel(
+        email: emailController.text.trim(),
+        name: nameController.text.trim(),
+        phone: enterYourPhoneController.text.trim(),
+        address: enterYourAddressController.text.trim(),
+        uId: null,
+        password: passwordController.text.trim(),
+        image: null,
+        dataSource: 'local',
+      );
+      await createUser(
+        userModel,
+      );
+      final customerData = await createCustomer(
+        CustomerModel(
+          name: nameController.text.trim(),
+          email: emailController.text.trim(),
+          phone: enterYourPhoneController.text.trim(),
+        ),
+      );
+      await getIt<SharedPreCacheHelper>().setCustomerId(customerData.id!);
+      emit( RegisterState.success(userModel));
+    } catch (e) {
+      emit(RegisterState.error(e.toString()));
+    }
   }
 
   Future<void> createUser(UserModel user) async {
@@ -93,5 +92,4 @@ class RegisterCubit extends Cubit<RegisterState> {
     enterYourAddressController.dispose();
     return super.close();
   }
-
 }
