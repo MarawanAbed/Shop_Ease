@@ -12,8 +12,8 @@ class Themes {
 
   static ThemeData lightThemeData(BuildContext context) {
     return ThemeData.light().copyWith(
-      primaryColor: AppColors.kPrimaryColor,
-      scaffoldBackgroundColor: AppColors.kBackGround,
+      primaryColor: Colors.deepPurple,
+      scaffoldBackgroundColor:Colors.white,
     );
   }
 }

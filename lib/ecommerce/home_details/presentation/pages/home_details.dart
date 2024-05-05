@@ -74,6 +74,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
                           image: image,
                           name: name,
                           description: description,
+                          language: language,
                         ),
                       );
                 } else {

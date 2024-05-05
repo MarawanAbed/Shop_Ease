@@ -12,9 +12,9 @@ class CategoriesRepoImpl implements CategoriesRepo {
   CategoriesRepoImpl({required this.categoriesDataSource});
 
   @override
-  Future<ApiResult<List<CategoryModel>>> getCategories() async {
+  Future<ApiResult<List<CategoryModel>>> getCategories(String language) async {
     try {
-      final categories = await categoriesDataSource.getCategories();
+      final categories = await categoriesDataSource.getCategories(language);
       return ApiResult.success(categories);
     } catch (e) {
       if (e is DioException) {

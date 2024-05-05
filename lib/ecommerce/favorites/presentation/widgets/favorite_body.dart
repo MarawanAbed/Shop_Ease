@@ -5,8 +5,10 @@ import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/favorites/data/models/favorites_entity.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
+import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../../../../core/widgets/cached_image.dart';
@@ -35,25 +37,25 @@ class _FavoriteBodyState extends State<FavoriteBody> {
       builder: (context, box, _) {
         return box.isEmpty
             ? const Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.favorite,
-                    size: 100,
-                    color: Colors.red,
-                  ),
-                  SizedBox(height: 20),
-                  Text(
-                    'No Favorites Yet',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.favorite,
+                      size: 100,
+                      color: Colors.red,
                     ),
-                  ),
-                ],
-              ),
-            )
+                    SizedBox(height: 20),
+                    Text(
+                      'No Favorites Yet',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              )
             : Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -71,6 +73,7 @@ class _FavoriteBodyState extends State<FavoriteBody> {
                               image: favorite.image,
                               description: favorite.description,
                               discount: favorite.discount,
+                              language: favorite.language,
                             ),
                           );
                         },
@@ -105,12 +108,13 @@ class FavoritesItems extends StatelessWidget {
           'price': categoryProduct.price,
           'discount': categoryProduct.discount,
           'description': categoryProduct.description,
+          'language': BlocProvider.of<LocalCubit>(context).state.language,
         });
       },
       child: Stack(
         children: [
           Container(
-            height: 210,
+            height: 220,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -162,12 +166,14 @@ class FavoritesItems extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () async{
-                              final userId = getIt<AuthService>().getCurrentUserId();
+                            onPressed: () async {
+                              final userId =
+                                  getIt<AuthService>().getCurrentUserId();
                               getIt<RemoveFavoritesCubit>()
                                   .removeFavorites(categoryProduct.id);
                               await getIt<SharedPreCacheHelper>().removeData(
-                                  key: 'favorite_${userId}_${categoryProduct.id}');
+                                  key:
+                                      'favorite_${userId}_${categoryProduct.id}');
                             },
                             icon: const Icon(
                               Icons.favorite,

@@ -4,14 +4,14 @@ import 'package:ecommerce/ecommerce/categories/domain/repositories/categories_re
 
 import '../../../../core/networking/api_result.dart';
 
-class CategoriesUseCase implements UseCase<Future<ApiResult<List<CategoryModel>>>, NoParameter> {
+class CategoriesUseCase implements UseCase<Future<ApiResult<List<CategoryModel>>>, String> {
 
   final CategoriesRepo _repo;
 
   CategoriesUseCase(this._repo);
   @override
-  Future<ApiResult<List<CategoryModel>>> call([NoParameter? parameter])async {
-    return await _repo.getCategories();
+  Future<ApiResult<List<CategoryModel>>> call([String? parameter])async {
+    return await _repo.getCategories(parameter!);
   }
 
 }

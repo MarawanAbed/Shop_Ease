@@ -22,12 +22,14 @@ class _HomeDetailsBodyState extends State<HomeDetailsBody> {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(20.0),
+    return  Padding(
+      padding: const EdgeInsets.all(20.0),
       child: CustomScrollView(
         slivers: [
           SliverToBoxAdapter(
-            child: ProductDetailsBlocBuilder(),
+            child: ProductDetailsBlocBuilder(
+              language: widget.language,
+            ),
           ),
         ],
       ),

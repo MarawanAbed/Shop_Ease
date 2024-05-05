@@ -13,10 +13,10 @@ class CategoryCubit extends Cubit<CategoryState> {
 
 
   bool isLoaded = false;
-  void getCategories() async {
+  void getCategories(String language) async {
     if (!isLoaded) {
       emit(const CategoryState.loading());
-      final result = await _categoriesUseCase();
+      final result = await _categoriesUseCase(language);
       result.when(
         success: (List<CategoryModel> categories) {
           isLoaded = true;

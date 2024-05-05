@@ -60,6 +60,7 @@ import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/update_e
 import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/update_user_data.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
+import 'package:ecommerce/ecommerce/profile/settings/presentation/bloc/dark_theme_cubit.dart';
 import 'package:ecommerce/ecommerce/search/data/data_sources/search_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/search/data/repositories/search_repo_impl.dart';
 import 'package:ecommerce/ecommerce/search/domain/repositories/search_repo.dart';
@@ -239,6 +240,8 @@ void _setupUseCases() {
 
 void _setupCubit() {
   getIt.registerFactory<LocalCubit>(() => LocalCubit());
+  getIt.registerFactory<DarkThemeCubit>(() => DarkThemeCubit());
+
   getIt.registerFactory<LoginCubit>(
     () => LoginCubit(
       getIt(),

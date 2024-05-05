@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoriesBlocBuilder extends StatelessWidget {
-  const CategoriesBlocBuilder({super.key});
+  const CategoriesBlocBuilder({super.key, required this.language});
+
+  final String language;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,10 @@ class CategoriesBlocBuilder extends StatelessWidget {
           loading: () => const Center(
             child: CircularProgressIndicator(),
           ),
-          loaded: (categories) => CategoriesGridView(categories: categories),
+          loaded: (categories) => CategoriesGridView(
+            categories: categories,
+            language: language,
+          ),
           error: (message) => Center(
             child: Text(message),
           ),

@@ -4,5 +4,5 @@ class AppStrings {
 
   static const languageCodeKey = 'languageCodeKey';
   static const isLanguageSelected = 'isLanguageSelected';
-  
+  static const isDark = 'isDark';
 }

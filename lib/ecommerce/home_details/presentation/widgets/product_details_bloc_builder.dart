@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsBlocBuilder extends StatelessWidget {
-  const ProductDetailsBlocBuilder({super.key});
-
+  const ProductDetailsBlocBuilder({super.key, required this.language});
+  final String language;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
@@ -19,6 +19,7 @@ class ProductDetailsBlocBuilder extends StatelessWidget {
                 ),
             success: (product) => ProductDetailsItems(
                   product: product,
+                  language: language,
                 ),
             error: (message) => Center(
                   child: Text(message),

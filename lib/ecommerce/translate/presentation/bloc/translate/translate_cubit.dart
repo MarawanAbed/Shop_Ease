@@ -17,4 +17,6 @@ class LocalCubit extends Cubit<LocalState> {
     await getIt<SharedPreCacheHelper>().cacheLanguageCode(languageCode);
     emit(LocalState(language: languageCode));
   }
+
+
 }

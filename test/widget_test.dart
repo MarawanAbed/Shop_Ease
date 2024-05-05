@@ -7,6 +7,7 @@
 
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/ecommerce.dart';
+import 'package:ecommerce/ecommerce/profile/settings/presentation/bloc/dark_theme_cubit.dart';
 import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,6 +19,7 @@ void main() {
       isOnBoarding: false,
       isLanguageSelected: false,
       localeCubit: getIt<LocalCubit>(),
+      darkThemeCubit: getIt<DarkThemeCubit>(),
     ));
 
     // Verify that our counter starts at 0.

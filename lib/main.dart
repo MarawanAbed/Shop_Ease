@@ -2,9 +2,9 @@ import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/utils/app_secured.dart';
-import 'package:ecommerce/core/utils/constant.dart';
 import 'package:ecommerce/ecommerce.dart';
 import 'package:ecommerce/ecommerce/favorites/data/models/favorites_entity.dart';
+import 'package:ecommerce/ecommerce/profile/settings/presentation/bloc/dark_theme_cubit.dart';
 import 'package:ecommerce/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +26,7 @@ void main() async {
   await setupGetIt();
   Stripe.publishableKey = AppSecured.stripePublishableKey;
   final localCubit = getIt<LocalCubit>();
+  final darkThemeCubit = getIt<DarkThemeCubit>();
   await Hive.initFlutter();
   Hive.registerAdapter(FavoriteModelAdapter());
   Hive.registerAdapter(CartModelAdapter());
@@ -34,6 +35,7 @@ void main() async {
   await Hive.openBox<FavoriteModel>('favorite_$uId');
   await Hive.openBox<CartModel>('cart_$uId');
   await localCubit.getSavedLanguage();
+  await darkThemeCubit.getSavedTheme();
   bool? isOnBoarding = await getIt<SharedPreCacheHelper>()
           .getData(key: AppStrings.onboardingKey) ??
       false;
@@ -45,6 +47,7 @@ void main() async {
       isOnBoarding: isOnBoarding!,
       isLanguageSelected: isLanguageSelected!,
       localeCubit: localCubit,
+      darkThemeCubit: darkThemeCubit,
     ),
   );
 }

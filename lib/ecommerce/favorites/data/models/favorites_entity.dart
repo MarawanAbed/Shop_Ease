@@ -18,6 +18,8 @@ class FavoriteModel
   final String image;
   @HiveField(5)
   final String description;
+  @HiveField(6)
+  final String? language;
 
 
   FavoriteModel({
@@ -27,5 +29,26 @@ class FavoriteModel
     required this.image,
     required this.name,
     required this.description,
+    required this.language,
   });
+
+  FavoriteModel copyWith({
+    int? id,
+    String? name,
+    double? price,
+    String? image,
+    String? description,
+    int? discount,
+    String? language,
+  }) {
+    return FavoriteModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      price: price ?? this.price,
+      image: image ?? this.image,
+      description: description ?? this.description,
+      discount: discount ?? this.discount,
+      language: language ?? this.language,
+    );
+  }
 }

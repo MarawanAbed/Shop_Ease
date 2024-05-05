@@ -1,18 +1,12 @@
+import 'package:ecommerce/ecommerce/profile/settings/presentation/bloc/dark_theme_cubit.dart';
 import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_state.dart';
 import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
-
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  bool _isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,26 +39,27 @@ class _SettingsPageState extends State<SettingsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16),
-              SwitchListTile(
-                title: const Text('Dark Mode'),
-                value: _isDarkMode,
-                onChanged: (bool value) {
-                  setState(() {
-                    _isDarkMode = value;
-                    // TODO: Implement your functionality to change the app theme
-                  });
+              BlocBuilder<DarkThemeCubit, DarkThemeState>(
+                builder: (context, state) {
+                  return SwitchListTile(
+                    title: const Text('Dark Mode'),
+                    value: state.isDark,
+                    onChanged: (bool value) async {
+                      context.read<DarkThemeCubit>().changeTheme(value);
+                    },
+                    activeColor: Colors.deepPurple,
+                  );
                 },
-                activeColor: Colors.deepPurple,
               ),
               const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('Language',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                  BlocConsumer<LocalCubit, LocalState>(
-                    listener: (context, state) {},
+                  const Text(
+                    'Language',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  BlocBuilder<LocalCubit, LocalState>(
                     builder: (context, state) {
                       String dropdownValue = 'en'; // Default value
                       if (state.language == 'en' || state.language == 'ar') {
@@ -82,6 +77,16 @@ class _SettingsPageState extends State<SettingsPage> {
                         onChanged: (String? newValue) {
                           if (newValue != null) {
                             context.read<LocalCubit>().changeLanguage(newValue);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                duration: const Duration(seconds: 10),
+                                backgroundColor: Colors.deepPurple,
+                                content: Text(
+                                  'Language Changed to $newValue , plaese remove item from cart and favorite and add it again to see the changes',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            );
                           }
                         },
                       );

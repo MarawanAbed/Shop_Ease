@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoriesGridView extends StatelessWidget {
-  const CategoriesGridView({super.key, required this.categories});
+  const CategoriesGridView(
+      {super.key, required this.categories, required this.language});
 
   final List<CategoryModel> categories;
+  final String language;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,7 @@ class CategoriesGridView extends StatelessWidget {
       ),
       itemBuilder: (context, index) => CategoriesItem(
         categories: categories[index],
+        language: language,
       ),
       itemCount: categories.length,
     );
@@ -29,15 +32,21 @@ class CategoriesGridView extends StatelessWidget {
 }
 
 class CategoriesItem extends StatelessWidget {
-  const CategoriesItem({super.key, required this.categories});
+  const CategoriesItem(
+      {super.key, required this.categories, required this.language});
 
   final CategoryModel categories;
+  final String language;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigators.pushNamed(Routes.productsByCategories, arguments: {'id':categories.id,'name':categories.name,});
+        Navigators.pushNamed(Routes.productsByCategories, arguments: {
+          'id': categories.id,
+          'name': categories.name,
+          'language': language,
+        });
       },
       child: Stack(
         children: [

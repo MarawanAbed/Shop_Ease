@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 class ProductDetailsItems extends StatefulWidget {
   const ProductDetailsItems({
     super.key,
-    required this.product,
+    required this.product, required this.language,
   });
 
   final HomeDetailsProductModel product;
-
+  final String language;
   @override
   State<ProductDetailsItems> createState() => _ProductDetailsItemsState();
 }
@@ -46,6 +46,7 @@ class _ProductDetailsItemsState extends State<ProductDetailsItems> {
             image: widget.product.image,
             quantity: _counter,
             price: widget.product.price,
+            language: widget.language,
           ),
         ),
       ],

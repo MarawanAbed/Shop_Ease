@@ -2,20 +2,24 @@ import 'package:ecommerce/ecommerce/categories/presentation/widgets/categories_b
 import 'package:flutter/material.dart';
 
 class CategoriesBody extends StatelessWidget {
-  const CategoriesBody({super.key});
+  const CategoriesBody({super.key, required this.language});
+
+  final String language;
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
+    return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           left: 10.0,
           right: 10,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CategoriesBlocBuilder(),
+            CategoriesBlocBuilder(
+              language: language,
+            ),
           ],
         ),
       ),

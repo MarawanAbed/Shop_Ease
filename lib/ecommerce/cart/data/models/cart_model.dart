@@ -14,13 +14,15 @@ class CartModel
    int quantity;
   @HiveField(4)
    double price;
-
+  @HiveField(5)
+  String? language;
   CartModel({
     required this.id,
     required this.name,
     required this.image,
     required this.quantity,
     required this.price,
+    required this.language,
   });
 
 }

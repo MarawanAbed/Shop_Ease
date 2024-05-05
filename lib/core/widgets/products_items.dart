@@ -154,6 +154,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           image: categoryProduct.image,
                                           name: categoryProduct.name,
                                           description: categoryProduct.description,
+                                          language: widget.language,
                                         ),
                                       );
                                     },
@@ -173,8 +174,8 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           discount: categoryProduct.discount,
                                           image: categoryProduct.image,
                                           name: categoryProduct.name,
-                                          description:
-                                              categoryProduct.description,
+                                          description: categoryProduct.description,
+                                          language: widget.language,
                                         ),
                                       );
                                     },
@@ -303,6 +304,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           image: homeProduct.image,
                                           name: homeProduct.name,
                                           description: homeProduct.description,
+                                          language: widget.language,
                                         ),
                                       );
                                     },
@@ -323,6 +325,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           image: homeProduct.image,
                                           name: homeProduct.name,
                                           description: homeProduct.description,
+                                          language: widget.language,
                                         ),
                                       );
                                     },
