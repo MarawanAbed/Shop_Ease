@@ -50,7 +50,6 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           surfaceTintColor: Colors.white,
           title: const Text('Product Details'),

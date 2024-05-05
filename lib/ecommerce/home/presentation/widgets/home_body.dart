@@ -29,10 +29,12 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     return PopScope(
       canPop: false,
       child: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0,top: 10),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -47,6 +49,7 @@ class _HomeBodyState extends State<HomeBody> {
                     'Categories',
                     style: TextStyle(
                       fontSize: 20.sp,
+                      color: light ? Colors.black : Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -63,6 +66,7 @@ class _HomeBodyState extends State<HomeBody> {
                     'New Products',
                     style: TextStyle(
                       fontSize: 20.sp,
+                      color: light ? Colors.black : Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

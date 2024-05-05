@@ -1,9 +1,8 @@
-import 'package:ecommerce/core/helpers/cache.dart';
+import 'package:ecommerce/core/routes/routes.dart';
+import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/cart/data/models/cart_model.dart';
-import 'package:ecommerce/ecommerce/cart/presentation/bloc/payment_cubit.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/widgets/cart_bloc_listener.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../../../../core/di/dependancy_injection.dart';
@@ -22,12 +21,13 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     var uId = getIt<AuthService>().getCurrentUserId();
     var valueListenable = Hive.box<CartModel>('cart_$uId').listenable();
     return SafeArea(
       child: Scaffold(
         key: formKey,
-        backgroundColor: Colors.grey[200],
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
@@ -41,12 +41,12 @@ class _CartPageState extends State<CartPage> {
             var total = value.values.isEmpty
                 ? 0
                 : value.values
-                .map((e) => e.price * e.quantity)
-                .reduce((value, element) => value + element)
-                .toInt();
+                    .map((e) => e.price * e.quantity)
+                    .reduce((value, element) => value + element)
+                    .toInt();
             return BottomAppBar(
               height: 120,
-              color: Colors.white,
+              color: light ? Colors.white : Colors.grey[800],
               child: Column(
                 children: [
                   Row(
@@ -89,14 +89,15 @@ class _CartPageState extends State<CartPage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () async {
-                          var customerUid = await getIt<SharedPreCacheHelper>()
-                              .getCustomerId();
-                          var cubit = context.read<PaymentCubit>();
-                          cubit.paymentIntent(total.toString(), 'usd', customerUid!).then((_) {
-                            cubit.ephemeralKeyKey(customerUid).then((_) {
-                              cubit.checkOut(customerUid);
-                            });
-                          });
+                          // var customerUid = await getIt<SharedPreCacheHelper>()
+                          //     .getCustomerId();
+                          // var cubit = context.read<PaymentCubit>();
+                          // cubit.paymentIntent(total.toString(), 'usd', customerUid!).then((_) {
+                          //   cubit.ephemeralKeyKey(customerUid).then((_) {
+                          //     cubit.checkOut(customerUid);
+                          //   });
+                          // });
+                          Navigators.pushNamed(Routes.thankYou);
                         },
                         child: const Text(
                           'Checkout',

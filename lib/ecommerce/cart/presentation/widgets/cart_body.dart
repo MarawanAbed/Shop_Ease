@@ -98,12 +98,14 @@ class _CartItemsState extends State<CartItems> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     return Container(
       height: 210,
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: light ? Colors.white : Colors.grey[800],
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -117,6 +119,9 @@ class _CartItemsState extends State<CartItems> {
                   child: CachedImage(
                     image: widget.cartModel.image,
                   ),
+                ),
+                const SizedBox(
+                  width: 20,
                 ),
                 Expanded(
                   flex: 2,
@@ -150,14 +155,18 @@ class _CartItemsState extends State<CartItems> {
                                   counter++;
                                   updateQuantity(counter);
                                 },
-                                icon: const Icon(Icons.add),
+                                icon: Icon(
+                                  Icons.add,
+                                  color:
+                                      light ? Colors.deepPurple : Colors.white,
+                                ),
                               ),
                               Text(
                                 '$counter',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey,
+                                  color: light ? Colors.grey : Colors.white,
                                 ),
                               ),
                               counter > 1
@@ -166,12 +175,18 @@ class _CartItemsState extends State<CartItems> {
                                         counter--;
                                         updateQuantity(counter);
                                       },
-                                      icon: const Icon(Icons.remove),
+                                      icon: Icon(
+                                        Icons.remove,
+                                        color: light
+                                            ? Colors.deepPurple
+                                            : Colors.white,
+                                      ),
                                     )
                                   : IconButton(
-                                      icon: const Icon(
+                                      icon: Icon(
                                         Icons.delete,
-                                        color: Colors.grey,
+                                        color:
+                                            light ? Colors.grey : Colors.white,
                                       ),
                                       onPressed: () {
                                         context

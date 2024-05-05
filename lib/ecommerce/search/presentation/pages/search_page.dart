@@ -24,9 +24,10 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     return SafeArea(
       child: Scaffold(
-          backgroundColor: Colors.grey[200],
           appBar: AppBar(
             title: const Text('Search Products'),
           ),
@@ -37,9 +38,9 @@ class _SearchPageState extends State<SearchPage> {
                 AppTextFormField(
                   controller: _searchController,
                   hintText: 'Search Products',
-                  hintStyle: const TextStyle(color: Colors.black),
-                  inputTextStyle: const TextStyle(color: Colors.black),
-                  suffixIcon: const Icon(Icons.search),
+                  hintStyle:  TextStyle(color: light? Colors.black:Colors.white),
+                  inputTextStyle:  TextStyle(color: light? Colors.black:Colors.white),
+                  suffixIcon: const Icon(Icons.search,size: 30,),
                   onEditingComplete: () {
                     context
                         .read<SearchCubit>()

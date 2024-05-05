@@ -9,4 +9,6 @@ class AppImages
   static String product1='$_basePath/product.jpg';
   static String category='$_basePath/category.png';
   static String visaCard='$_basePath/visa.svg';
+
+  static String arrow='$_basePath/arrow.svg';
 }

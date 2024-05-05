@@ -17,6 +17,8 @@ class ProfileBody extends StatefulWidget {
 class _ProfileBodyState extends State<ProfileBody> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -49,13 +51,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: light ? Colors.grey : Colors.black,
                     ),
                   ),
                   const Spacer(),
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.grey,
+                    color: light ? Colors.grey : Colors.black,
                   ),
                 ],
               ),
@@ -86,13 +88,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: light ? Colors.grey : Colors.black,
                     ),
                   ),
                   const Spacer(),
-                  const Icon(
+                  Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.grey,
+                    color: light ? Colors.grey : Colors.black,
                   ),
                 ],
               ),
@@ -109,7 +111,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
@@ -123,13 +125,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: light ? Colors.grey : Colors.black,
                     ),
                   ),
                   Spacer(),
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.grey,
+                    color: light ? Colors.grey : Colors.black,
                   ),
                 ],
               ),
@@ -147,7 +149,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(20),
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
@@ -161,13 +163,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: light ? Colors.grey : Colors.black,
                     ),
                   ),
                   Spacer(),
                   Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.grey,
+                    color: light ? Colors.grey : Colors.black,
                   ),
                 ],
               ),

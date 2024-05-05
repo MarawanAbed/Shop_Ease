@@ -12,11 +12,11 @@ class ThankYouView extends StatefulWidget {
 }
 
 class _ThankYouViewState extends State<ThankYouView> {
-  late String total;
+   String total='100';
 
   @override
   void didChangeDependencies() {
-    total=ModalRoute.of(context)!.settings.arguments as String;
+    // total=ModalRoute.of(context)!.settings.arguments as String;
     super.didChangeDependencies();
   }
   @override
@@ -371,7 +371,7 @@ AppBar buildAppBar({final String? title}) {
   return AppBar(
     leading: Center(
       child: SvgPicture.asset(
-        'assets/images/arrow.svg',
+        AppImages.arrow,
       ),
     ),
     elevation: 0,

@@ -69,6 +69,8 @@ class _ProductsItemsState extends State<ProductsItems> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     if (widget.product is ProductsByCategoriesProductsModel) {
       final categoryProduct =
           widget.product as ProductsByCategoriesProductsModel;
@@ -91,7 +93,7 @@ class _ProductsItemsState extends State<ProductsItems> {
               height: 220,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: light?Colors.white:Colors.grey,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -114,17 +116,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                         Text(
                           categoryProduct.name,
                           maxLines: 2,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: light?Colors.black:Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Text(
                           categoryProduct.description,
                           maxLines: 2,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 16,
+                            color: light?Colors.black:Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -161,7 +165,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
-                                          isFavorite ? Colors.red : Colors.grey,
+                                          isFavorite ? Colors.red : Colors.white,
                                     ),
                                   );
                                 } else {
@@ -182,7 +186,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
-                                          isFavorite ? Colors.red : Colors.grey,
+                                          isFavorite ? Colors.red : Colors.white,
                                     ),
                                   );
                                 }
@@ -241,7 +245,7 @@ class _ProductsItemsState extends State<ProductsItems> {
               height: 220,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: light?Colors.white:Colors.grey,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -254,7 +258,7 @@ class _ProductsItemsState extends State<ProductsItems> {
               child: Row(
                 children: [
                   Expanded(
-                    child: CachedImage(image: homeProduct.image),
+                    child: CachedImage(image: homeProduct.image,),
                   ),
                   const SizedBox(width: 20),
                   Expanded(
@@ -264,17 +268,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                         Text(
                           homeProduct.name,
                           maxLines: 2,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: light?Colors.black:Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Text(
                           homeProduct.description,
                           maxLines: 2,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             fontSize: 16,
+                            color: light?Colors.black:Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -311,7 +317,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
-                                          isFavorite ? Colors.red : Colors.grey,
+                                          isFavorite ? Colors.red : Colors.white,
                                     ),
                                   );
                                 } else {
@@ -332,7 +338,7 @@ class _ProductsItemsState extends State<ProductsItems> {
                                     icon: Icon(
                                       Icons.favorite,
                                       color:
-                                          isFavorite ? Colors.red : Colors.grey,
+                                          isFavorite ? Colors.red : Colors.white,
                                     ),
                                   );
                                 }

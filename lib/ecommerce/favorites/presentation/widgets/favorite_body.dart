@@ -98,6 +98,8 @@ class FavoritesItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var light = theme.brightness == Brightness.light;
     return GestureDetector(
       onTap: () {
         Navigators.pushNamed(Routes.homeDetails, arguments: {
@@ -117,7 +119,7 @@ class FavoritesItems extends StatelessWidget {
             height: 220,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: light? Colors.white:Colors.grey,
               borderRadius: BorderRadius.circular(10),
               boxShadow: const [
                 BoxShadow(
@@ -140,18 +142,21 @@ class FavoritesItems extends StatelessWidget {
                       Text(
                         categoryProduct.name,
                         maxLines: 2,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
+                          color: light? Colors.black:Colors.white,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text(
                         categoryProduct.description,
                         maxLines: 2,
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: 16,
                           overflow: TextOverflow.ellipsis,
+                          color: light? Colors.black:Colors.white,
+
                         ),
                       ),
                       Row(

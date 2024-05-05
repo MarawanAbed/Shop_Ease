@@ -11,7 +11,6 @@ class FavoritePage extends StatelessWidget {
       canPop: false,
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.grey[200],
           appBar: AppBar(
             automaticallyImplyLeading: false,
             surfaceTintColor: Colors.white,

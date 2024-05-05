@@ -34,7 +34,13 @@ class SliderImage extends StatelessWidget {
             ),
           );
         },
-        pagination: const SwiperPagination(),
+        pagination: const SwiperPagination(
+          alignment: Alignment.bottomCenter,
+          builder: DotSwiperPaginationBuilder(
+            color: Colors.grey,
+            activeColor: Colors.deepPurple,
+          ),
+        ),
       ),
     );
   }

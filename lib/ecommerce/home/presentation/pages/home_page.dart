@@ -30,53 +30,52 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         appBar: _currentIndex == 0 || _currentIndex == 1
             ? PreferredSize(
                 preferredSize: Size.fromHeight(60.h),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: AppBar(
-                    surfaceTintColor: Colors.white,
-                    automaticallyImplyLeading: false,
-                    elevation: 10,
-                    title: Row(
-                      children: [
-                        Logo(
-                          height: 50.h,
-                          width: 50.w,
+                child: AppBar(
+                  surfaceTintColor: Colors.white,
+                  automaticallyImplyLeading: false,
+                  elevation: 10,
+                  title: Row(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: Logo(
+                          height: 60,
+                          width: 60,
                         ),
-                        SizedBox(width: 10.w),
-                        Text(
-                          'Shop Ease',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 20.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                    actions: [
-                      IconButton(
-                        onPressed: ()async {
-                          var id= await getIt<SharedPreCacheHelper>().getCustomerId();
-                          print('id: $id');
-                          Navigators.pushNamed(Routes.search);
-                        },
-                        icon: const Icon(Icons.search),
-                        color: Colors.black,
                       ),
-                      IconButton(
+                      SizedBox(width: 10.w),
+                      Text(
+                        'Shop Ease',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.sp,
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    IconButton(
+                      onPressed: () async {
+                        var id =
+                            await getIt<SharedPreCacheHelper>().getCustomerId();
+                        print('id: $id');
+                        Navigators.pushNamed(Routes.search);
+                      },
+                      icon: const Icon(Icons.search),
+                      color: Colors.white,
+                    ),
+                    IconButton(
                         onPressed: () {
                           Navigators.pushNamed(Routes.cart);
                         },
                         icon: const Icon(Icons.shopping_cart),
-                        color: Colors.black,
-                      ),
-                    ],
-                  ),
+                        color: Colors.white),
+                  ],
                 ),
               )
             : null,
@@ -101,7 +100,6 @@ class _HomePageState extends State<HomePage> {
           ),
           items: const [
             BottomNavigationBarItem(
-              backgroundColor: Colors.white,
               icon: Icon(
                 Icons.home,
               ),
