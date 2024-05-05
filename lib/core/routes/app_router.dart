@@ -110,8 +110,15 @@ class AppRoutes {
           ],
           child: const MyAccountPage(),
         ),
-    Routes.editProfile: (context) => BlocProvider(
-          create: (context) => getIt<UpdateUserDataCubit>(),
+    Routes.editProfile: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<GetSingleUserCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<UpdateUserDataCubit>(),
+            ),
+          ],
           child: const EditProfilePage(),
         ),
   };

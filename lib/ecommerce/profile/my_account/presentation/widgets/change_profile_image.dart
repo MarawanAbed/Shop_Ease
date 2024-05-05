@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
 import 'package:flutter/material.dart';
@@ -54,25 +55,25 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
             radius: 60,
             backgroundColor: Colors.grey[300],
             backgroundImage: _pickedImage != null
-                ? FileImage(_pickedImage!)
+                ? FileImage(_pickedImage!) as ImageProvider<Object>
                 : (_initialImage != null
-                    ? NetworkImage(_initialImage!) as ImageProvider<Object>?
-                    : null),
+                ? CachedNetworkImageProvider(_initialImage!) as ImageProvider<Object>
+                : null),
           ),
-          !widget.viewOnly?
-              const Positioned(
-                bottom: 0,
-                right: 0,
-                child: CircleAvatar(
-                  backgroundColor: Colors.deepPurple,
-                  radius: 17,
-                  child: Icon(
-                    Icons.camera_alt,
-                    color: Colors.white,
+          !widget.viewOnly
+              ? const Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.deepPurple,
+                    radius: 17,
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ):
-              const SizedBox.shrink(),
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

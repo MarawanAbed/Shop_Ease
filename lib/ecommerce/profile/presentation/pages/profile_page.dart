@@ -14,6 +14,7 @@ class ProfilePage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             surfaceTintColor: Colors.white,
+            automaticallyImplyLeading: false,
             title: const Text(
               'Profile',
               style: TextStyle(

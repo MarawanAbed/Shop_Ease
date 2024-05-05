@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
+import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/change_profile_image.dart';
@@ -41,7 +42,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 Navigator.pop(context);
               },
             ),
-
+            actions: [
+              IconButton(
+                icon: const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                ),
+                onPressed: () async {
+                  await _saveChanges();
+                },
+              ),
+            ],
             title: const Text(
               'Edit Profile',
               style: TextStyle(
@@ -59,7 +70,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 children: [
                   Center(
                     child: ChangeProfileImage(
-                        viewOnly: false, image: myAccountModel.image??'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
+                        viewOnly: false,
+                        image: myAccountModel.image ??
+                            'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
                   ),
                   const SizedBox(
                     height: 20,
@@ -68,16 +81,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        await _saveChanges(context);
-                      },
-                      child: const Text('Update Profile'),
-                    ),
-                  ),
+                  const ImageBLocListener(),
                 ],
               ),
             ),
@@ -85,16 +89,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 
-  Future<void> _saveChanges(BuildContext context) async {
+  Future<void> _saveChanges() async {
     var cubit = context.read<UpdateUserDataCubit>();
-    var uId=getIt<AuthService>().getCurrentUserId();
+    var uId = getIt<AuthService>().getCurrentUserId();
+    String? image;
+    if (cubit.profileImage != null) {
+      await cubit.uploadImageMethod();
+      if (cubit.imageUrl != null) {
+        image = cubit.imageUrl;
+      }
+    }
     final user = MyAccountModel(
       uId: uId,
       name: cubit.nameController.text ?? myAccountModel.name,
       email: cubit.emailController.text ?? myAccountModel.email,
-      image: cubit.profileImage != null
-          ? await cubit.uploadImageMethod()
-          : (cubit.imageUrl ?? myAccountModel.image),
+      image: image ?? myAccountModel.image,
       password: cubit.passwordController.text ?? myAccountModel.password,
       dataSource: myAccountModel.dataSource,
       address: cubit.addressController.text ?? myAccountModel.address,
@@ -114,7 +123,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
       cubit.updateUser(user.toJson());
       HelperMethod.showSuccessToast('Profile Updated',
           gravity: ToastGravity.BOTTOM);
-      Navigator.pop(context);
     }
   }
 }
@@ -124,11 +132,33 @@ class ImageBLocListener extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocListener<UpdateUserDataCubit, UpdateUserDataState>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  child: Placeholder(),
-);
+    return BlocListener<UpdateUserDataCubit, UpdateUserDataState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          imageInitial: () {
+            HelperMethod.showLoadingDialog(context);
+          },
+          imageError: (message) {
+            Navigator.pop(context);
+            HelperMethod.showErrorToast(message);
+          },
+          imageLoaded: () {
+            Navigator.pop(context);
+          },
+          loading: () {
+            HelperMethod.showLoadingDialog(context);
+          },
+          loaded: () {
+            Navigator.pop(context);
+            Navigators.pop();
+          },
+          error: (message) {
+            Navigator.pop(context);
+            HelperMethod.showErrorToast(message);
+          },
+        );
+      },
+      child: const SizedBox.shrink(),
+    );
   }
 }
