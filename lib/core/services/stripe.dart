@@ -1,6 +1,9 @@
 import 'package:ecommerce/core/networking/stripe/strip_services.dart';
 import 'package:ecommerce/core/utils/app_secured.dart';
 import 'package:ecommerce/ecommerce/auth/register/data/models/customer_model.dart';
+import 'package:ecommerce/ecommerce/cart/data/models/ephemeral_keys.dart';
+import 'package:ecommerce/ecommerce/cart/data/models/payment_intents.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 class Strip {
   final StripServices _stripeServices;
@@ -8,77 +11,88 @@ class Strip {
   Strip(this._stripeServices);
 
   //
-  // Future<PaymentIntlEntity> createPaymentIntent(
-  //     PaymentInputModel paymentInput) async {
-  //   //call api to create payment intent
-  //   //return payment intent objectb
-  //   var response = await apiServices.post(
-  //     contentType: Headers.formUrlEncodedContentType,
-  //     body: paymentInput.toJson(),
-  //     url: 'https://api.stripe.com/v1/payment_intents',
-  //     token: ApiKeys.secretKey,
-  //   );
-  //   return PaymentIntlEntity.fromJson(response.data);
-  // }
+  Future<PaymentIntents> createPaymentIntent(
+      {required String amount,
+      required String customerId,
+      required String currency}) async {
+    //call api to create payment intent
+    //return payment intent objectb
+    var response = await _stripeServices.createPaymentIntent(
+      AppSecured.token,
+      {
+        'amount': amount,
+        'currency': currency,
+        'customer': customerId,
+      },
+      'application/x-www-form-urlencoded',
+    );
+    return PaymentIntents.fromJson(response);
+  }
+
   //
-  // Future<void> initPaymentSheet(
-  //     {required String paymentSecret, required String customerEphemeralKeySecret,}) async {
-  //   try {
-  //     // 2. initialize the payment sheet
-  //     await Stripe.instance.initPaymentSheet(
-  //       paymentSheetParameters: SetupPaymentSheetParameters(
-  //         // Set to true for custom flow
-  //         customFlow: false,
-  //         customerEphemeralKeySecret:customerEphemeralKeySecret,
-  //         customerId:'cus_P4BwqLExecXkBQ',
-  //         // Main params
-  //         merchantDisplayName: 'Marwan',
-  //         paymentIntentClientSecret: paymentSecret,
-  //       ),
-  //     );
-  //   } catch (e) {
-  //     print('Error initPaymentSheet ${e.toString()}');
-  //   }
-  // }
-  //
-  // Future displayPaymentSheet() async {
-  //   return await Stripe.instance.presentPaymentSheet();
-  // }
-  //
-  // //now i want to add all methods in one method
-  // //so i will create a method called checkout
-  // //and i will call all methods inside it
-  // Future checkout({required PaymentInputModel paymentInput}) async {
-  //   //1-create payment intent
-  //   var paymentIntent = await createPaymentIntent(paymentInput);
-  //   var customerEphemeralKeySecret = await createEphemeralKey(customerId: 'cus_P4BwqLExecXkBQ');
-  //
-  //   //2-init payment sheet
-  //   await initPaymentSheet(paymentSecret: paymentIntent.clientSecret!,customerEphemeralKeySecret:customerEphemeralKeySecret.secret!);
-  //   //3-display payment sheet
-  //   await displayPaymentSheet();
-  // }
+  Future<void> initPaymentSheet(
+      {required String paymentSecret,
+      required String customerEphemeralKeySecret,
+      required String customerId}) async {
+    try {
+      // 2. initialize the payment sheet
+      await Stripe.instance.initPaymentSheet(
+        paymentSheetParameters: SetupPaymentSheetParameters(
+          // Set to true for custom flow
+          customFlow: false,
+          customerEphemeralKeySecret: customerEphemeralKeySecret,
+          customerId: customerId,
+          // Main params
+          merchantDisplayName: 'Marwan',
+          paymentIntentClientSecret: paymentSecret,
+        ),
+      );
+    } catch (e) {
+      print('Error initPaymentSheet ${e.toString()}');
+    }
+  }
+
+  Future displayPaymentSheet() async {
+    return await Stripe.instance.presentPaymentSheet();
+  }
+
+  Future checkout(
+      {required String amount,
+      required String customerId,
+      required String currency,
+      required String customerEphemeralKeySecret}) async {
+    //1-create payment intent
+    var paymentIntent = await createPaymentIntent(
+        amount: amount, customerId: customerId, currency: currency);
+    var customerEphemeralKeySecret =
+        await createEphemeralKey(customerId: customerId);
+
+    //2-init payment sheet
+    await initPaymentSheet(
+        paymentSecret: paymentIntent.clientSecret,
+        customerEphemeralKeySecret: customerEphemeralKeySecret.secret,
+        customerId: customerId);
+    //3-display payment sheet
+    await displayPaymentSheet();
+  }
 
   Future<CustomerModel> createCustomer(CustomerModel customerInput) async {
-    var response = await _stripeServices.createCustomers(
-        AppSecured.token, customerInput.toJson(),'application/x-www-form-urlencoded');
+    var response = await _stripeServices.createCustomers(AppSecured.token,
+        customerInput.toJson(), 'application/x-www-form-urlencoded');
     return CustomerModel.fromJson(response);
   }
-//now you can summon it after sign up when you create account for user and save it in database
-//and you can summon it when user want to save card
 
-//create ephemeral key
-// Future<EphemeralKeyModelEntity> createEphemeralKey(
-//     {required String customerId}) async {
-//   var response = await apiServices.post(
-//     contentType: Headers.formUrlEncodedContentType,
-//     stripeVersion: '2023-10-16',
-//     body: {
-//       'customer': customerId,
-//     },
-//     url: 'https://api.stripe.com/v1/ephemeral_keys',
-//     token: ApiKeys.secretKey,
-//   );
-//   return EphemeralKeyModelEntity.fromJson(response.data);
-// }
+
+
+  Future<EphemeralKeysModel> createEphemeralKey(
+      {required String customerId}) async {
+    var response = await _stripeServices.createEphemeralKey(
+      AppSecured.token,
+      '2023-10-16',
+      {'customer': customerId},
+      'application/x-www-form-urlencoded',
+    );
+
+    return EphemeralKeysModel.fromJson(response);
+  }
 }

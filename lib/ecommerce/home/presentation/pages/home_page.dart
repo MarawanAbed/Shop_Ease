@@ -1,3 +1,5 @@
+import 'package:ecommerce/core/di/dependancy_injection.dart';
+import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/logo.dart';
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         appBar: _currentIndex == 0 || _currentIndex == 1
@@ -57,7 +60,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     actions: [
                       IconButton(
-                        onPressed: () {
+                        onPressed: ()async {
+                          var id= await getIt<SharedPreCacheHelper>().getCustomerId();
+                          print('id: $id');
                           Navigators.pushNamed(Routes.search);
                         },
                         icon: const Icon(Icons.search),

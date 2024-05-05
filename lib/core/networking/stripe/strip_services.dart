@@ -19,11 +19,14 @@ abstract class StripServices {
   Future<Map<String, dynamic>> createPaymentIntent(
     @Header('Authorization') String bearerToken,
     @Body() Map<String, dynamic> paymentData,
+    @Header('Content-Type') String contentType,
   );
 
   @POST('ephemeral_keys')
   Future<Map<String, dynamic>> createEphemeralKey(
     @Header('Authorization') String bearerToken,
+    @Header('Stripe-Version') String stripeVersion,
     @Body() Map<String, dynamic> keyData,
+    @Header('Content-Type') String contentType,
   );
 }

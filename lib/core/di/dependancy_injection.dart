@@ -18,6 +18,7 @@ import 'package:ecommerce/ecommerce/auth/register/data/data_sources/register_rem
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/create_user.dart';
 import 'package:ecommerce/ecommerce/auth/register/domain/use_cases/sign_up.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/bloc/register_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/data/data_sources/remote_data_source.dart';
 import 'package:ecommerce/ecommerce/cart/data/repositories/cart_repo_impl.dart';
 import 'package:ecommerce/ecommerce/cart/domain/repositories/cart_repo.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/add_cart.dart';
@@ -145,7 +146,9 @@ void _setupDataSource() {
       getIt(),
     ),
   );
-}
+  getIt.registerLazySingleton<CartRemoteDataSource>(
+        () => CartRemoteDataSourceImpl(getIt()),
+  );}
 
 void _setupRepositories() {
   getIt.registerLazySingleton<LoginRepo>(
@@ -174,7 +177,7 @@ void _setupRepositories() {
 
   getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepoImpl(getIt()));
 
-  getIt.registerLazySingleton<CartRepo>(() => CartRepoImpl(getIt()));
+  getIt.registerLazySingleton<CartRepo>(() => CartRepoImpl(getIt(),getIt()));
 
   getIt.registerLazySingleton<MyAccountRepo>(
     () => MyAccountRepoImpl(

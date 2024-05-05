@@ -54,6 +54,7 @@ dependencies:
   image_picker: ^1.0.7
   json_serializable: ^6.7.1
   json_annotation: ^4.8.1
+  flutter_stripe: ^9.4.0
   smooth_page_indicator: ^1.1.0
   flutter_offline: ^3.0.1
   carousel_slider: ^4.2.1
