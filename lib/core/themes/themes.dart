@@ -9,4 +9,11 @@ class Themes {
       scaffoldBackgroundColor: AppColors.kBackGround,
     );
   }
+
+  static ThemeData lightThemeData(BuildContext context) {
+    return ThemeData.light().copyWith(
+      primaryColor: AppColors.kPrimaryColor,
+      scaffoldBackgroundColor: AppColors.kBackGround,
+    );
+  }
 }

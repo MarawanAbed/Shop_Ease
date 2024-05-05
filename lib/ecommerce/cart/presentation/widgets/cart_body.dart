@@ -99,7 +99,7 @@ class _CartItemsState extends State<CartItems> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 210,
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -111,7 +111,7 @@ class _CartItemsState extends State<CartItems> {
         children: [
           Expanded(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: CachedImage(
@@ -132,9 +132,7 @@ class _CartItemsState extends State<CartItems> {
                         ),
                         overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const Spacer(),
                       Row(
                         children: [
                           Text(

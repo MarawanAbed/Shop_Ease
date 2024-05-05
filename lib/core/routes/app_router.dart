@@ -103,6 +103,7 @@ class AppRoutes {
             BlocProvider(
               create: (context) => getIt<PaymentCubit>(),
             ),
+            BlocProvider(create: (context) => getIt<RemoveCartCubit>()),
           ],
           child: const CartPage(),
         ),

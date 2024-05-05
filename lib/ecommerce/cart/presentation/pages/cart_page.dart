@@ -38,7 +38,9 @@ class _CartPageState extends State<CartPage> {
         bottomNavigationBar: ValueListenableBuilder<Box<CartModel>>(
           valueListenable: valueListenable,
           builder: (BuildContext context, Box<CartModel> value, Widget? child) {
-            var total = value.values
+            var total = value.values.isEmpty
+                ? 0
+                : value.values
                 .map((e) => e.price * e.quantity)
                 .reduce((value, element) => value + element)
                 .toInt();

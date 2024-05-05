@@ -65,7 +65,6 @@ class PaymentCubit extends Cubit<PaymentState> {
       emit(const PaymentState.loaded());
     }on StripeException catch (e) {
       if (e.error.code == FailureCode.Canceled) {
-        // Handle the case when the user cancels the payment flow
         print('Payment flow was cancelled');
       } else {
         // Handle other Stripe exceptions

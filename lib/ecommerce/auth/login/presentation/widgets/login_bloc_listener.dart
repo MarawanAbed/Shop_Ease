@@ -44,12 +44,9 @@ class LoginBlocListener extends StatelessWidget {
             if (dataSource == 'local') {
               await getIt<SharedPreCacheHelper>()
                   .saveData(key: 'dataSource_$uId', value: dataSource);
-
-              Navigators.pushNamedAndRemoveUntil(Routes.home,
-                 );
+              Navigators.pushNamedAndRemoveUntil(Routes.home,);
             } else {
-              Navigators.pushNamedAndRemoveUntil(Routes.home,
-                  );
+              Navigators.pushNamedAndRemoveUntil(Routes.home,);
             }
           },
           error: (message) {

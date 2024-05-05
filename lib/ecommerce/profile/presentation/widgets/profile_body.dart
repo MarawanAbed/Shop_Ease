@@ -1,6 +1,4 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
-import 'package:ecommerce/core/helpers/cache.dart';
-import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
@@ -29,16 +27,7 @@ class _ProfileBodyState extends State<ProfileBody> {
           ),
           GestureDetector(
             onTap: () async {
-              var uId = getIt<AuthService>().getCurrentUserId();
-              String dataSource = await getIt<SharedPreCacheHelper>()
-                  .getData(key: 'dataSource_$uId');
-              if (dataSource == 'local') {
-                Navigators.pushNamed(Routes.myAccount);
-              } else {
-                HelperMethod.showErrorToast(
-                  'You can\'t access the "My Account" page because you are logged in with a method that doesn\'t allow data editing, such as GitHub, Google, or Twitter. Please log in with email and password to access this page.',
-                );
-              }
+              Navigators.pushNamed(Routes.myAccount);
             },
             child: Container(
               padding: const EdgeInsets.all(10),

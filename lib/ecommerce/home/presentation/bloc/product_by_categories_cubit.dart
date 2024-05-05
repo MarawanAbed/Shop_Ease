@@ -28,4 +28,11 @@ class ProductByCategoriesCubit extends Cubit<ProductByCategoriesState> {
      },
     );
   }
+
+  @override
+  void emit( state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

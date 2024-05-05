@@ -1,3 +1,7 @@
+import 'package:ecommerce/core/di/dependancy_injection.dart';
+import 'package:ecommerce/core/helpers/cache.dart';
+import 'package:ecommerce/core/helpers/helper_methods.dart';
+import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +44,18 @@ class _MyAccountPageState extends State<MyAccountPage> {
               Icons.edit,
               color: Colors.white,
             ),
-            onPressed: () {
+            onPressed: ()async {
               var cubit = context.read<GetSingleUserCubit>();
-              Navigators.pushNamed(Routes.editProfile,arguments: cubit.myAccountModel);
+              var uId = getIt<AuthService>().getCurrentUserId();
+              String dataSource = await getIt<SharedPreCacheHelper>()
+                  .getData(key: 'dataSource_$uId')??'';
+              if (dataSource == 'local') {
+                Navigators.pushNamed(Routes.editProfile,arguments: cubit.myAccountModel);
+              } else {
+                HelperMethod.showErrorToast(
+                  'You can\'t access the "My Account" page because you are logged in with a method that doesn\'t allow data editing, such as GitHub, Google, or Twitter. Please log in with email and password to access this page.',
+                );
+              }
             },
           ),
         ],

@@ -2,7 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
+import 'package:ecommerce/ecommerce/auth/register/data/data_sources/register_remote_data_source.dart';
+import 'package:ecommerce/ecommerce/auth/register/data/models/customer_model.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -142,6 +145,15 @@ class AuthService {
         dataSource: 'Google',
         address: 'Empty address field',
       );
+      final customer=await getIt<RegisterRemoteDataSource>().createCustomer(
+        CustomerModel(
+          name: currentUser?.displayName ?? '',
+          email: currentUser?.email ?? '',
+          phone: 'Empty phone field',
+          id: currentUser?.uid ?? '',
+        ),
+      );
+      await getIt<SharedPreCacheHelper>().setCustomerId(customer.id!);
       await getIt<DatabaseService>().createUser(userModel);
       // await getIt<DatabaseService>().updateUser({
       //   'lastActive': DateTime.now(),
@@ -193,6 +205,15 @@ class AuthService {
         dataSource: 'Twitter',
         address: 'Empty address field',
       );
+     final customer= await getIt<RegisterRemoteDataSource>().createCustomer(
+        CustomerModel(
+          name: currentUser?.displayName ?? '',
+          email: userEmail,
+          phone: 'Empty phone field',
+          id: currentUser?.uid ?? '',
+        ),
+      );
+      await getIt<SharedPreCacheHelper>().setCustomerId(customer.id!);
       await getIt<DatabaseService>().createUser(userModel);
       // await getIt<DatabaseService>().updateUser({
       //   'lastActive': DateTime.now(),
@@ -234,6 +255,15 @@ class AuthService {
         dataSource: 'GitHub',
         address: 'Empty address field',
       );
+      final customer= await getIt<RegisterRemoteDataSource>().createCustomer(
+        CustomerModel(
+          name: userName,
+          email: currentUser?.email ?? '',
+          phone: 'Empty phone field',
+          id: currentUser?.uid ?? '',
+        ),
+      );
+      await getIt<SharedPreCacheHelper>().setCustomerId(customer.id!);
       await getIt<DatabaseService>().createUser(userModel);
       // await getIt<DatabaseService>().updateUser({
       //   'lastActive': DateTime.now(),
