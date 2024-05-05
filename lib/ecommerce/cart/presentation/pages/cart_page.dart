@@ -1,8 +1,9 @@
-import 'package:ecommerce/core/routes/routes.dart';
-import 'package:ecommerce/core/services/navigator.dart';
+import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/ecommerce/cart/data/models/cart_model.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/bloc/payment_cubit.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/widgets/cart_bloc_listener.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../../../../core/di/dependancy_injection.dart';
@@ -89,15 +90,17 @@ class _CartPageState extends State<CartPage> {
                       width: double.infinity,
                       child: TextButton(
                         onPressed: () async {
-                          // var customerUid = await getIt<SharedPreCacheHelper>()
-                          //     .getCustomerId();
-                          // var cubit = context.read<PaymentCubit>();
-                          // cubit.paymentIntent(total.toString(), 'usd', customerUid!).then((_) {
-                          //   cubit.ephemeralKeyKey(customerUid).then((_) {
-                          //     cubit.checkOut(customerUid);
-                          //   });
-                          // });
-                          Navigators.pushNamed(Routes.thankYou);
+                          var customerUid = await getIt<SharedPreCacheHelper>()
+                              .getCustomerId();
+                          var cubit = context.read<PaymentCubit>();
+                          cubit
+                              .paymentIntent(
+                                  total.toString(), 'usd', customerUid!)
+                              .then((_) {
+                            cubit.ephemeralKeyKey(customerUid).then((_) {
+                              cubit.checkOut(customerUid);
+                            });
+                          });
                         },
                         child: const Text(
                           'Checkout',
