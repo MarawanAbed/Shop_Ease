@@ -22,9 +22,12 @@ import 'package:ecommerce/ecommerce/cart/data/data_sources/remote_data_source.da
 import 'package:ecommerce/ecommerce/cart/data/repositories/cart_repo_impl.dart';
 import 'package:ecommerce/ecommerce/cart/domain/repositories/cart_repo.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/add_cart.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/create_ephemeral_key.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/create_payment_intent.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/is_already_in_cart.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/remove_cart.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/add_cart_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/bloc/payment_cubit.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/remove_cart_cubit.dart';
 import 'package:ecommerce/ecommerce/categories/data/data_sources/categories_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/categories/data/repositories/categories_repo_impl.dart';
@@ -228,6 +231,10 @@ void _setupUseCases() {
   getIt.registerLazySingleton<UpdateUserData>(() => UpdateUserData(getIt()));
 
   getIt.registerLazySingleton<GetUser>(() => GetUser(getIt()));
+
+  getIt.registerLazySingleton<CreateEphemeralKey>(() => CreateEphemeralKey(getIt()));
+
+  getIt.registerLazySingleton<CreatePaymentIntent>(() => CreatePaymentIntent(getIt()));
 }
 
 void _setupCubit() {
@@ -271,6 +278,11 @@ void _setupCubit() {
       ));
 
   getIt.registerFactory<GetSingleUserCubit>(() => GetSingleUserCubit(getIt()));
+
+  getIt.registerFactory<PaymentCubit>(() => PaymentCubit(
+    getIt(),
+    getIt(),
+  ));
 }
 
 void _setupServices() async {

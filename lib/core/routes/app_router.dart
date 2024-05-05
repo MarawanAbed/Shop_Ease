@@ -7,7 +7,9 @@ import 'package:ecommerce/ecommerce/auth/login/presentation/pages/login_page.dar
 import 'package:ecommerce/ecommerce/auth/register/presentation/pages/complete_register.dart';
 import 'package:ecommerce/ecommerce/auth/register/presentation/pages/register_page.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/add_cart_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/bloc/payment_cubit.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/remove_cart_cubit.dart';
+import 'package:ecommerce/ecommerce/cart/presentation/pages/thank_you_page.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/banner_cubit.dart';
@@ -93,8 +95,15 @@ class AppRoutes {
           create: (context) => getIt<SearchCubit>(),
           child: const SearchPage(),
         ),
-    Routes.cart: (context) => BlocProvider(
-          create: (context) => getIt<RemoveCartCubit>(),
+    Routes.cart: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<AddCartCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<PaymentCubit>(),
+            ),
+          ],
           child: const CartPage(),
         ),
     Routes.aboutUs: (context) => const AboutUsPage(),
@@ -121,5 +130,6 @@ class AppRoutes {
           ],
           child: const EditProfilePage(),
         ),
+    Routes.thankYou: (context) => const ThankYouView(),
   };
 }

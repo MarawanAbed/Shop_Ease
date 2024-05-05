@@ -54,6 +54,7 @@ class _StripServices implements StripServices {
               baseUrl,
             ))));
     return _result.data!;
+
   }
 
   @override
@@ -90,6 +91,7 @@ class _StripServices implements StripServices {
               baseUrl,
             ))));
     return _result.data!;
+
   }
 
   @override
@@ -103,8 +105,8 @@ class _StripServices implements StripServices {
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{
       r'Authorization': bearerToken,
-      r'Content-Type': contentType,
       r'Stripe-Version': stripeVersion,
+      r'Content-Type': contentType,
     };
     _headers.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
@@ -128,6 +130,7 @@ class _StripServices implements StripServices {
               baseUrl,
             ))));
     return _result.data!;
+
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
