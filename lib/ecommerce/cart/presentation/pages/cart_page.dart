@@ -5,7 +5,7 @@ import 'package:ecommerce/ecommerce/cart/presentation/widgets/cart_bloc_listener
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-
+import 'package:ecommerce/generated/l10n.dart';
 import '../../../../core/di/dependancy_injection.dart';
 import '../../../../core/services/firebase_servies.dart';
 import '../widgets/cart_body.dart';
@@ -26,13 +26,14 @@ class _CartPageState extends State<CartPage> {
     var light = theme.brightness == Brightness.light;
     var uId = getIt<AuthService>().getCurrentUserId();
     var valueListenable = Hive.box<CartModel>('cart_$uId').listenable();
+    var lang=S.of(context);
     return SafeArea(
       child: Scaffold(
         key: formKey,
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Cart',
+          title:  Text(
+            lang.cart,
           ),
         ),
         body: const CartBody(),
@@ -52,9 +53,9 @@ class _CartPageState extends State<CartPage> {
                 children: [
                   Row(
                     children: [
-                      const Text(
-                        'Total : ',
-                        style: TextStyle(
+                       Text(
+                        '${lang.total} : ',
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -102,9 +103,9 @@ class _CartPageState extends State<CartPage> {
                             });
                           });
                         },
-                        child: const Text(
-                          'Checkout',
-                          style: TextStyle(
+                        child:  Text(
+                          lang.checkout,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

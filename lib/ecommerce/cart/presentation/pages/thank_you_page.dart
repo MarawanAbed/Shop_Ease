@@ -1,5 +1,6 @@
 import 'package:ecommerce/core/assets/images.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -16,13 +17,15 @@ class _ThankYouViewState extends State<ThankYouView> {
 
   @override
   void didChangeDependencies() {
-    // total=ModalRoute.of(context)!.settings.arguments as String;
+    total=ModalRoute.of(context)!.settings.arguments as String;
     super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(),
+      appBar: buildAppBar(
+        context: context,
+      ),
       body: Transform.translate(
           offset: const Offset(0, -16), child:  ThankYouViewBody(
         total: total
@@ -106,6 +109,7 @@ class ThankYouCard extends StatelessWidget {
   final String total;
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return Container(
       width: double.infinity,
       decoration: ShapeDecoration(
@@ -118,10 +122,10 @@ class ThankYouCard extends StatelessWidget {
         padding: const EdgeInsets.only(top: 50 + 16, left: 22, right: 22),
         child: Column(
           children: [
-            const Text(
-              'Thank you!',
+             Text(
+              lang.thank_you,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 24,
                 fontFamily: 'Inter',
@@ -129,7 +133,7 @@ class ThankYouCard extends StatelessWidget {
                 height: 0,
               ),
             ),
-            Text('Your transaction was successful',
+            Text(lang.transaction_successful,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black.withOpacity(0.699999988079071),
@@ -142,28 +146,28 @@ class ThankYouCard extends StatelessWidget {
               height: 42,
             ),
              PaymentItemInfo(
-              title: 'Date',
+              title: lang.date,
               value:  DateFormat('MM/dd/yyyy').format(DateTime.now()),
              ),
             const SizedBox(
               height: 20,
             ),
              PaymentItemInfo(
-              title: 'Time',
+              title: lang.time,
                value: DateFormat('hh:mm a').format(DateTime.now()),
             ),
             const SizedBox(
               height: 20,
             ),
-            const PaymentItemInfo(
-              title: 'From',
-              value: 'Marwan Store',
+             PaymentItemInfo(
+              title:lang.from,
+              value:lang.marwan_store,
             ),
             const Divider(
               height: 60,
               thickness: 2,
             ),
-            TotalPrice(title: 'Total', value: "\$"+total),
+            TotalPrice(title:lang.total, value: "\$"+total),
             const SizedBox(
               height: 30,
             ),
@@ -186,11 +190,11 @@ class ThankYouCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  child: const Center(
+                  child:  Center(
                     child: Text(
-                      'PAID',
+                      lang.paid,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF34A853),
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -367,11 +371,16 @@ class CustomCheckIcon extends StatelessWidget {
   }
 }
 
-AppBar buildAppBar({final String? title}) {
+AppBar buildAppBar({final String? title, required BuildContext context}) {
   return AppBar(
-    leading: Center(
-      child: SvgPicture.asset(
-        AppImages.arrow,
+    leading: GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: Center(
+        child: SvgPicture.asset(
+          AppImages.arrow,
+        ),
       ),
     ),
     elevation: 0,

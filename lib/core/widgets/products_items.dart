@@ -17,7 +17,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 class ProductsItems extends StatefulWidget {
   const ProductsItems({
     super.key,
-    required this.product, required this.language,
+    required this.product,
+    required this.language,
   });
 
   final Object product;
@@ -36,7 +37,8 @@ class _ProductsItemsState extends State<ProductsItems> {
     final productId = widget.product is HomeProductModel
         ? (widget.product as HomeProductModel).id
         : (widget.product as ProductsByCategoriesProductsModel).id;
-    bool favorite = await _prefs.getData(key:'favorite_${userId}_$productId') ?? false;
+    bool favorite =
+        await _prefs.getData(key: 'favorite_${userId}_$productId') ?? false;
     setState(() {
       isFavorite = favorite;
     });
@@ -93,7 +95,7 @@ class _ProductsItemsState extends State<ProductsItems> {
               height: 220,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: light?Colors.white:Colors.grey,
+                color: light ? Colors.white : Colors.grey,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -116,19 +118,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                         Text(
                           categoryProduct.name,
                           maxLines: 2,
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: light?Colors.black:Colors.white,
+                            color: light ? Colors.black : Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Text(
                           categoryProduct.description,
                           maxLines: 2,
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
-                            color: light?Colors.black:Colors.white,
+                            color: light ? Colors.black : Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -157,15 +159,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           discount: categoryProduct.discount,
                                           image: categoryProduct.image,
                                           name: categoryProduct.name,
-                                          description: categoryProduct.description,
+                                          description:
+                                              categoryProduct.description,
                                           language: widget.language,
                                         ),
                                       );
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color:
-                                          isFavorite ? Colors.red : Colors.white,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : light
+                                              ? Colors.grey
+                                              : Colors.white,
                                     ),
                                   );
                                 } else {
@@ -178,15 +184,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                                           discount: categoryProduct.discount,
                                           image: categoryProduct.image,
                                           name: categoryProduct.name,
-                                          description: categoryProduct.description,
+                                          description:
+                                              categoryProduct.description,
                                           language: widget.language,
                                         ),
                                       );
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color:
-                                          isFavorite ? Colors.red : Colors.white,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : light
+                                              ? Colors.grey
+                                              : Colors.white,
                                     ),
                                   );
                                 }
@@ -245,7 +255,7 @@ class _ProductsItemsState extends State<ProductsItems> {
               height: 220,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: light?Colors.white:Colors.grey,
+                color: light ? Colors.white : Colors.grey,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
@@ -258,7 +268,9 @@ class _ProductsItemsState extends State<ProductsItems> {
               child: Row(
                 children: [
                   Expanded(
-                    child: CachedImage(image: homeProduct.image,),
+                    child: CachedImage(
+                      image: homeProduct.image,
+                    ),
                   ),
                   const SizedBox(width: 20),
                   Expanded(
@@ -268,19 +280,19 @@ class _ProductsItemsState extends State<ProductsItems> {
                         Text(
                           homeProduct.name,
                           maxLines: 2,
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
-                            color: light?Colors.black:Colors.white,
+                            color: light ? Colors.black : Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Text(
                           homeProduct.description,
                           maxLines: 2,
-                          style:  TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
-                            color: light?Colors.black:Colors.white,
+                            color: light ? Colors.black : Colors.white,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
@@ -316,8 +328,11 @@ class _ProductsItemsState extends State<ProductsItems> {
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color:
-                                          isFavorite ? Colors.red : Colors.white,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : light
+                                              ? Colors.grey
+                                              : Colors.white,
                                     ),
                                   );
                                 } else {
@@ -337,8 +352,11 @@ class _ProductsItemsState extends State<ProductsItems> {
                                     },
                                     icon: Icon(
                                       Icons.favorite,
-                                      color:
-                                          isFavorite ? Colors.red : Colors.white,
+                                      color: isFavorite
+                                          ? Colors.red
+                                          : light
+                                              ? Colors.grey
+                                              : Colors.white,
                                     ),
                                   );
                                 }

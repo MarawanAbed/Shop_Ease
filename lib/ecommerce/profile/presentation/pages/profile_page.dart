@@ -1,3 +1,4 @@
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/profile_body.dart';
@@ -15,9 +16,9 @@ class ProfilePage extends StatelessWidget {
           appBar: AppBar(
             surfaceTintColor: Colors.white,
             automaticallyImplyLeading: false,
-            title: const Text(
-              'Profile',
-              style: TextStyle(
+            title:  Text(
+              S.of(context).profile,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

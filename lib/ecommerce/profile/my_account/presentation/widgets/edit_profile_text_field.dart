@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/widgets/app_text_form.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,12 +41,13 @@ class _EditProfileTextFieldState extends State<EditProfileTextField> {
   }
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Name',
-          style: TextStyle(
+         Text(
+          lang.name,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -59,12 +61,12 @@ class _EditProfileTextFieldState extends State<EditProfileTextField> {
           hintStyle: const TextStyle(
             color:Colors.black,
           ),
-          hintText: 'Name',
+          hintText: lang.name,
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Email',
-          style: TextStyle(
+         Text(
+          lang.email,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -78,12 +80,12 @@ class _EditProfileTextFieldState extends State<EditProfileTextField> {
           hintStyle: const TextStyle(
             color:Colors.black,
           ),
-          hintText: 'Email',
+          hintText: lang.email,
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Password',
-          style: TextStyle(
+         Text(
+           lang.password,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -97,12 +99,12 @@ class _EditProfileTextFieldState extends State<EditProfileTextField> {
           hintStyle: const TextStyle(
             color:Colors.black,
           ),
-          hintText: 'Password',
+          hintText: lang.password,
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Phone',
-          style: TextStyle(
+         Text(
+          lang.phone,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -116,12 +118,12 @@ class _EditProfileTextFieldState extends State<EditProfileTextField> {
           hintStyle: const TextStyle(
             color:Colors.black,
           ),
-          hintText: 'Phone',
+          hintText: lang.phone,
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Address',
-          style: TextStyle(
+         Text(
+          lang.address,
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -135,7 +137,7 @@ class _EditProfileTextFieldState extends State<EditProfileTextField> {
           hintStyle: const TextStyle(
             color:Colors.black,
           ),
-          hintText: 'Address',
+          hintText: lang.address,
         ),
       ],
     );

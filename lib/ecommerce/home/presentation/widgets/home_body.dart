@@ -2,6 +2,7 @@ import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart
 import 'package:ecommerce/ecommerce/home/presentation/widgets/banner_bloc_builder.dart';
 import 'package:ecommerce/ecommerce/home/presentation/widgets/product_bloc_builder.dart';
 import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,6 +32,7 @@ class _HomeBodyState extends State<HomeBody> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     var light = theme.brightness == Brightness.light;
+    var lang=S.of(context);
     return PopScope(
       canPop: false,
       child: Padding(
@@ -46,7 +48,7 @@ class _HomeBodyState extends State<HomeBody> {
                     height: 20,
                   ),
                   Text(
-                    'Categories',
+                    lang.categories,
                     style: TextStyle(
                       fontSize: 20.sp,
                       color: light ? Colors.black : Colors.white,
@@ -63,7 +65,7 @@ class _HomeBodyState extends State<HomeBody> {
                     height: 20,
                   ),
                   Text(
-                    'New Products',
+                    lang.new_products,
                     style: TextStyle(
                       fontSize: 20.sp,
                       color: light ? Colors.black : Colors.white,

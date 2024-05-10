@@ -1,7 +1,7 @@
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:ecommerce/generated/l10n.dart';
 import 'change_profile_image.dart';
 
 class MyAccountBlocBuilder extends StatelessWidget {
@@ -11,6 +11,7 @@ class MyAccountBlocBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return BlocBuilder<GetSingleUserCubit, GetSingleUserState>(
       buildWhen: (previous, current) =>
           current is Loading || current is Loaded || current is Error,
@@ -31,33 +32,9 @@ class MyAccountBlocBuilder extends StatelessWidget {
                     viewOnly: true,
                   ),
                 ),
-                const Text(
-                  'Email',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                UserDataItems(
-                  text: user.email,
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                UserDataItems(
-                  text: user.password,
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Name',
-                  style: TextStyle(
+                 Text(
+                  lang.name,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -67,21 +44,33 @@ class MyAccountBlocBuilder extends StatelessWidget {
                   text: user.name,
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Address',
-                  style: TextStyle(
+                 Text(
+                  lang.email,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 16),
                 UserDataItems(
-                  text: user.address,
+                  text: user.email,
                 ),
                 const SizedBox(height: 16),
-                const Text(
-                  'Phone',
-                  style: TextStyle(
+                 Text(
+                  lang.password,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                UserDataItems(
+                  text: user.password,
+                ),
+                const SizedBox(height: 16),
+                 Text(
+                  lang.phone,
+                  style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -89,6 +78,18 @@ class MyAccountBlocBuilder extends StatelessWidget {
                 const SizedBox(height: 16),
                 UserDataItems(
                   text: user.phone,
+                ),
+                const SizedBox(height: 16),
+                 Text(
+                  lang.address,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                UserDataItems(
+                  text: user.address,
                 ),
                 const SizedBox(height: 40),
               ],

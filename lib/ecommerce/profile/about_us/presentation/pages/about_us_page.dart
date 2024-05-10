@@ -1,3 +1,4 @@
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/about_us_body.dart';
@@ -7,12 +8,13 @@ class AboutUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           surfaceTintColor: Colors.white,
-          title: const Text('About Us'),
+          title:  Text(S.of(context).about_us),
         ),
         body: const AboutUsBody(),
       ),

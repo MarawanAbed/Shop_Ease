@@ -1,9 +1,8 @@
-import 'package:ecommerce/core/di/dependancy_injection.dart';
-import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/routes/routes.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/logo.dart';
 import 'package:ecommerce/ecommerce/profile/presentation/pages/profile_page.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -30,6 +29,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var lang = S.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: _currentIndex == 0 || _currentIndex == 1
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(width: 10.w),
                       Text(
-                        'Shop Ease',
+                        lang.shop_ease,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20.sp,
@@ -61,20 +61,18 @@ class _HomePageState extends State<HomePage> {
                   actions: [
                     IconButton(
                       onPressed: () async {
-                        var id =
-                            await getIt<SharedPreCacheHelper>().getCustomerId();
-                        print('id: $id');
                         Navigators.pushNamed(Routes.search);
                       },
                       icon: const Icon(Icons.search),
                       color: Colors.white,
                     ),
                     IconButton(
-                        onPressed: () {
-                          Navigators.pushNamed(Routes.cart);
-                        },
-                        icon: const Icon(Icons.shopping_cart),
-                        color: Colors.white),
+                      onPressed: () {
+                        Navigators.pushNamed(Routes.cart);
+                      },
+                      icon: const Icon(Icons.shopping_cart),
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               )
@@ -98,24 +96,24 @@ class _HomePageState extends State<HomePage> {
             fontSize: 14.sp,
             fontWeight: FontWeight.bold,
           ),
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.home,
               ),
-              label: 'Home',
+              label: lang.home,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.category),
-              label: 'Categories',
+              icon: const Icon(Icons.category),
+              label: lang.categories,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorite',
+              icon: const Icon(Icons.favorite),
+              label: lang.favorite,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
+              icon: const Icon(Icons.person),
+              label: lang.profile,
             ),
           ],
         ),

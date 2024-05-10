@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -30,6 +31,8 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
   }
 
   pickedImage() async {
+    var lang=S.of(context);
+
     try {
       var cubit = context.read<UpdateUserDataCubit>();
       File? newProfileImage = await HelperMethod.getImageFromGallery();
@@ -38,7 +41,7 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
       });
       cubit.profileImage = newProfileImage;
     } catch (e) {
-      HelperMethod.showErrorToast('Please Select Image',
+      HelperMethod.showErrorToast(lang.please_select_image,
           gravity: ToastGravity.BOTTOM);
     }
   }

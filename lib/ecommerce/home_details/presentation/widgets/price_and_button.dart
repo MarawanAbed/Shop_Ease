@@ -1,6 +1,7 @@
 import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/ecommerce/cart/data/models/cart_model.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/add_cart_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,12 +21,13 @@ class PriceAndButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Text(
-            'Price: \$${totalPrice.toInt()}',
+            '${lang.price}: \$${totalPrice.toInt()}',
             style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -33,16 +35,16 @@ class PriceAndButton extends StatelessWidget {
           ),
         ),
         CustomElevatedButton(
-          title: '+ Add to Cart',
+          title: lang.add_to_cart,
           onPressed: () async {
             var cubit = context.read<AddCartCubit>();
             bool isAlreadyInCart = await cubit.isAlreadyInCart(cartModel.id);
             if (isAlreadyInCart) {
-              HelperMethod.showErrorToast('Item is already in the cart',
+              HelperMethod.showErrorToast(lang.item_already_in_cart,
                   gravity: ToastGravity.BOTTOM);
             } else {
               cubit.addCart(cartModel);
-              HelperMethod.showSuccessToast('Added to cart',
+              HelperMethod.showSuccessToast(lang.added_to_cart,
                   gravity: ToastGravity.BOTTOM);
             }
           },

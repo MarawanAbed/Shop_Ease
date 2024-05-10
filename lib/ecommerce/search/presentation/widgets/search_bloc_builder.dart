@@ -1,5 +1,6 @@
 import 'package:ecommerce/ecommerce/search/presentation/bloc/search_cubit.dart';
 import 'package:ecommerce/ecommerce/search/presentation/widgets/search_list_view.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,14 +9,15 @@ class SearchBlocBuilder extends StatelessWidget {
   final String language;
   @override
   Widget build(BuildContext context) {
+    var s=S.of(context);
     return BlocBuilder<SearchCubit, SearchState>(
       buildWhen: (previous, current) =>
           current is Loading || current is Success || current is Error,
       builder: (context, state) {
         return state.when(
-          initial: () => const Expanded(
+          initial: () =>  Expanded(
             child: Center(
-              child: Text('Search Products'),
+              child: Text(s.search_products),
             ),
           ),
           loading: () => const Expanded(
@@ -24,9 +26,9 @@ class SearchBlocBuilder extends StatelessWidget {
             ),
           ),
           success: (products) => products.isEmpty
-              ? const Expanded(
+              ?  Expanded(
                   child: Center(
-                    child: Text('No Products Founds'),
+                    child: Text(s.no_products_found),
                   ),
                 )
               : SearchListView(

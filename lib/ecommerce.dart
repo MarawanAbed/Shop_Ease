@@ -68,7 +68,7 @@ class Ecommerce extends StatelessWidget {
                   darkTheme: Themes.darkThemeData(context),
                   theme: Themes.lightThemeData(context),
                   themeMode: darkState.isDark ? ThemeMode.dark : ThemeMode.light,
-                  title: 'Ecommerce',
+                  title: 'ShopEase',
                   routes: AppRoutes.routes,
                   initialRoute: isOnBoarding && isLanguageSelected
                       ? getIt<AuthService>().getCurrentUserId() == null

@@ -3,6 +3,7 @@ import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/widgets/cached_image.dart';
 import 'package:ecommerce/ecommerce/cart/data/models/cart_model.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/remove_cart_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,25 +28,26 @@ class _CartBodyState extends State<CartBody> {
 
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: ValueListenableBuilder<Box<CartModel>>(
         valueListenable: valueListenable,
         builder: (context, box, _) {
           return box.isEmpty
-              ? const Center(
+              ?  Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.shopping_cart,
                         size: 100,
                         color: Colors.red,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Text(
-                        'No Items in Cart',
-                        style: TextStyle(
+                        lang.no_items_in_cart,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),

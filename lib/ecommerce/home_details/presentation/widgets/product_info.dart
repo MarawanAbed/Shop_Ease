@@ -1,4 +1,5 @@
 import 'package:ecommerce/ecommerce/home_details/presentation/widgets/star_and_counter.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import '../../../home_details/data/models/product.dart';
@@ -17,6 +18,7 @@ class ProductInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,9 +36,9 @@ class ProductInfo extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        const Text(
-          'Description : ',
-          style: TextStyle(
+         Text(
+          '${lang.description} : ',
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),

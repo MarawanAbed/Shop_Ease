@@ -4,6 +4,7 @@ import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,6 +27,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -53,15 +55,15 @@ class _MyAccountPageState extends State<MyAccountPage> {
                 Navigators.pushNamed(Routes.editProfile,arguments: cubit.myAccountModel);
               } else {
                 HelperMethod.showErrorToast(
-                  'You can\'t access the "My Account" page because you are logged in with a method that doesn\'t allow data editing, such as GitHub, Google, or Twitter. Please log in with email and password to access this page.',
+                  lang.cant_access_my_account,
                 );
               }
             },
           ),
         ],
-        title: const Text(
-          'My Account',
-          style: TextStyle(
+        title:  Text(
+          lang.my_account,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.white,

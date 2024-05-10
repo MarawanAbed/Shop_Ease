@@ -345,13 +345,13 @@ class AuthService {
 }
 
 class DatabaseService {
-  final FirebaseFirestore _fireStore;
+  final FirebaseFirestore fireStore;
 
-  DatabaseService(this._fireStore);
+  DatabaseService(this.fireStore);
 
   //
   Future<void> createUser(UserModel userModel) async {
-    final userCollection = _fireStore.collection('users');
+    final userCollection = fireStore.collection('users');
     final uid = getIt<AuthService>().getCurrentUserId();
     if (uid != null) {
       final userData = await userCollection.doc(uid).get();
@@ -382,7 +382,7 @@ class DatabaseService {
 //
   Future<void> updateUser(Map<String, dynamic> data) async {
     try {
-      await _fireStore
+      await fireStore
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update(data);
@@ -397,7 +397,7 @@ class DatabaseService {
 //
   Stream<MyAccountModel> getSingleUser() {
     var uId = getIt<AuthService>().getCurrentUserId();
-    final userDoc = _fireStore.collection('users').doc(uId);
+    final userDoc = fireStore.collection('users').doc(uId);
 
     return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
       if (userSnapshot.exists) {

@@ -1,11 +1,12 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
-import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/change_profile_image.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/edit_profile_bloc_listener.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/edit_profile_text_field.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -29,6 +30,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    var lang = S.of(context);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -53,9 +55,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
               ),
             ],
-            title: const Text(
-              'Edit Profile',
-              style: TextStyle(
+            title: Text(
+              lang.edit_profile,
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -81,7 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   const SizedBox(
                     height: 20,
                   ),
-                  const ImageBLocListener(),
+                  const EditProfileBLocListener(),
                 ],
               ),
             ),
@@ -90,6 +92,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future<void> _saveChanges() async {
+    var lang = S.of(context);
     var cubit = context.read<UpdateUserDataCubit>();
     var uId = getIt<AuthService>().getCurrentUserId();
     String? image;
@@ -117,48 +120,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
       await cubit.updateEmailAndPassword(cubit.emailController.text,
           cubit.passwordController.text, myAccountModel.password);
       cubit.updateUser(user.toJson());
-      HelperMethod.showSuccessToast('Profile Updated Successfully',
+      HelperMethod.showSuccessToast(lang.profile_updated_successfully,
           gravity: ToastGravity.BOTTOM);
     } else {
       cubit.updateUser(user.toJson());
-      HelperMethod.showSuccessToast('Profile Updated',
+      HelperMethod.showSuccessToast(lang.profile_updated_successfully,
           gravity: ToastGravity.BOTTOM);
     }
-  }
-}
-
-class ImageBLocListener extends StatelessWidget {
-  const ImageBLocListener({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<UpdateUserDataCubit, UpdateUserDataState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          imageInitial: () {
-            HelperMethod.showLoadingDialog(context);
-          },
-          imageError: (message) {
-            Navigator.pop(context);
-            HelperMethod.showErrorToast(message);
-          },
-          imageLoaded: () {
-            Navigator.pop(context);
-          },
-          loading: () {
-            HelperMethod.showLoadingDialog(context);
-          },
-          loaded: () {
-            Navigator.pop(context);
-            Navigators.pop();
-          },
-          error: (message) {
-            Navigator.pop(context);
-            HelperMethod.showErrorToast(message);
-          },
-        );
-      },
-      child: const SizedBox.shrink(),
-    );
   }
 }

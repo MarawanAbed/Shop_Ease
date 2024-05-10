@@ -4,6 +4,7 @@ import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -48,40 +49,16 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    var lang=S.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.white,
-          title: const Text('Product Details'),
+          title:  Text(lang.product_details),
           actions: [
             IconButton(
               onPressed: () async {
-                setState(() {
-                  isFavorite = !isFavorite;
-                });
-                final prefs = getIt<SharedPreCacheHelper>();
-                final userId=getIt<AuthService>().getCurrentUserId();
-                if (isFavorite) {
-                  await prefs.saveData(key: 'favorite_${userId}_$id', value: true);
-                  HelperMethod.showSuccessToast('added to favorite',
-                      gravity: ToastGravity.BOTTOM);
-                  context.read<AddFavoriteCubit>().addFavorite(
-                        FavoriteModel(
-                          id: id,
-                          price: price,
-                          discount: discount,
-                          image: image,
-                          name: name,
-                          description: description,
-                          language: language,
-                        ),
-                      );
-                } else {
-                  await prefs.removeData(key: 'favorite_${userId}_$id');
-                  HelperMethod.showErrorToast('removed from favorite',
-                      gravity: ToastGravity.BOTTOM);
-                  context.read<RemoveFavoritesCubit>().removeFavorites(id);
-                }
+                await _toggleFavorite(lang, context);
               },
               icon: Icon(
                 Icons.favorite,
@@ -93,5 +70,34 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
         body: HomeDetailsBody(id: id,language: language),
       ),
     );
+  }
+
+  Future<void> _toggleFavorite(S lang, BuildContext context) async {
+    setState(() {
+      isFavorite = !isFavorite;
+    });
+    final prefs = getIt<SharedPreCacheHelper>();
+    final userId=getIt<AuthService>().getCurrentUserId();
+    if (isFavorite) {
+      await prefs.saveData(key: 'favorite_${userId}_$id', value: true);
+      HelperMethod.showSuccessToast(lang.added_to_favorite,
+          gravity: ToastGravity.BOTTOM);
+      context.read<AddFavoriteCubit>().addFavorite(
+            FavoriteModel(
+              id: id,
+              price: price,
+              discount: discount,
+              image: image,
+              name: name,
+              description: description,
+              language: language,
+            ),
+          );
+    } else {
+      await prefs.removeData(key: 'favorite_${userId}_$id');
+      HelperMethod.showErrorToast(lang.removed_from_favorite,
+          gravity: ToastGravity.BOTTOM);
+      context.read<RemoveFavoritesCubit>().removeFavorites(id);
+    }
   }
 }
