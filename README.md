@@ -13,21 +13,6 @@ ShopEase is a Flutter-based e-commerce application that provides a seamless shop
 - **Payment**: Users can make payments for their purchases directly within the app.
 - **Localization**: The app supports multiple languages, enhancing the user experience for non-English speakers.
 
-## Getting Started
-
-To get started with this project:
-
-1. Clone the repository.
-2. Install the necessary dependencies.
-3. Run the application.
-
-## Dependencies
-
-- Flutter
-- Dart
-- Hive for local database
-- Firebase for backend services
-
 ## Screenshots
 
 ![1](https://github.com/MarawanAbed/Shop_Ease/assets/73714493/0c5e1b10-7e37-4b8f-887c-23c22bd8b5b1)
