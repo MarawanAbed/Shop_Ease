@@ -1,4 +1,5 @@
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/user_data_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecommerce/generated/l10n.dart';
@@ -17,8 +18,8 @@ class MyAccountBlocBuilder extends StatelessWidget {
           current is Loading || current is Loaded || current is Error,
       builder: (context, state) {
         return state.when(
-          initial: () => const CircularProgressIndicator(),
-          loading: () => const CircularProgressIndicator(),
+          initial: () => const Center(child: Expanded(child: CircularProgressIndicator())),
+          loading: () => const Center(child: Expanded(child: CircularProgressIndicator())),
           loaded: (user) {
             var cubit = context.read<GetSingleUserCubit>();
             cubit.myAccountModel = user;
@@ -102,33 +103,3 @@ class MyAccountBlocBuilder extends StatelessWidget {
   }
 }
 
-class UserDataItems extends StatelessWidget {
-  const UserDataItems({
-    super.key,
-    required this.text,
-  });
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 60,
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(
-            color: Colors.black,
-            width: 1,
-          )),
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    );
-  }
-}

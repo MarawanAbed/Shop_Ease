@@ -7,4 +7,6 @@ abstract class MyAccountRepo {
 
   Future<void> updateEmailAndPassword(
       String email, String newPassowrd, String oldPassword);
+
+  String? getUserUid();
 }

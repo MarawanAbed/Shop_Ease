@@ -4,4 +4,5 @@ import '../../../../core/networking/api_result.dart';
 
 abstract class HomeDetailsRepo {
   Future<ApiResult<HomeDetailsProductModel>> getProductDetails( int id,String language);
+  String? getCurrentUserId();
 }

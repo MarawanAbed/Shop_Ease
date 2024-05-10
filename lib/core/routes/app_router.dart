@@ -91,8 +91,18 @@ class AppRoutes {
           ],
           child: const ProductsByCategoriesPage(),
         ),
-    Routes.search: (context) => BlocProvider(
-          create: (context) => getIt<SearchCubit>(),
+    Routes.search: (context) => MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<AddFavoriteCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<RemoveFavoritesCubit>(),
+            ),
+            BlocProvider(
+              create: (context) => getIt<SearchCubit>(),
+            ),
+          ],
           child: const SearchPage(),
         ),
     Routes.cart: (context) => MultiBlocProvider(

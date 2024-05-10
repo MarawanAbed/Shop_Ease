@@ -24,6 +24,7 @@ import 'package:ecommerce/ecommerce/cart/domain/repositories/cart_repo.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/add_cart.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/create_ephemeral_key.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/create_payment_intent.dart';
+import 'package:ecommerce/ecommerce/cart/domain/use_cases/get_current_user_id.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/is_already_in_cart.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/remove_cart.dart';
 import 'package:ecommerce/ecommerce/cart/presentation/bloc/add_cart_cubit.dart';
@@ -35,9 +36,11 @@ import 'package:ecommerce/ecommerce/categories/domain/repositories/categories_re
 import 'package:ecommerce/ecommerce/categories/domain/use_cases/get_categories.dart';
 import 'package:ecommerce/ecommerce/categories/presentation/bloc/category_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/data/data_sources/local_data_source.dart';
+import 'package:ecommerce/ecommerce/favorites/data/data_sources/remote_data_source.dart';
 import 'package:ecommerce/ecommerce/favorites/data/repositories/favorite_repo_impl.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/repositories/favorite_repo.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/add_favorite.dart';
+import 'package:ecommerce/ecommerce/favorites/domain/use_cases/favorite_get_current_user.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/favorite_switch_box.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/use_cases/remove_favorite.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
@@ -49,6 +52,7 @@ import 'package:ecommerce/ecommerce/home/presentation/bloc/banner_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home/presentation/bloc/product_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/home_details/domain/repositories/home_details_repo.dart';
+import 'package:ecommerce/ecommerce/home_details/domain/use_cases/home_details_get_current_user.dart';
 import 'package:ecommerce/ecommerce/home_details/presentation/bloc/product_details_cubit.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/data/data_sources/products_remote_data_source.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/data/repositories/products_repo_impl.dart';
@@ -56,6 +60,7 @@ import 'package:ecommerce/ecommerce/products_by_categories/domain/repositories/p
 import 'package:ecommerce/ecommerce/products_by_categories/domain/use_cases/get_product_by_categories.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/presentation/bloc/products_by_categories_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/data/data_sources/my_account_data_source.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/my_account_current_user_id.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/update_email_and_password.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/update_user_data.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
@@ -127,7 +132,7 @@ void _setupDataSource() {
       () => HomeRemoteDataSourceImpl(apiServices: getIt()));
 
   getIt.registerLazySingleton<HomeDetailsRemoteDataSource>(
-      () => HomeDetailsRemoteDataSourceImpl(getIt()));
+      () => HomeDetailsRemoteDataSourceImpl(getIt(),getIt()));
   getIt.registerLazySingleton<CategoriesRemoteDataSource>(
       () => CategoriesRemoteDataSourceImpl(apiServices: getIt()));
 
@@ -151,8 +156,12 @@ void _setupDataSource() {
     ),
   );
   getIt.registerLazySingleton<CartRemoteDataSource>(
-        () => CartRemoteDataSourceImpl(getIt()),
-  );}
+        () => CartRemoteDataSourceImpl(getIt(),getIt()),
+  );
+
+  getIt.registerLazySingleton<FavoriteRemoteDataSource>(
+      () => FavoriteRemoteDataSourceImpl(getIt()));
+}
 
 void _setupRepositories() {
   getIt.registerLazySingleton<LoginRepo>(
@@ -179,7 +188,7 @@ void _setupRepositories() {
   getIt.registerLazySingleton<SearchRepo>(
       () => SearchRepoImpl(searchDataSource: getIt()));
 
-  getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepoImpl(getIt()));
+  getIt.registerLazySingleton<FavoriteRepo>(() => FavoriteRepoImpl(getIt(),getIt()));
 
   getIt.registerLazySingleton<CartRepo>(() => CartRepoImpl(getIt(),getIt()));
 
@@ -236,6 +245,12 @@ void _setupUseCases() {
   getIt.registerLazySingleton<CreateEphemeralKey>(() => CreateEphemeralKey(getIt()));
 
   getIt.registerLazySingleton<CreatePaymentIntent>(() => CreatePaymentIntent(getIt()));
+
+  getIt.registerLazySingleton<GetCurrentUserIdUseCase>(() => GetCurrentUserIdUseCase(getIt()));
+
+  getIt.registerLazySingleton<FavoriteGetCurrentUserIdUseCase>(() => FavoriteGetCurrentUserIdUseCase(getIt()));
+  getIt.registerLazySingleton<HomeDetailsGetCurrentUserIdUseCase>(() => HomeDetailsGetCurrentUserIdUseCase(getIt()));
+getIt.registerLazySingleton<MyAccountGetCurrentUserIdUseCase>(() => MyAccountGetCurrentUserIdUseCase(getIt()));
 }
 
 void _setupCubit() {

@@ -4,10 +4,7 @@ import 'package:ecommerce/ecommerce/cart/presentation/bloc/add_cart_cubit.dart';
 import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../../../../core/widgets/elevated_button.dart';
 
 class PriceAndButton extends StatelessWidget {
   const PriceAndButton({
@@ -21,7 +18,7 @@ class PriceAndButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var lang=S.of(context);
+    var lang = S.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -34,21 +31,38 @@ class PriceAndButton extends StatelessWidget {
             ),
           ),
         ),
-        CustomElevatedButton(
-          title: lang.add_to_cart,
-          onPressed: () async {
-            var cubit = context.read<AddCartCubit>();
-            bool isAlreadyInCart = await cubit.isAlreadyInCart(cartModel.id);
-            if (isAlreadyInCart) {
-              HelperMethod.showErrorToast(lang.item_already_in_cart,
-                  gravity: ToastGravity.BOTTOM);
-            } else {
-              cubit.addCart(cartModel);
-              HelperMethod.showSuccessToast(lang.added_to_cart,
-                  gravity: ToastGravity.BOTTOM);
-            }
-          },
-          width: 170.w,
+        Expanded(
+          child: SizedBox(
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () async {
+                var cubit = context.read<AddCartCubit>();
+                bool isAlreadyInCart =
+                    await cubit.isAlreadyInCart(cartModel.id);
+                if (isAlreadyInCart) {
+                  HelperMethod.showErrorToast(lang.item_already_in_cart,
+                      gravity: ToastGravity.BOTTOM);
+                } else {
+                  cubit.addCart(cartModel);
+                  HelperMethod.showSuccessToast(lang.added_to_cart,
+                      gravity: ToastGravity.BOTTOM);
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurple,
+              ),
+              child: FittedBox(
+                child: Text(
+                  lang.add_to_cart,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );

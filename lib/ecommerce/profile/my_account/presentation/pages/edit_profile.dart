@@ -1,7 +1,7 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
-import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/data/models/my_account.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/my_account_current_user_id.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/update_user_data_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/change_profile_image.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/widgets/edit_profile_bloc_listener.dart';
@@ -94,7 +94,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> _saveChanges() async {
     var lang = S.of(context);
     var cubit = context.read<UpdateUserDataCubit>();
-    var uId = getIt<AuthService>().getCurrentUserId();
+    var uId = getIt<MyAccountGetCurrentUserIdUseCase>().call();
     String? image;
     if (cubit.profileImage != null) {
       await cubit.uploadImageMethod();

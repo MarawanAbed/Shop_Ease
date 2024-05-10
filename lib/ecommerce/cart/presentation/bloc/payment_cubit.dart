@@ -1,7 +1,9 @@
-import 'package:bloc/bloc.dart';
+import 'package:ecommerce/core/helpers/helper_methods.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/create_ephemeral_key.dart';
 import 'package:ecommerce/ecommerce/cart/domain/use_cases/create_payment_intent.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'payment_state.dart';
@@ -65,14 +67,12 @@ class PaymentCubit extends Cubit<PaymentState> {
       emit(const PaymentState.loaded());
     }on StripeException catch (e) {
       if (e.error.code == FailureCode.Canceled) {
-        print('Payment flow was cancelled');
+        HelperMethod.showErrorToast('Payment canceled',gravity: ToastGravity.BOTTOM);
       } else {
-        // Handle other Stripe exceptions
-        print('Stripe error: ${e.error.localizedMessage}');
+        HelperMethod.showErrorToast('Payment failed',gravity: ToastGravity.BOTTOM);
       }
     } catch (e) {
-      // Handle any other exceptions
-      print('Unexpected error: $e');
+      HelperMethod.showErrorToast('Payment failed',gravity: ToastGravity.BOTTOM);
     }
   }
 

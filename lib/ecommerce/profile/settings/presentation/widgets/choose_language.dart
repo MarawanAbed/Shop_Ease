@@ -55,9 +55,8 @@ class ChooseLanguage extends StatelessWidget {
                 }).toList(),
                 onChanged: (String? newValue) {
                   if (newValue != null) {
-                    String languageCode = lang.language_changed
-                        .replaceFirst('%s', newValue);
-
+                    String languageCodeEn = 'Language Changed to $newValue , please remove item from cart and favorite and add it again to see the changes';
+                    String languageCodeAr = 'تم تغيير اللغة إلى $newValue  ، يرجى إزالة العنصر من العربة والمفضلة وإعادته مرة أخرى لرؤية التغييرات';
                     context
                         .read<LocalCubit>()
                         .changeLanguage(newValue);
@@ -66,7 +65,7 @@ class ChooseLanguage extends StatelessWidget {
                         duration: const Duration(seconds: 10),
                         backgroundColor: Colors.deepPurple,
                         content: Text(
-                          languageCode,
+                          state.language=='en'?languageCodeEn:languageCodeAr,
                           style: const TextStyle(
                               color: Colors.white),
                         ),

@@ -33,4 +33,9 @@ class MyAccountRepoImpl extends MyAccountRepo {
       throw Exception(e);
     }
   }
+
+  @override
+  String? getUserUid() {
+    return _accountRemoteDataSource.getUserUid();
+  }
 }

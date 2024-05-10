@@ -1,8 +1,8 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
-import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
+import 'package:ecommerce/ecommerce/profile/my_account/domain/use_cases/my_account_current_user_id.dart';
 import 'package:ecommerce/ecommerce/profile/my_account/presentation/bloc/get_single_user_cubit.dart';
 import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    var lang=S.of(context);
+    var lang = S.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -46,13 +46,15 @@ class _MyAccountPageState extends State<MyAccountPage> {
               Icons.edit,
               color: Colors.white,
             ),
-            onPressed: ()async {
+            onPressed: () async {
               var cubit = context.read<GetSingleUserCubit>();
-              var uId = getIt<AuthService>().getCurrentUserId();
+              var uId = getIt<MyAccountGetCurrentUserIdUseCase>().call();
               String dataSource = await getIt<SharedPreCacheHelper>()
-                  .getData(key: 'dataSource_$uId')??'';
+                      .getData(key: 'dataSource_$uId') ??
+                  '';
               if (dataSource == 'local') {
-                Navigators.pushNamed(Routes.editProfile,arguments: cubit.myAccountModel);
+                Navigators.pushNamed(Routes.editProfile,
+                    arguments: cubit.myAccountModel);
               } else {
                 HelperMethod.showErrorToast(
                   lang.cant_access_my_account,
@@ -61,7 +63,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
             },
           ),
         ],
-        title:  Text(
+        title: Text(
           lang.my_account,
           style: const TextStyle(
             fontSize: 20,
@@ -83,5 +85,3 @@ class _MyAccountPageState extends State<MyAccountPage> {
     );
   }
 }
-
-

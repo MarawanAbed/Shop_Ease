@@ -7,6 +7,8 @@ abstract class MyAccountRemoteDataSource {
   Future<void> updateUser(Map<String, dynamic> data);
 
   Future<void> updateEmailAndPassword(String email,String oldPassowrd,String newPassword);
+
+  String? getUserUid();
 }
 
 class MyAccountRemoteDataSourceImpl extends MyAccountRemoteDataSource {
@@ -30,5 +32,10 @@ class MyAccountRemoteDataSourceImpl extends MyAccountRemoteDataSource {
   @override
   Future<void> updateUser(Map<String, dynamic> data) async {
     await _databaseService.updateUser(data);
+  }
+
+  @override
+  String? getUserUid() {
+    return _authService.getCurrentUserId();
   }
 }

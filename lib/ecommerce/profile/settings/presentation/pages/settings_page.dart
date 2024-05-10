@@ -1,18 +1,13 @@
-import 'package:ecommerce/ecommerce/profile/settings/presentation/bloc/dark_theme_cubit.dart';
 import 'package:ecommerce/ecommerce/profile/settings/presentation/widgets/choose_language.dart';
 import 'package:ecommerce/ecommerce/profile/settings/presentation/widgets/dark_theme.dart';
-import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
-import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_state.dart';
 import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -56,5 +51,3 @@ class SettingsPage extends StatelessWidget {
     );
   }
 }
-
-

@@ -10,6 +10,7 @@ import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cub
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/home/data/models/product.dart';
 import 'package:ecommerce/ecommerce/products_by_categories/data/models/product.dart';
+import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -45,6 +46,7 @@ class _ProductsItemsState extends State<ProductsItems> {
   }
 
   void toggleFavorite(FavoriteModel favoriteModel) async {
+    var lang=S.of(context);
     final userId = getIt<AuthService>().getCurrentUserId();
     final productId = widget.product is HomeProductModel
         ? (widget.product as HomeProductModel).id
@@ -59,12 +61,12 @@ class _ProductsItemsState extends State<ProductsItems> {
       context.read<AddFavoriteCubit>().addFavorites(
             favoriteModel,
           );
-      HelperMethod.showSuccessToast('Added to favorite',
+      HelperMethod.showSuccessToast(lang.added_to_favorite,
           gravity: ToastGravity.BOTTOM);
     } else {
       await _prefs.removeData(key: 'favorite_${userId}_$productId');
       context.read<RemoveFavoritesCubit>().removeFavorites(productId);
-      HelperMethod.showErrorToast('Removed from favorite',
+      HelperMethod.showErrorToast(lang.removed_from_favorite,
           gravity: ToastGravity.BOTTOM);
     }
   }

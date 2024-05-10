@@ -1,10 +1,10 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/routes/routes.dart';
-import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/core/services/navigator.dart';
 import 'package:ecommerce/core/widgets/cached_image.dart';
 import 'package:ecommerce/ecommerce/favorites/data/models/favorites_entity.dart';
+import 'package:ecommerce/ecommerce/favorites/domain/use_cases/favorite_get_current_user.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
 import 'package:ecommerce/ecommerce/translate/presentation/bloc/translate/translate_cubit.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class FavoritesItems extends StatelessWidget {
             height: 220,
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: light? Colors.white:Colors.grey,
+              color: light ? Colors.white : Colors.grey,
               borderRadius: BorderRadius.circular(10),
               boxShadow: const [
                 BoxShadow(
@@ -61,21 +61,20 @@ class FavoritesItems extends StatelessWidget {
                       Text(
                         categoryProduct.name,
                         maxLines: 2,
-                        style:  TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: light? Colors.black:Colors.white,
+                          color: light ? Colors.black : Colors.white,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       Text(
                         categoryProduct.description,
                         maxLines: 2,
-                        style:  TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           overflow: TextOverflow.ellipsis,
-                          color: light? Colors.black:Colors.white,
-
+                          color: light ? Colors.black : Colors.white,
                         ),
                       ),
                       Row(
@@ -92,12 +91,13 @@ class FavoritesItems extends StatelessWidget {
                           IconButton(
                             onPressed: () async {
                               final userId =
-                              getIt<AuthService>().getCurrentUserId();
+                                  getIt<FavoriteGetCurrentUserIdUseCase>()
+                                      .call();
                               getIt<RemoveFavoritesCubit>()
                                   .removeFavorites(categoryProduct.id);
                               await getIt<SharedPreCacheHelper>().removeData(
                                   key:
-                                  'favorite_${userId}_${categoryProduct.id}');
+                                      'favorite_${userId}_${categoryProduct.id}');
                             },
                             icon: const Icon(
                               Icons.favorite,

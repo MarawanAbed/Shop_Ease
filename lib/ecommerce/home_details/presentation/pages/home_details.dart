@@ -1,9 +1,9 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
 import 'package:ecommerce/core/helpers/cache.dart';
 import 'package:ecommerce/core/helpers/helper_methods.dart';
-import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/add_favorite_cubit.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/bloc/remove_favorites_cubit.dart';
+import 'package:ecommerce/ecommerce/home_details/domain/use_cases/home_details_get_current_user.dart';
 import 'package:ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,17 +44,17 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
     price = arguments['price'] as double;
     discount = arguments['discount'] as int;
     description = arguments['description'] as String;
-    language=arguments['language'] as String;
+    language = arguments['language'] as String;
   }
 
   @override
   Widget build(BuildContext context) {
-    var lang=S.of(context);
+    var lang = S.of(context);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.white,
-          title:  Text(lang.product_details),
+          title: Text(language == 'en' ? 'Product Details' : 'تفاصيل المنتج'),
           actions: [
             IconButton(
               onPressed: () async {
@@ -67,7 +67,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
             ),
           ],
         ),
-        body: HomeDetailsBody(id: id,language: language),
+        body: HomeDetailsBody(id: id, language: language),
       ),
     );
   }
@@ -77,7 +77,7 @@ class _HomeDetailsPageState extends State<HomeDetailsPage> {
       isFavorite = !isFavorite;
     });
     final prefs = getIt<SharedPreCacheHelper>();
-    final userId=getIt<AuthService>().getCurrentUserId();
+    final userId = getIt<HomeDetailsGetCurrentUserIdUseCase>().call();
     if (isFavorite) {
       await prefs.saveData(key: 'favorite_${userId}_$id', value: true);
       HelperMethod.showSuccessToast(lang.added_to_favorite,

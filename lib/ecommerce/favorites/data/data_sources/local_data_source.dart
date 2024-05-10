@@ -53,4 +53,7 @@ class LocalDataSourceImpl extends LocalDataSource
       await favoriteBox.deleteAt(index);
     }
   }
+
+
+
 }

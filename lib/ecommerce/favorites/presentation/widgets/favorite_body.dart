@@ -1,6 +1,6 @@
 import 'package:ecommerce/core/di/dependancy_injection.dart';
-import 'package:ecommerce/core/services/firebase_servies.dart';
 import 'package:ecommerce/ecommerce/favorites/data/models/favorites_entity.dart';
+import 'package:ecommerce/ecommerce/favorites/domain/use_cases/favorite_get_current_user.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/widgets/favorites_items.dart';
 import 'package:ecommerce/ecommerce/favorites/presentation/widgets/no_favorites.dart';
 import 'package:flutter/foundation.dart';
@@ -20,7 +20,7 @@ class _FavoriteBodyState extends State<FavoriteBody> {
   @override
   void initState() {
     super.initState();
-    var uId = getIt<AuthService>().getCurrentUserId();
+    var uId = getIt<FavoriteGetCurrentUserIdUseCase>().call();
     boxListenable = Hive.box<FavoriteModel>('favorite_$uId').listenable();
   }
 
@@ -30,7 +30,7 @@ class _FavoriteBodyState extends State<FavoriteBody> {
       valueListenable: boxListenable,
       builder: (context, box, _) {
         return box.isEmpty
-            ? NoFavorites()
+            ? const NoFavorites()
             : Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(

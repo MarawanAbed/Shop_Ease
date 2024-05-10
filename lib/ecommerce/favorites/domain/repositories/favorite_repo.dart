@@ -6,4 +6,5 @@ abstract class FavoriteRepo {
   Future<void> removeFavorite(int id);
 
   Future<void> favoriteSwitchUserBox();
+  String? getCurrentUserId();
 }

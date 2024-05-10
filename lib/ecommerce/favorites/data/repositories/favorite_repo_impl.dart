@@ -1,4 +1,5 @@
 import 'package:ecommerce/ecommerce/favorites/data/data_sources/local_data_source.dart';
+import 'package:ecommerce/ecommerce/favorites/data/data_sources/remote_data_source.dart';
 import 'package:ecommerce/ecommerce/favorites/domain/repositories/favorite_repo.dart';
 
 import '../models/favorites_entity.dart';
@@ -6,8 +7,9 @@ import '../models/favorites_entity.dart';
 class FavoriteRepoImpl implements FavoriteRepo
 {
   final Future<LocalDataSource> localDataSource;
+  final FavoriteRemoteDataSource favoriteRemoteDataSource;
 
-  FavoriteRepoImpl(this.localDataSource);
+  FavoriteRepoImpl(this.localDataSource, this.favoriteRemoteDataSource);
   @override
   Future<void> addFavorite(FavoriteModel favorite) async{
    try
@@ -48,5 +50,10 @@ class FavoriteRepoImpl implements FavoriteRepo
     {
       rethrow;
     }
+  }
+
+  @override
+  String? getCurrentUserId() {
+    return favoriteRemoteDataSource.getCurrentUserId();
   }
 }

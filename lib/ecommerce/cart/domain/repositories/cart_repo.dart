@@ -10,6 +10,7 @@ abstract class CartRepo {
   Future<void> switchUserBox();
   Future<bool> isAlreadyInCart(int id);
 
+  String? getCurrentUserId();
   Future<ApiResult<EphemeralKeysModel>> createEphemeralKey({required String customerId});
 
   Future<ApiResult<PaymentIntents>> createPaymentIntent(

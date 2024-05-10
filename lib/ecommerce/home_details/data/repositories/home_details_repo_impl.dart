@@ -27,4 +27,9 @@ class HomeDetailsRepoImpl implements HomeDetailsRepo
     }
   }
 
+  @override
+  String? getCurrentUserId() {
+    return _homeDetailsRemoteDataSource.getCurrentUserId();
+  }
+
 }

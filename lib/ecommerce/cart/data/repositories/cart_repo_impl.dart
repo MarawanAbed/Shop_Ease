@@ -87,4 +87,10 @@ class CartRepoImpl implements CartRepo {
       }
     }
   }
+
+
+  @override
+  String? getCurrentUserId() {
+    return cartRemoteDataSource.getCurrentUserId();
+  }
 }
