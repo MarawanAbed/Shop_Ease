@@ -6,6 +6,7 @@ ShopEase is a Flutter-based e-commerce application that provides a seamless shop
 
 - **User Authentication**: Users can register, login, and logout from the application. They can also reset their password if they forget it.
 - **Product Browsing**: Users can browse through different categories of products.
+- **Search**: Users can search for products by name or category.
 - **Shopping Cart**: Users can add products to their shopping cart and view the total price of the items in the cart.
 - **Favorites**: Users can add products to their favorites for easy access in the future.
 - **Profile Management**: Users can view and edit their profile information.
