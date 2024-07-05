@@ -16,7 +16,6 @@ ShopEase is a Flutter-based e-commerce application that provides a seamless shop
 
 ## Screenshots
 
-![1](https://github.com/MarawanAbed/Shop_Ease/assets/73714493/0c5e1b10-7e37-4b8f-887c-23c22bd8b5b1)
 ![2](https://github.com/MarawanAbed/Shop_Ease/assets/73714493/eb5d7686-54f6-4255-8a6d-b5aa70817b42)
 ![3](https://github.com/MarawanAbed/Shop_Ease/assets/73714493/39406b5b-d6b4-43ff-a2b8-5b37c53db4b6)
 ![4](https://github.com/MarawanAbed/Shop_Ease/assets/73714493/b41fdc26-916a-4f01-b374-8d48ea42c330)
